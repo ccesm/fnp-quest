@@ -191,7 +191,63 @@ let bodies = [
 <p><b>Ischemia → ↓ Oxygen → ↓ Oxidative phosphorylation → ↓ ATP → Ion-pump failure → Cell swelling + Ca²⁺ accumulation → Mitochondrial/membrane/protein damage → Irreversible injury → Cell death.</b></p>
 </div>
 `,
-null,
+`
+<div class="card lesson">
+<span class="pill">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>
+<h1>Week 1 — Lesson 2: Cellular Adaptation & Inflammation</h1>
+<p><b>Goal:</b> Build on Lesson 1 by looking closer at how cells adapt to stress, and by introducing the basics of the inflammatory response.</p>
+
+<h2>1. The Big Picture</h2>
+<p>Cells first try to <b>adapt</b> to stress. If the stress persists or becomes severe, adaptation can progress to injury and cell death — the same sequence from Lesson 1:</p>
+<p><b>Normal cell → Adaptation → Injury → Cell death</b></p>
+
+<h2>2. Four Major Adaptations</h2>
+<ul>
+<li><b>Hypertrophy:</b> increase in cell <i>size</i>. Often occurs when a cell must do more work with the same or reduced ability to divide (e.g., cardiac muscle).</li>
+<li><b>Hyperplasia:</b> increase in cell <i>number</i>. Occurs in tissues capable of division, often driven by hormonal or growth-factor stimulation.</li>
+<li><b>Atrophy:</b> decrease in cell size, sometimes with reduced cell number. Commonly caused by decreased workload, decreased blood supply, denervation, inadequate nutrition, or loss of hormonal stimulation.</li>
+<li><b>Metaplasia:</b> reversible replacement of one mature, differentiated cell type with another mature cell type, usually in response to chronic irritation or stress.</li>
+</ul>
+<p><b>Think:</b> Hypertrophy/hyperplasia = tissue growing bigger to meet demand. Atrophy = tissue shrinking from disuse or reduced supply. Metaplasia = tissue swapping one cell type for a tougher one.</p>
+
+<h2>3. Clinical Examples</h2>
+<p><b>Hypertension → increased afterload → cardiomyocyte hypertrophy → LV wall thickening.</b> The heart muscle cells enlarge to generate more force against chronically elevated pressure. Persistent hypertrophy can eventually contribute to diastolic dysfunction and heart failure.</p>
+<p><b>Estrogen → endometrial proliferation.</b> Unopposed estrogen stimulation can drive endometrial hyperplasia and increases the risk of endometrial cancer over time.</p>
+<p><b>Immobilization → decreased workload → muscle atrophy.</b> Prolonged bed rest or limb immobilization reduces mechanical demand on skeletal muscle, and muscle fibers shrink.</p>
+<p><b>Chronic smoking → squamous metaplasia of respiratory epithelium.</b> Normal ciliated columnar epithelium is replaced by tougher squamous epithelium. Metaplasia itself is not cancer, but persistent abnormal stimulation can increase the risk of dysplasia and eventual malignancy.</p>
+
+<h2>4. Acute Inflammation</h2>
+<p>Acute inflammation is the body's rapid response to injury or infection, and it commonly involves <b>neutrophils</b> as the first responders.</p>
+<p>Cardinal findings: <b>redness, heat, swelling, pain, and loss of function.</b></p>
+<ul>
+<li><b>Vasodilation</b> increases local blood flow → produces redness and warmth.</li>
+<li><b>Increased vascular permeability</b> allows fluid and proteins to leak into tissue → contributes to swelling/edema.</li>
+<li>Neutrophils are recruited to the site to phagocytose and destroy pathogens or debris.</li>
+</ul>
+
+<h2>5. Chronic Inflammation</h2>
+<p>Chronic inflammation is slower in onset and longer-lasting than acute inflammation. <b>Macrophages and lymphocytes</b> play the dominant cellular roles, rather than neutrophils.</p>
+<p>Tissue destruction and tissue repair can occur at the same time, which is why chronic inflammation is often associated with fibrosis and scarring in addition to ongoing injury.</p>
+
+<h2>6. Cytokines & Fever</h2>
+<p>Inflammatory cytokines — especially <b>TNF-α, IL-1, and IL-6</b> — participate in signaling between immune cells and coordinate the inflammatory response.</p>
+<p>These cytokines can increase <b>PGE₂</b> activity in the hypothalamus, which raises the hypothalamic temperature set point and produces <b>fever</b>:</p>
+<p><b>Cytokines (TNF-α/IL-1/IL-6) → ↑ PGE₂ → ↑ hypothalamic set point → fever</b></p>
+
+<h2>7. FNP Clinical Reasoning</h2>
+<p>When you see signs of inflammation, ask: is this acute or chronic, and what is driving it?</p>
+<ul>
+<li>Rapid onset, neutrophil-predominant picture → think acute process (infection, acute injury).</li>
+<li>Longer duration, macrophage/lymphocyte involvement, ongoing tissue destruction + repair → think chronic process (autoimmune disease, chronic infection, persistent irritant exposure such as smoking).</li>
+</ul>
+<p>Remember that adaptations like metaplasia are reversible if the stressor is removed early — this is part of the rationale for smoking cessation counseling even before dysplasia develops.</p>
+
+<h2>8. FNP Mental Model</h2>
+<p><b>Adaptation → injury if stress persists → reversible recovery or irreversible injury → cell death.</b></p>
+<p><b>Acute inflammation → neutrophils, fast, vasodilation/permeability → redness/heat/swelling/pain.</b></p>
+<p><b>Chronic inflammation → macrophages + lymphocytes, slow, destruction + repair together.</b></p>
+</div>
+`,
 `
 <div class="card lesson">
 <span class="pill">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>
@@ -385,7 +441,7 @@ null,
 </div>
 `
 ];
-if(!bodies[i]){toast("Lesson 2 content is not loaded yet");return}
+if(!bodies[i]){toast("This lesson content is not loaded yet");return}
 document.getElementById("lessonBody").innerHTML=bodies[i]+`<div style="margin-top:16px"><button onclick="startLessonQuiz(${i})">Start This Lesson Quiz →</button></div>`;
 openPage("lesson");
 }

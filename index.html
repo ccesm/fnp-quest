@@ -15,131 +15,33 @@ button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);co
 .toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#172033;color:#fff;padding:11px 17px;border-radius:30px;font-weight:750;display:none;z-index:10}
 </style></head><body>
 <div class="app">
-<div class="top"><div class="logo">🩺 FNP Quest</div><div class="avatar">👤</div></div>
+<div class="top"><div class="logo">🩺 FNP Quest</div><div class="avatar">👤</div></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v11.0 · Full Lessons + Lesson Quizzes · Local Only</div>
 
 <section id="home" class="page active">
 <div class="card hero"><div class="row"><div><div class="small">LEVEL <span id="level">1</span> · FNP SCHOLAR</div><div class="big"><span id="xp">0</span> XP</div></div><div>⭐</div></div><div class="bar"><i id="xpbar"></i></div><div class="small"><span id="toLevel">500</span> XP to next level</div></div>
 <div class="card"><div class="row"><div><span style="font-size:30px">🔥</span> <b><span id="streak">0</span> day streak</b></div><div class="small">🛡️ <span id="freeze">1</span> Freeze</div></div></div>
 <h2>📚 Curriculum</h2>
 <div class="card mission"><div><h3>Lesson 1 · Cellular Injury & Adaptation</h3><p>ATP, ROS, necrosis, apoptosis</p></div><button onclick="startLesson(0)">Learn</button></div>
-<div class="card mission"><div><h3>Lesson 2 · Cellular Adaptation & Inflammation</h3><p>Hypertrophy, hyperplasia, atrophy, metaplasia & inflammation</p></div><button onclick="openPage('lesson2static')">Learn</button></div>
+<div class="card mission"><div><h3>Lesson 2 · Cellular Adaptation & Inflammation</h3><p>Hypertrophy, hyperplasia, atrophy, metaplasia & inflammation</p></div><button onclick="startLesson(1)">Learn</button></div>
 <div class="card mission"><div><h3>Lesson 3 · Innate Immunity</h3><p>Complement & acute inflammation</p></div><button onclick="startLesson(2)">Learn</button></div>
 <div class="card mission"><div><h3>Lesson 4 · Adaptive Immunity</h3><p>B cells, T cells & antibodies</p></div><button onclick="startLesson(3)">Learn</button></div>
 <h2>🎯 Daily Practice</h2><div class="card mission"><div><h3>🩺 10-question Practice</h3><p>Questions from loaded lessons</p></div><button onclick="startPractice()">Start</button></div>
 </section>
 
+<section id="lesson" class="page"><button class="secondary" onclick="openPage('home')">← Home</button><div id="lessonBody" class="card lesson"></div></section>
 
-<section id="lesson2static" class="page">
-<button class="secondary" onclick="openPage('home')">← Home</button>
-<div class="card lesson">
-<span class="pill">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>
-<h1>Week 1 — Lesson 2: Cellular Adaptation & Inflammation</h1>
-<p><b>Core idea:</b> Cells do not immediately die when stressed. They first try to adapt. If the stress is removed or manageable, the cell may return toward normal. If stress continues or becomes too severe, injury can progress to irreversible injury and cell death.</p>
-
-<h2>Part I — Cellular Adaptation</h2>
-<h3>1. Hypertrophy</h3>
-<p><b>Hypertrophy = increase in cell size.</b> The number of cells does not increase.</p>
-<p>Classic example: chronic hypertension.</p>
-<p><b>↑ afterload → ↑ workload on cardiomyocytes → cardiomyocyte hypertrophy → left ventricular wall thickening.</b></p>
-<p>Initially this may be adaptive. Eventually, excessive hypertrophy can become harmful because the enlarged myocardium requires more oxygen, while the thickened ventricular wall can impair relaxation and contribute to diastolic dysfunction.</p>
-<p><b>LV hypertrophy → diastolic dysfunction → possible heart failure.</b></p>
-
-<h3>2. Hyperplasia</h3>
-<p><b>Hyperplasia = increase in the number of cells.</b> It requires cells capable of dividing.</p>
-<p>Examples include hormonal hyperplasia and compensatory hyperplasia.</p>
-<p>Example: estrogen stimulation of the endometrium causes endometrial proliferation. Excessive or abnormal stimulation, such as unopposed estrogen, can lead to endometrial hyperplasia and increase the risk of endometrial cancer.</p>
-
-<h3>3. Atrophy</h3>
-<p><b>Atrophy = decrease in cell size.</b> Sometimes there is also a reduction in cell number.</p>
-<p>Causes include decreased workload, inadequate nutrition, loss of blood supply, loss of hormonal stimulation, denervation, and aging.</p>
-<p>Example: prolonged immobilization causes decreased workload and skeletal muscle atrophy.</p>
-
-<h3>4. Metaplasia</h3>
-<p><b>Metaplasia = reversible replacement of one mature differentiated cell type with another mature differentiated cell type.</b></p>
-<p>It is an adaptive response to chronic irritation or stress.</p>
-<p>Classic example: chronic cigarette smoke can cause normal ciliated columnar respiratory epithelium to undergo squamous metaplasia.</p>
-<p>The new squamous cells may tolerate irritation better, but normal cilia are lost, decreasing mucociliary clearance. Persistent abnormal stimulation can increase the risk of dysplasia and malignancy.</p>
-<p><b>Metaplasia ≠ cancer.</b> Persistent abnormal stimulation may progress toward <b>dysplasia → possible malignancy.</b></p>
-
-<h2>Part II — When Adaptation Fails</h2>
-<p><b>Chronic stress → cellular adaptation → cellular injury → recovery if reversible OR irreversible injury → cell death if severe.</b></p>
-<p>Adaptation can be protective initially but harmful when prolonged.</p>
-
-<h2>Part III — Inflammation</h2>
-<p>Inflammation is fundamentally a protective response to injury or infection. Its purposes are to eliminate the cause of injury, remove damaged tissue, and begin repair. Excessive or prolonged inflammation can itself cause tissue damage.</p>
-
-<h2>Part IV — Acute vs Chronic Inflammation</h2>
-<h3>Acute inflammation</h3>
-<p><b>Fast + neutrophils.</b> It typically develops over minutes to hours and is usually relatively short-lived.</p>
-<p>Common causes include bacterial infection, trauma, burns, and acute tissue injury.</p>
-<p>The five cardinal signs are:</p>
-<ul>
-<li><b>Rubor</b> — redness</li>
-<li><b>Calor</b> — heat</li>
-<li><b>Tumor</b> — swelling</li>
-<li><b>Dolor</b> — pain</li>
-<li><b>Functio laesa</b> — loss of function</li>
-</ul>
-
-<h3>Why redness, warmth, and edema occur</h3>
-<p><b>Inflammatory mediators → vasodilation → ↑ blood flow → redness + warmth.</b></p>
-<p><b>↑ vascular permeability → fluid leaves the vascular space → edema/swelling.</b></p>
-
-<h3>Neutrophils</h3>
-<p>Neutrophils are rapid responders. Their movement includes:</p>
-<p><b>Margination → Rolling → Adhesion → Diapedesis → Chemotaxis → tissue arrival.</b></p>
-<p>They can phagocytose organisms and release antimicrobial substances and reactive oxygen species, but can also contribute to tissue damage.</p>
-
-<h3>Chronic inflammation</h3>
-<p><b>Slow + macrophages/lymphocytes + tissue destruction + repair.</b></p>
-<p>Common causes include persistent infection, autoimmune disease, chronic irritant exposure, and metabolic disease.</p>
-<p>Macrophages can phagocytose pathogens, remove dead cells, produce cytokines, coordinate inflammation, and contribute to tissue repair. Persistent activation can also contribute to tissue destruction.</p>
-
-<h2>Part V — Cytokines</h2>
-<p>Cytokines are signaling proteins that allow cells to communicate during inflammation and immune responses.</p>
-<p>Important inflammatory cytokines include <b>TNF-α, IL-1, and IL-6</b>.</p>
-<p><b>Injury/infection → immune-cell cytokine release → recruitment/activation of other immune cells → inflammatory response.</b></p>
-
-<h2>Part VI — Fever</h2>
-<p>IL-1, IL-6, and TNF-α can contribute to fever. The inflammatory pathway ultimately influences <b>PGE₂</b>, which increases the hypothalamic temperature set point.</p>
-<p><b>Infection → inflammatory cytokines → PGE₂ → hypothalamic set-point increase → fever.</b></p>
-<p>This connects pathophysiology to pharmacology: NSAIDs reduce prostaglandin synthesis, helping explain their antipyretic, analgesic, and anti-inflammatory effects.</p>
-
-<h2>Part VII — Clinical Case</h2>
-<p>A patient with a painful, red, warm, swollen, tender lower leg and a temperature of 38.5°C would initially suggest <b>acute inflammation</b>, with neutrophils as the major cellular responder.</p>
-<p>An FNP should still consider differential diagnoses such as cellulitis, abscess, DVT, contact dermatitis, venous stasis dermatitis, erysipelas, and necrotizing soft tissue infection.</p>
-<p>Concerning findings include rapid progression, severe or disproportionate pain, systemic toxicity, hypotension, bullae, crepitus, skin discoloration, and immunocompromised status.</p>
-
-<h2>Part VIII — Big Picture</h2>
-<p><b>Cellular stress → Adaptation (hypertrophy/hyperplasia/atrophy/metaplasia) → Injury → recovery or irreversible injury → cell death.</b></p>
-<p>Tissue injury can also trigger inflammation:</p>
-<p><b>Acute → neutrophils.</b></p>
-<p><b>Chronic → macrophages + lymphocytes.</b></p>
-<p>Inflammatory cells release cytokines, producing vascular changes, leukocyte recruitment, systemic effects, and tissue repair.</p>
-
-<div style="margin-top:18px">
-<button onclick="startL2Quiz()">Start This Lesson's Quiz →</button>
-</div>
-</div>
-<div id="lesson2QuizInline" class="card" style="display:none">
-<div class="small">LESSON 2 QUIZ · QUESTION <span id="l2qnum">1</span> / 10</div>
-<h2 id="l2qtext"></h2><div id="l2qoptions"></div>
-<div id="l2qexplain" class="explain" style="display:none"></div>
-<button id="l2qnext" style="display:none;margin-top:12px" onclick="nextL2Q()">Next Question →</button>
-</div>
-</section>
-<section id="lesson" class="page">
-<button class="secondary" onclick="openPage('home')">← Home</button>
-<div id="lessonBody" class="card lesson"></div>
-<div id="lessonQuizInline" class="card" style="display:none">
-<div class="small">LESSON QUIZ · QUESTION <span id="iqnum">1</span> / <span id="iqtotal">10</span></div>
-<h2 id="iqtext"></h2><div id="iqoptions"></div>
-<div id="iqexplain" class="explain" style="display:none"></div>
-<button id="iqnext" style="display:none;margin-top:12px" onclick="nextInlineQ()">Next Question →</button>
+<section id="lessonQuiz" class="page">
+<button class="secondary" onclick="openPage('lesson')">← Lesson</button>
+<div class="card">
+<div class="small">LESSON QUIZ · QUESTION <span id="lqnum">1</span> / <span id="lqtotal">10</span></div>
+<h2 id="lqtext"></h2>
+<div id="lqoptions"></div>
+<div id="lqexplain" class="explain" style="display:none"></div>
+<button id="lqnext" style="display:none;margin-top:12px" onclick="nextLQ()">Next Question →</button>
 </div>
 </section>
 <section id="practice" class="page"><button class="secondary" onclick="openPage('home')">← Home</button><div class="card"><div class="small">QUESTION <span id="qnum">1</span> / <span id="qtotal">10</span></div><h2 id="qtext"></h2><div id="options"></div><div id="explain" class="explain" style="display:none"></div><button id="next" style="display:none;margin-top:12px" onclick="nextQ()">Next Question →</button></div></section>
-<section id="progress" class="page"><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p></div></section>
+<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v11.0 · Full Lessons + Lesson Quizzes · Local Only<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p></div></section>
 </div>
 <div id="toast" class="toast"></div>
 <div class="nav"><button onclick="openPage('home')">🏠<br>Home</button><button onclick="startLesson(0)">📚<br>Learn</button><button onclick="startPractice()">🩺<br>Practice</button><button onclick="openPage('progress')">📊<br>Progress</button></div>
@@ -195,97 +97,342 @@ function toast(s){let t=document.getElementById("toast");t.textContent=s;t.style
 function openPage(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo(0,0);update();}
 function addXP(n){state.xp+=n;save();toast("+"+n+" XP ⭐");}
 function startLesson(i){
-  currentLesson=i;
-  document.getElementById("lessonQuizInline").style.display="none";
-  const l=lessons[i];
-  if(!l){toast("Lesson not available");return;}
-  document.getElementById("lessonBody").innerHTML=
-    '<span class="pill">'+l.tag+'</span><h1>'+l.title+'</h1>'+l.html+
-    '<div style="margin-top:18px"><button onclick="startInlineQ('+i+')">Start This Lesson\'s Quiz →</button></div>';
-  openPage("lesson");
+currentLesson=i;
+let bodies = [
+`
+<div class="card lesson">
+<span class="pill">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>
+<h1>Week 1 — Lesson 1: Cellular Injury & Adaptation</h1>
+<p><b>Goal:</b> Build the physiologic foundation that you will later use for diagnosis and treatment. The goal is not simply to memorize diseases; it is to understand how cells respond to stress.</p>
+
+<h2>1. The Big Picture</h2>
+<p>When cells experience stress, they generally respond in a sequence:</p>
+<p><b>Normal cell → Adaptation → Injury → Cell death</b></p>
+<p>Cellular adaptation can include:</p>
+<ul>
+<li><b>Hypertrophy:</b> cells become larger.</li>
+<li><b>Hyperplasia:</b> cell number increases.</li>
+<li><b>Atrophy:</b> cells become smaller.</li>
+<li><b>Metaplasia:</b> one differentiated cell type changes to another.</li>
+</ul>
+<p>If the stress is mild or reversible, cellular injury may be followed by recovery. If the injury is severe or persistent, it can progress to irreversible injury and cell death.</p>
+<p>The two major forms of cell death are <b>necrosis</b> and <b>apoptosis</b>.</p>
+
+<h2>2. Why Does Cellular Injury Occur?</h2>
+<ul>
+<li><b>Hypoxia/ischemia:</b> reduced oxygen delivery. Examples include MI, stroke, shock, severe anemia, and peripheral vascular disease.</li>
+<li><b>Physical injury:</b> trauma, burns, radiation, and extreme temperatures.</li>
+<li><b>Chemical injury:</b> medications, toxins, alcohol, and heavy metals.</li>
+<li><b>Infection:</b> bacteria, viruses, fungi, and parasites.</li>
+<li><b>Immune-mediated injury:</b> autoimmune disease, allergic reactions, and chronic inflammation.</li>
+<li><b>Genetic abnormalities:</b> abnormal proteins or metabolic pathways can cause cellular dysfunction.</li>
+</ul>
+
+<h2>3. ATP — A Central Concept</h2>
+<p>Oxygen deprivation causes cellular dysfunction because oxygen is required for efficient oxidative phosphorylation.</p>
+<p><b>↓ Oxygen → ↓ oxidative phosphorylation → ↓ ATP</b></p>
+<p>As ATP falls, ATP-dependent cellular processes begin to fail.</p>
+<p>One major consequence is:</p>
+<p><b>Na⁺/K⁺ ATPase failure → Na⁺ accumulates inside the cell → water follows Na⁺ → cell swelling.</b></p>
+<p>At the same time, impaired ATP-dependent calcium regulation causes intracellular Ca²⁺ to increase.</p>
+<p><b>↑ intracellular Ca²⁺ → activation of destructive enzymes → damage to membranes, proteins, mitochondria, and DNA.</b></p>
+<p>This is why prolonged ischemia can progress to irreversible cellular injury.</p>
+
+<h2>4. Reactive Oxygen Species</h2>
+<p>Reactive oxygen species (ROS) include superoxide, hydrogen peroxide, and hydroxyl radical.</p>
+<p>Excess ROS can cause:</p>
+<ul>
+<li><b>Lipid peroxidation</b> → membrane damage</li>
+<li><b>Protein oxidation</b> → enzyme/protein dysfunction</li>
+<li><b>DNA damage</b> → mutations and cell death</li>
+</ul>
+<p>The body has antioxidant defenses including <b>superoxide dismutase, catalase, and glutathione</b>. When ROS production exceeds the ability of these defenses to neutralize them, <b>oxidative stress</b> develops.</p>
+
+<h2>5. Necrosis vs Apoptosis</h2>
+<h3>Necrosis</h3>
+<ul>
+<li>Usually associated with significant cellular injury</li>
+<li>Cell swelling</li>
+<li>Membrane disruption</li>
+<li>Leakage of cellular contents</li>
+<li>Inflammation and surrounding tissue damage</li>
+</ul>
+<p><b>Think: Necrosis = uncontrolled injury + inflammation.</b></p>
+<p>Examples include myocardial infarction, severe ischemic injury, and major tissue trauma.</p>
+
+<h3>Apoptosis</h3>
+<ul>
+<li>Programmed cell death</li>
+<li>Cell shrinkage</li>
+<li>Nuclear fragmentation</li>
+<li>Formation of apoptotic bodies</li>
+<li>Minimal surrounding inflammation</li>
+</ul>
+<p><b>Think: Apoptosis = controlled cellular removal.</b></p>
+<p>Apoptosis is important during embryologic development, normal tissue turnover, removal of damaged cells, and elimination of cells with severe DNA damage.</p>
+
+<h2>6. Clinical Connection — Myocardial Infarction</h2>
+<p>Suppose a coronary artery becomes acutely occluded:</p>
+<p><b>Coronary blood flow ↓ → oxygen delivery ↓ → oxidative phosphorylation ↓ → ATP ↓</b></p>
+<p>Then:</p>
+<p><b>Na⁺/K⁺ pump dysfunction → cell swelling</b></p>
+<p><b>Ca²⁺ regulation fails → intracellular Ca²⁺ ↑ → enzyme activation + cellular damage</b></p>
+<p>If ischemia persists:</p>
+<p><b>Irreversible injury → cardiomyocyte necrosis → inflammatory response → scar formation.</b></p>
+
+<h2>7. FNP Clinical Reasoning</h2>
+<p>A patient with crushing substernal chest pressure, diaphoresis, nausea, and shortness of breath may have ACS/MI, but an FNP should not stop at the first impression.</p>
+<p>Important dangerous differentials include:</p>
+<ul><li>ACS/MI</li><li>PE</li><li>Aortic dissection</li><li>Pneumothorax</li><li>Pericarditis</li><li>Esophageal rupture</li></ul>
+<p>Focused history includes onset, duration, quality, location, radiation, provoking/relieving factors, associated symptoms, and cardiovascular risk factors. Examination includes vital signs, cardiovascular and pulmonary examination, general appearance, and perfusion.</p>
+<p>Depending on presentation, evaluation may include ECG, cardiac biomarkers, chest imaging, and other testing guided by the differential.</p>
+
+<h2>8. Mental Model</h2>
+<p><b>Ischemia → ↓ Oxygen → ↓ Oxidative phosphorylation → ↓ ATP → Ion-pump failure → Cell swelling + Ca²⁺ accumulation → Mitochondrial/membrane/protein damage → Irreversible injury → Cell death.</b></p>
+</div>
+`,
+null,
+`
+<div class="card lesson">
+<span class="pill">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>
+<h1>Week 1 — Lesson 3: Innate Immunity, Complement & the Acute Inflammatory Response</h1>
+<p><b>Core sequence:</b> Pathogen or tissue injury → recognition → innate immune activation → cytokines + complement → vascular changes → leukocyte recruitment → neutrophil activation → elimination of pathogen/damaged tissue → resolution + repair.</p>
+
+<h2>Part I — Innate vs Adaptive Immunity</h2>
+<p><b>Innate immunity = fast + relatively nonspecific.</b> It is the body's first-line defense.</p>
+<p>Important components include skin and mucous membranes, neutrophils, macrophages, dendritic cells, natural killer cells, complement, and inflammatory cytokines.</p>
+<p><b>Adaptive immunity = specific + memory.</b> It includes B lymphocytes, T lymphocytes, and antibodies and generally takes longer to develop during a first exposure.</p>
+
+<h2>Part II — PAMPs and DAMPs</h2>
+<p><b>PAMPs</b> are pathogen-associated molecular patterns, such as bacterial cell-wall components, bacterial DNA, and viral RNA.</p>
+<p><b>DAMPs</b> are damage-associated molecular patterns released or exposed when the body's own cells are injured.</p>
+<p><b>PAMP → “There is a pathogen.”</b></p>
+<p><b>DAMP → “There is tissue damage.”</b></p>
+
+<h2>Part III — Pattern Recognition Receptors</h2>
+<p>Innate immune cells recognize PAMPs and DAMPs through <b>pattern recognition receptors (PRRs)</b>. Important examples include Toll-like receptors.</p>
+<p><b>PAMP/DAMP → PRR recognition → cell activation → cytokine production → inflammatory response.</b></p>
+
+<h2>Part IV — Cytokines</h2>
+<p>Three major inflammatory cytokines to recognize are <b>TNF-α, IL-1, and IL-6</b>.</p>
+<p>TNF-α and IL-1 are particularly important for initiating and amplifying inflammation. They activate vascular endothelium and help create an environment for leukocyte adhesion and recruitment.</p>
+<p><b>TNF-α + IL-1 → endothelial activation → leukocyte adhesion/recruitment.</b></p>
+<p>IL-6 is especially important in the systemic inflammatory response:</p>
+<p><b>IL-6 → liver → acute-phase proteins → CRP.</b></p>
+<p>CRP is useful as a marker of inflammation but is nonspecific.</p>
+
+<h2>Part V — Complement</h2>
+<h3>C3b — Opsonization</h3>
+<p>C3b coats pathogens and makes them easier for phagocytes to recognize and ingest.</p>
+<p><b>C3b = “Tag it for eating.”</b></p>
+
+<h3>C5a — Chemotaxis</h3>
+<p>C5a is a powerful signal that recruits inflammatory cells, especially neutrophils, toward the site of infection.</p>
+<p><b>C5a = “Come here.”</b></p>
+
+<h3>C5b–C9 — Membrane Attack Complex</h3>
+<p>The MAC creates pores in target cell membranes and can produce cell lysis.</p>
+<p><b>C5b–C9 = MAC → membrane pore → cell lysis.</b></p>
+
+<h3>Three-function memory</h3>
+<p><b>C3b = coat.</b> <b>C5a = attract.</b> <b>C5b-9 = destroy.</b></p>
+<p>C3a and C5a also promote inflammatory responses.</p>
+
+<h2>Part VI — Neutrophil Recruitment</h2>
+<p>A bacterial infection triggers PAMP recognition, PRR activation, cytokine release, complement activation, endothelial activation, and neutrophil recruitment.</p>
+<p>Neutrophil movement occurs through:</p>
+<p><b>Margination → Rolling → Adhesion → Diapedesis → Chemotaxis.</b></p>
+<p>Once in tissue, neutrophils phagocytose and destroy pathogens using reactive oxygen species, lysosomal enzymes, and antimicrobial substances. Excessive neutrophil activity can also damage normal tissue.</p>
+
+<h2>Part VII — Clinical Example: Bacterial Cellulitis</h2>
+<p><b>Bacteria enter tissue → bacterial PAMPs recognized → PRRs activated → macrophages/dendritic cells respond → TNF-α + IL-1 + IL-6 released → complement activated → C3b opsonization + C5a chemotaxis → endothelial activation → neutrophil recruitment → phagocytosis → bacterial destruction → inflammation → redness/warmth/swelling/pain → resolution + repair.</b></p>
+
+<h2>Part VIII — Why Edema Occurs</h2>
+<p>Inflammatory mediators cause <b>vasodilation</b> and <b>increased vascular permeability</b>.</p>
+<p><b>Fluid + proteins move into interstitial space → edema.</b></p>
+
+<h2>Part IX — Fever and Acute-Phase Response</h2>
+<p><b>IL-1 + IL-6 + TNF-α → inflammatory signaling → PGE₂ pathway → increased hypothalamic temperature set point → fever.</b></p>
+<p>Systemic inflammation can stimulate the liver to increase acute-phase proteins, including CRP, fibrinogen, and serum amyloid A.</p>
+<p><b>CRP is nonspecific:</b> an elevated value indicates inflammatory activity but does not by itself establish bacterial infection.</p>
+
+<h2>Part X — Clinical Reasoning</h2>
+<p>A patient with fever, tachycardia, tachypnea, hypotension, confusion, and suspected pneumonia may progress from local infection to systemic inflammatory response, hypotension, organ hypoperfusion, and sepsis/septic shock.</p>
+<p>Importantly, inflammation does <b>not</b> automatically mean infection. Trauma, burns, ischemia, malignancy, autoimmune disease, and MI can also trigger inflammation.</p>
+<p>For example:</p>
+<p><b>MI → myocardial injury → DAMPs → innate immune activation → inflammation</b>, even without bacteria.</p>
+
+<h2>Part XI — FNP Mental Model</h2>
+<ul>
+<li><b>PAMP/DAMP → PRR recognition → innate activation</b></li>
+<li><b>TNF-α + IL-1 → endothelial activation/inflammation</b></li>
+<li><b>IL-6 → acute-phase response → CRP</b></li>
+<li><b>C3b → opsonization</b></li>
+<li><b>C5a → chemotaxis</b></li>
+<li><b>C5b-9 → MAC → cell lysis</b></li>
+<li><b>Acute inflammation → neutrophils</b></li>
+<li><b>Chronic inflammation → macrophages + lymphocytes</b></li>
+<li><b>Inflammation → vasodilation + increased permeability → redness, warmth, edema</b></li>
+<li><b>Inflammatory cytokines → PGE₂ pathway → fever</b></li>
+</ul>
+</div>
+`,
+`
+<div class="card lesson">
+<span class="pill">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>
+<h1>Week 1 — Lesson 4: Adaptive Immunity — B Cells, T Cells & Antibodies</h1>
+<p><b>Core idea:</b> Adaptive immunity is slower initially than innate immunity, but it is highly specific and develops immunologic memory.</p>
+
+<h2>Part I — Innate vs Adaptive Immunity</h2>
+<table style="width:100%;border-collapse:collapse;font-size:13px"><tr><th style="text-align:left;padding:7px;border-bottom:1px solid #ddd">Feature</th><th style="text-align:left;padding:7px;border-bottom:1px solid #ddd">Innate</th><th style="text-align:left;padding:7px;border-bottom:1px solid #ddd">Adaptive</th></tr>
+<tr><td style="padding:7px">Speed</td><td style="padding:7px">Rapid</td><td style="padding:7px">Slower initially</td></tr>
+<tr><td style="padding:7px">Specificity</td><td style="padding:7px">Relatively nonspecific</td><td style="padding:7px">Highly specific</td></tr>
+<tr><td style="padding:7px">Major cells</td><td style="padding:7px">Neutrophils, macrophages, NK cells</td><td style="padding:7px">B cells, T cells</td></tr>
+<tr><td style="padding:7px">Antibodies</td><td style="padding:7px">No</td><td style="padding:7px">Yes</td></tr>
+<tr><td style="padding:7px">Memory</td><td style="padding:7px">Limited</td><td style="padding:7px">Strong immunologic memory</td></tr></table>
+<p>Think of innate immunity as the emergency response team and adaptive immunity as the specialized intelligence system.</p>
+
+<h2>Part II — Antigen</h2>
+<p>An <b>antigen</b> is a substance that can be specifically recognized by components of the adaptive immune system. Pathogens contain proteins and other structures with antigenic targets that can be recognized by immune receptors.</p>
+
+<h2>Part III — B Cells</h2>
+<p>B cells are responsible for <b>humoral immunity</b>.</p>
+<p><b>B cell recognizes antigen → activation → plasma cell + memory B cell.</b></p>
+<p>Plasma cells produce antibodies. Memory B cells remain available for future exposure.</p>
+
+<h2>Part IV — Antibodies</h2>
+<p>Antibodies are also called <b>immunoglobulins</b>. The five major classes are IgM, IgG, IgA, IgE, and IgD.</p>
+
+<h3>IgM</h3>
+<p><b>IgM = first major antibody produced during a primary immune response.</b> Think “first responder.” It may sometimes suggest a relatively recent or early immune response, but interpretation depends on the specific infection and test.</p>
+
+<h3>IgG</h3>
+<p><b>IgG = major long-term systemic antibody.</b> It contributes to systemic defense, secondary immune responses, opsonization, neutralization, and complement activation. IgG is the major antibody class that crosses the placenta.</p>
+<p><b>Maternal IgG → placenta → fetus → passive immunity to newborn.</b></p>
+
+<h3>IgA</h3>
+<p><b>IgA = mucosal protection.</b> It is prominent in saliva, tears, respiratory secretions, GI secretions, and breast milk.</p>
+
+<h3>IgE</h3>
+<p><b>IgE = allergy + parasites.</b> IgE binds mast cells and basophils. Allergen cross-linking can trigger mast-cell activation and mediator release.</p>
+<p>Clinical examples include allergic rhinitis, urticaria, asthma, and anaphylaxis.</p>
+
+<h3>IgD</h3>
+<p>IgD is less clinically prominent and is associated with B-cell surfaces and B-cell activation.</p>
+
+<h2>Part V — T Cells</h2>
+<h3>CD4+ Helper T Cells</h3>
+<p>CD4+ cells primarily coordinate immune responses through cytokines and help activate other immune cells, including B cells and macrophages.</p>
+<p><b>CD4 = coordinator.</b></p>
+<p>HIV preferentially infects CD4+ T cells. As CD4 counts decrease, immune coordination becomes impaired and susceptibility to opportunistic infections increases.</p>
+
+<h3>CD8+ Cytotoxic T Cells</h3>
+<p>CD8+ T cells are directly involved in killing infected or abnormal cells, including virus-infected cells and some tumor cells.</p>
+<p><b>CD8 = killer.</b></p>
+
+<h2>Part VI — Antigen Presentation</h2>
+<p>T cells generally recognize antigen when it is presented by another cell. Two high-yield molecules are <b>MHC I</b> and <b>MHC II</b>.</p>
+
+<h3>MHC I</h3>
+<p><b>MHC I → CD8.</b> MHC I is found on essentially all nucleated cells and presents intracellular antigens to CD8+ cytotoxic T cells.</p>
+<p>Example: virus infects a cell → viral proteins are produced inside the cell → fragments are presented on MHC I → CD8 recognizes the infected cell → target-cell destruction can occur.</p>
+
+<h3>MHC II</h3>
+<p><b>MHC II → CD4.</b> MHC II is primarily found on professional antigen-presenting cells such as dendritic cells, macrophages, and B cells. It presents extracellular material to CD4+ helper T cells.</p>
+<p>High-yield rule: <b>MHC I → CD8; MHC II → CD4.</b></p>
+
+<h2>Part VII — B and T Cells Working Together</h2>
+<p>A pathogen enters → an antigen-presenting cell processes antigen → MHC II presents antigen → CD4+ helper T cell recognizes it → helper signals support B-cell activation → B cell becomes a plasma cell → antibody production.</p>
+<p><b>T helper cell → helps B cell → antibody production.</b></p>
+
+<h2>Part VIII — Primary vs Secondary Immune Response</h2>
+<p>During first exposure, B and T cells activate and memory cells form. The initial response takes time.</p>
+<p>During a second exposure to the same pathogen, memory B and T cells recognize it quickly, producing a faster and stronger response with more rapid antibody production.</p>
+<p><b>This is immunologic memory.</b></p>
+
+<h2>Part IX — Vaccination</h2>
+<p>A vaccine exposes the immune system to antigenic information without causing the full disease in the same way as natural infection.</p>
+<p><b>Antigen exposure → adaptive response → B/T-cell activation → memory-cell development → later exposure → rapid secondary response → better protection.</b></p>
+
+<h2>Part X — Active vs Passive Immunity</h2>
+<p><b>Active immunity:</b> your own immune system produces the response. Examples include natural infection and vaccination. Memory can develop.</p>
+<p><b>Passive immunity:</b> antibodies come from another source, such as maternal antibodies or immunoglobulin administration. The advantage is immediate protection, but it is less durable and does not create the same long-term adaptive memory in the recipient.</p>
+
+<h2>Part XI — Clinical Example: Anaphylaxis</h2>
+<p><b>Allergen exposure → allergen-specific IgE → IgE cross-linking on mast cells → mast-cell degranulation → histamine and other mediator release.</b></p>
+<p>This can produce vasodilation, decreased blood pressure, increased vascular permeability, edema, bronchoconstriction, wheezing, and potentially anaphylaxis.</p>
+
+<h2>Part XII — Autoimmune Disease</h2>
+<p>Adaptive immunity can become harmful when immune tolerance fails and the immune system responds against self.</p>
+<p>Examples include SLE, rheumatoid arthritis, type 1 diabetes, and autoimmune thyroid disease.</p>
+
+<h2>Part XIII — FNP Mental Model</h2>
+<ul>
+<li><b>B cell → antibody</b></li>
+<li><b>CD4 → helper/coordinator</b></li>
+<li><b>CD8 → cytotoxic/killer</b></li>
+<li><b>IgM → first</b></li>
+<li><b>IgG → systemic/long-term + placenta</b></li>
+<li><b>IgA → mucosal</b></li>
+<li><b>IgE → allergy + parasites</b></li>
+<li><b>IgD → B-cell receptor</b></li>
+<li><b>MHC I → CD8</b></li>
+<li><b>MHC II → CD4</b></li>
+<li><b>Active → your immune system produces the response</b></li>
+<li><b>Passive → antibodies come from another source</b></li>
+<li><b>First exposure → primary response; second exposure → faster/stronger secondary response</b></li>
+</ul>
+</div>
+`
+];
+if(!bodies[i]){toast("Lesson 2 content is not loaded yet");return}
+document.getElementById("lessonBody").innerHTML=bodies[i]+`<div style="margin-top:16px"><button onclick="startLessonQuiz(${i})">Start This Lesson Quiz →</button></div>`;
+openPage("lesson");
 }
 function completeLesson(i){if(!state.completed.includes(i)){state.completed.push(i);addXP(50)}openPage("home");}
 function startPractice(){practiceList=[...questions].sort(()=>Math.random()-.5).slice(0,10);qi=0;openPage("practice");renderQ();}
 function renderQ(){let q=practiceList[qi];document.getElementById("qnum").textContent=qi+1;document.getElementById("qtotal").textContent=practiceList.length;document.getElementById("qtext").textContent=q[1];let o=document.getElementById("options");o.innerHTML="";document.getElementById("explain").style.display="none";document.getElementById("next").style.display="none";q[2].forEach((a,i)=>{let b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+i)+". "+a;b.onclick=()=>answer(b,i);o.appendChild(b)})}
 function answer(btn,i){let q=practiceList[qi],ok=i===q[3];document.querySelectorAll(".option").forEach(b=>b.disabled=true);btn.classList.add(ok?"correct":"wrong");if(!ok)state.mistakes.push({topic:q[0],q:q[1],correct:q[2][q[3]],why:q[4]});let e=document.getElementById("explain");e.style.display="block";e.innerHTML=(ok?"✅ Correct! ":"❌ Incorrect. Correct answer: <b>"+q[2][q[3]]+"</b><br>")+q[4]+(ok?"<br><b>+20 XP</b>":"<br><b>Saved to review.</b>");if(ok)addXP(20);else save();document.getElementById("next").style.display="inline-block";}
 function nextQ(){if(qi<practiceList.length-1){qi++;renderQ()}else{addXP(80);state.streak+=1;save();toast("Practice complete · +80 bonus XP 🎉");setTimeout(()=>openPage("home"),900)}}
-const lessonQuizzes={"0": [["A patient develops acute arterial occlusion resulting in tissue ischemia. Which cellular change occurs earliest as a consequence of decreased oxygen availability?", ["Increased ATP production", "Increased oxidative phosphorylation", "Decreased ATP production", "Increased protein synthesis"], 2, "Reduced oxygen decreases oxidative phosphorylation and ATP production."], ["Why does cellular swelling occur during severe ATP depletion?", ["Increased protein synthesis", "Failure of the Na⁺/K⁺ ATPase pump", "Increased mitochondrial ATP production", "Increased extracellular potassium uptake"], 1, "Na⁺/K⁺ ATPase failure causes intracellular sodium accumulation and water follows."], ["Which finding is most characteristic of necrosis?", ["Cell shrinkage without inflammation", "Formation of apoptotic bodies", "Membrane disruption with inflammation", "Programmed activation of caspases"], 2, "Necrosis causes membrane disruption, leakage, and inflammation."], ["Which mechanism contributes directly to irreversible cellular injury during prolonged myocardial ischemia?", ["Decreased intracellular calcium", "Increased ATP production", "Increased intracellular calcium and mitochondrial dysfunction", "Increased protein synthesis"], 2, "Ca²⁺ dysregulation and mitochondrial dysfunction contribute to irreversible injury."], ["Which statement best describes apoptosis?", ["Uncontrolled cell death caused by severe injury", "Programmed cell death that generally produces minimal inflammation", "Cell death caused exclusively by infection", "Cell death that always produces surrounding tissue necrosis"], 1, "Apoptosis is organized programmed cell death with minimal surrounding inflammation."]], "1": [["A patient with longstanding hypertension develops left ventricular wall thickening. Which cellular adaptation is primarily responsible?", ["Hyperplasia", "Hypertrophy", "Metaplasia", "Atrophy"], 1, "Hypertrophy increases cell size in response to increased workload."], ["A patient who has been immobilized for several months develops significant muscle wasting. What process best explains this?", ["Hypertrophy", "Hyperplasia", "Atrophy", "Metaplasia"], 2, "Atrophy is a decrease in cell size associated with decreased workload/disuse."], ["A chronic smoker develops replacement of normal respiratory epithelium with squamous epithelium. This represents:", ["Hypertrophy", "Hyperplasia", "Atrophy", "Metaplasia"], 3, "Metaplasia is replacement of one mature differentiated cell type with another in response to chronic stress."], ["Which cell is most characteristic of acute inflammation?", ["Neutrophil", "Macrophage", "Plasma cell", "Lymphocyte"], 0, "Neutrophils are the major rapid responders in acute inflammation."], ["Which cell is particularly important in chronic inflammation?", ["Neutrophil", "Macrophage", "Erythrocyte", "Platelet"], 1, "Macrophages and lymphocytes are important in chronic inflammation."], ["Which vascular change is primarily responsible for redness and warmth in acute inflammation?", ["Vasoconstriction", "Vasodilation", "Thrombosis", "Decreased blood flow"], 1, "Vasodilation increases local blood flow, producing redness and warmth."], ["A patient with an acute bacterial infection develops fever. Which pathway contributes to increasing the hypothalamic temperature set point?", ["Cytokines → PGE₂", "Insulin → glucagon", "Histamine → aldosterone", "Renin → angiotensin II"], 0, "IL-1, IL-6, and TNF-α contribute to the PGE₂ pathway that raises the hypothalamic set point."], ["Which finding is most consistent with chronic rather than acute inflammation?", ["Predominance of neutrophils", "Rapid onset", "Macrophage and lymphocyte involvement", "Short duration"], 2, "Chronic inflammation features macrophages and lymphocytes and persists over a longer period."], ["Which statement about metaplasia is most accurate?", ["It is always irreversible", "It means the tissue has become malignant", "It is an adaptive replacement of one mature cell type with another", "It occurs only in cancer"], 2, "Metaplasia is an adaptive cell-type change and is not synonymous with malignancy."], ["A patient has persistent inflammation for several months. Which combination best describes chronic inflammation?", ["Neutrophils + no tissue damage", "Macrophages/lymphocytes + tissue destruction + repair", "Erythrocytes + vasoconstriction", "Platelets + decreased vascular permeability"], 1, "Chronic inflammation involves macrophages/lymphocytes, tissue destruction, and repair occurring alongside inflammation."]], "2": [["Which best describes innate immunity?", ["Slow, highly antigen-specific immunity with long-term memory", "Rapid, relatively nonspecific first-line defense", "Immunity mediated exclusively by antibodies", "Immunity mediated exclusively by T lymphocytes"], 1, "Innate immunity is rapid and relatively nonspecific."], ["A bacterial cell-wall component is recognized by a macrophage as a pathogen-associated molecular pattern. Which receptor system is primarily responsible?", ["Pattern recognition receptors", "Insulin receptors", "Steroid receptors", "Acetylcholine receptors"], 0, "PRRs recognize PAMPs and DAMPs."], ["Which complement component is most closely associated with opsonization?", ["C3b", "C5a", "C5b", "C9"], 0, "C3b coats pathogens and facilitates phagocytosis."], ["Which complement component is particularly important for chemotaxis?", ["C1", "C3b", "C5a", "C9"], 2, "C5a is a powerful chemotactic signal for inflammatory cells."], ["Which complement components form the membrane attack complex?", ["C1-C3", "C3a-C3b", "C4-C5", "C5b-C9"], 3, "C5b-C9 form the membrane attack complex."], ["Which cytokine is particularly important in stimulating the hepatic acute-phase response?", ["IL-6", "IL-2", "IL-4", "IL-10"], 0, "IL-6 stimulates hepatic acute-phase protein production such as CRP."], ["Which complement component contributes strongly to neutrophil recruitment?", ["C3b", "C5a", "C9", "C1 inhibitor"], 1, "C5a promotes chemotaxis of neutrophils."], ["Which sequence best describes leukocyte movement into inflamed tissue?", ["Chemotaxis → rolling → margination → adhesion → diapedesis", "Margination → rolling → adhesion → diapedesis → chemotaxis", "Adhesion → margination → rolling → chemotaxis → diapedesis", "Diapedesis → adhesion → rolling → margination → chemotaxis"], 1, "The sequence is margination → rolling → adhesion → diapedesis → chemotaxis."], ["Which pathway best explains fever during acute inflammation?", ["IL-6 → insulin → aldosterone", "TNF/IL-1/IL-6 → PGE₂ pathway → increased temperature set point", "C3b → renin → angiotensin II", "Histamine → insulin → glucagon"], 1, "Inflammatory cytokines promote PGE₂ signaling and raise the hypothalamic set point."], ["Why can myocardial injury produce inflammation without bacterial infection?", ["Myocardial injury produces DAMPs that activate innate immunity", "Bacteria are always present during myocardial infarction", "Complement cannot respond without bacteria", "Inflammation occurs only during adaptive immunity"], 0, "Injured myocardium releases DAMPs that can activate innate immune pathways."]], "3": [["Which cell is primarily responsible for producing antibodies?", ["CD8+ T cell", "B cell/plasma cell", "Neutrophil", "NK cell"], 1, "Activated B cells differentiate into plasma cells that produce antibodies."], ["Which antibody is generally produced first during a primary immune response?", ["IgA", "IgE", "IgG", "IgM"], 3, "IgM is the first major antibody produced in a primary response."], ["Which immunoglobulin is most strongly associated with allergic reactions?", ["IgA", "IgG", "IgE", "IgM"], 2, "IgE is central to many allergic reactions through mast-cell activation."], ["Which immunoglobulin is particularly important at mucosal surfaces?", ["IgA", "IgD", "IgE", "IgM"], 0, "IgA is important in mucosal secretions and defense."], ["Which antibody can cross the placenta?", ["IgA", "IgE", "IgG", "IgM"], 2, "IgG crosses the placenta and provides passive fetal/newborn immunity."], ["Viral proteins from a nucleated infected cell are presented on MHC I. Which cell recognizes and kills the infected cell?", ["CD4+ T cell", "CD8+ T cell", "B cell", "Neutrophil"], 1, "MHC I presents intracellular antigen to CD8+ cytotoxic T cells."], ["Extracellular antigen is presented through MHC II. Which cell recognizes it?", ["CD4+ T cell", "CD8+ T cell", "Neutrophil", "Erythrocyte"], 0, "MHC II presents extracellular antigen to CD4+ helper T cells."], ["A vaccine produces a faster response on later exposure. Which concept explains this?", ["Innate immunity", "Immunologic memory", "Passive immunity", "Complement deficiency"], 1, "Memory cells produce a faster, stronger secondary response."], ["Which statement best describes passive immunity?", ["The patient's own B cells produce memory", "The patient receives antibodies generated by another source", "It always produces lifelong immunity", "It requires previous exposure"], 1, "Passive immunity is transfer of antibodies from another source."], ["Wheezing, hypotension, urticaria, and facial swelling occur after allergen exposure. Which mechanism is most direct?", ["IgG-mediated complement activation", "IgE-mediated mast-cell activation", "CD8-mediated destruction", "IgM-mediated opsonization"], 1, "Allergen cross-linking of IgE on mast cells triggers mediator release and can cause anaphylaxis."]]};
+const lessonQuizzes={"0": [["A patient develops acute arterial occlusion resulting in tissue ischemia. Which cellular change occurs earliest as a consequence of decreased oxygen availability?", ["Increased ATP production", "Increased oxidative phosphorylation", "Decreased ATP production", "Increased protein synthesis"], 2, "Decreased oxygen availability reduces oxidative phosphorylation, causing ATP production to fall."], ["Why does cellular swelling occur during severe ATP depletion?", ["Increased protein synthesis", "Failure of the Na⁺/K⁺ ATPase pump", "Increased mitochondrial ATP production", "Increased extracellular potassium uptake"], 1, "ATP depletion causes Na⁺/K⁺ ATPase failure. Sodium accumulates inside the cell and water follows."], ["Which finding is most characteristic of necrosis?", ["Cell shrinkage without inflammation", "Formation of apoptotic bodies", "Membrane disruption with inflammation", "Programmed activation of caspases"], 2, "Necrosis is associated with membrane disruption, leakage of cellular contents, and inflammation."], ["A patient has prolonged myocardial ischemia. Which mechanism contributes directly to irreversible cellular injury?", ["Decreased intracellular calcium", "Increased ATP production", "Increased intracellular calcium and mitochondrial dysfunction", "Increased protein synthesis"], 2, "Loss of calcium regulation and mitochondrial dysfunction contribute directly to irreversible cellular injury."], ["Which statement best describes apoptosis?", ["Uncontrolled cell death caused by severe injury", "Programmed cell death that generally produces minimal inflammation", "Cell death caused exclusively by infection", "Cell death that always produces surrounding tissue necrosis"], 1, "Apoptosis is programmed, organized cell death and generally causes minimal surrounding inflammation."]], "1": [["A patient with longstanding hypertension develops left ventricular wall thickening. Which cellular adaptation is primarily responsible?", ["Hyperplasia", "Hypertrophy", "Metaplasia", "Atrophy"], 1, "Hypertrophy is an increase in cell size. Chronic pressure overload increases cardiomyocyte workload and promotes LV hypertrophy."], ["A patient who has been immobilized for several months develops significant muscle wasting. What process best explains this?", ["Hypertrophy", "Hyperplasia", "Atrophy", "Metaplasia"], 2, "Atrophy is a decrease in cell size and is commonly seen with decreased workload or disuse."], ["A chronic smoker develops replacement of normal respiratory epithelium with squamous epithelium. This represents:", ["Hypertrophy", "Hyperplasia", "Atrophy", "Metaplasia"], 3, "Metaplasia is reversible replacement of one mature differentiated cell type with another in response to chronic stress."], ["Which cell is most characteristic of acute inflammation?", ["Neutrophil", "Macrophage", "Plasma cell", "Lymphocyte"], 0, "Neutrophils are the major rapid cellular responders in acute inflammation."], ["Which cell is particularly important in chronic inflammation?", ["Neutrophil", "Macrophage", "Erythrocyte", "Platelet"], 1, "Macrophages and lymphocytes are important cellular components of chronic inflammation."], ["Which vascular change is primarily responsible for the redness and warmth associated with acute inflammation?", ["Vasoconstriction", "Vasodilation", "Thrombosis", "Decreased blood flow"], 1, "Vasodilation increases local blood flow, producing redness and warmth."], ["A patient with an acute bacterial infection develops fever. Which inflammatory mediator pathway contributes to increasing the hypothalamic temperature set point?", ["Cytokines → PGE₂", "Insulin → glucagon", "Histamine → aldosterone", "Renin → angiotensin II"], 0, "Inflammatory cytokines such as IL-1, IL-6, and TNF-α contribute to the PGE₂ pathway that raises the hypothalamic set point."], ["Which finding is most consistent with chronic rather than acute inflammation?", ["Predominance of neutrophils", "Rapid onset", "Macrophage and lymphocyte involvement", "Short duration"], 2, "Chronic inflammation is characterized by macrophage and lymphocyte involvement and a longer course."], ["Which statement about metaplasia is most accurate?", ["It is always irreversible", "It means the tissue has become malignant", "It is an adaptive replacement of one mature cell type with another", "It occurs only in cancer"], 2, "Metaplasia is an adaptive replacement of one mature differentiated cell type with another; it is not synonymous with cancer."], ["A patient has persistent inflammation for several months. Which combination best describes chronic inflammation?", ["Neutrophils + no tissue damage", "Macrophages/lymphocytes + tissue destruction + repair", "Erythrocytes + vasoconstriction", "Platelets + decreased vascular permeability"], 1, "Chronic inflammation involves macrophages/lymphocytes, ongoing tissue destruction, and repair occurring alongside inflammation."]], "2": [["Which best describes innate immunity?", ["Slow, highly antigen-specific immunity with long-term memory", "Rapid, relatively nonspecific first-line defense", "Immunity mediated exclusively by antibodies", "Immunity mediated exclusively by T lymphocytes"], 1, "Innate immunity is the rapid, relatively nonspecific first-line defense."], ["A bacterial cell-wall component is recognized by a macrophage as a pathogen-associated molecular pattern. Which receptor system is primarily responsible for recognizing such patterns?", ["Pattern recognition receptors", "Insulin receptors", "Steroid receptors", "Acetylcholine receptors"], 0, "Pattern recognition receptors recognize PAMPs and DAMPs; Toll-like receptors are an important PRR family."], ["Which complement component is most closely associated with opsonization?", ["C3b", "C5a", "C5b", "C9"], 0, "C3b coats pathogens and promotes their recognition and ingestion by phagocytes."], ["Which complement component is particularly important for chemotaxis of inflammatory cells?", ["C1", "C3b", "C5a", "C9"], 2, "C5a is a powerful chemotactic signal that helps recruit inflammatory cells, especially neutrophils."], ["Which complement components form the membrane attack complex?", ["C1-C3", "C3a-C3b", "C4-C5", "C5b-C9"], 3, "C5b through C9 form the membrane attack complex, which creates pores in target membranes."], ["Which cytokine is particularly important in stimulating the hepatic acute-phase response?", ["IL-6", "IL-2", "IL-4", "IL-10"], 0, "IL-6 stimulates the liver to produce acute-phase proteins such as CRP."], ["A patient with acute bacterial cellulitis has significant neutrophil recruitment to the infected tissue. Which complement component contributes strongly to this process?", ["C3b", "C5a", "C9", "C1 inhibitor"], 1, "C5a strongly contributes to chemotaxis of neutrophils toward the site of infection."], ["Which sequence best describes leukocyte movement from the bloodstream into inflamed tissue?", ["Chemotaxis → rolling → margination → adhesion → diapedesis", "Margination → rolling → adhesion → diapedesis → chemotaxis", "Adhesion → margination → rolling → chemotaxis → diapedesis", "Diapedesis → adhesion → rolling → margination → chemotaxis"], 1, "The sequence is margination → rolling → adhesion → diapedesis → chemotaxis."], ["A patient has fever during an acute inflammatory response. Which pathway best explains the increase in hypothalamic temperature set point?", ["IL-6 → insulin → aldosterone", "TNF/IL-1/IL-6 → PGE₂ pathway → increased temperature set point", "C3b → renin → angiotensin II", "Histamine → insulin → glucagon"], 1, "Inflammatory cytokines can increase PGE₂ signaling, which raises the hypothalamic temperature set point."], ["A patient develops myocardial injury from coronary artery occlusion. There is significant inflammation despite the absence of bacterial infection. Which best explains this?", ["Myocardial injury produces DAMPs that activate innate immunity", "Bacteria are always present during myocardial infarction", "Complement cannot respond without bacteria", "Inflammation occurs only during adaptive immunity"], 0, "Myocardial injury releases DAMPs, which can activate innate immune pathways even without infection."]], "3": [["Which cell is primarily responsible for producing antibodies?", ["CD8+ T cell", "B cell/plasma cell", "Neutrophil", "NK cell"], 1, "Activated B cells can differentiate into plasma cells, which produce antibodies."], ["Which antibody is generally produced first during a primary immune response?", ["IgA", "IgE", "IgG", "IgM"], 3, "IgM is the first major antibody produced during a primary response."], ["Which immunoglobulin is most strongly associated with allergic reactions?", ["IgA", "IgG", "IgE", "IgM"], 2, "IgE binds mast cells and basophils and is central to many allergic reactions."], ["Which immunoglobulin is particularly important at mucosal surfaces?", ["IgA", "IgD", "IgE", "IgM"], 0, "IgA is particularly important for mucosal defense."], ["Which antibody can cross the placenta and provide passive immunity to the fetus?", ["IgA", "IgE", "IgG", "IgM"], 2, "IgG is the major antibody class that crosses the placenta."], ["A virus infects a nucleated cell. Viral proteins are presented on MHC I. Which cell is most directly responsible for recognizing and killing the infected cell?", ["CD4+ T cell", "CD8+ T cell", "B cell", "Neutrophil"], 1, "MHC I presents intracellular antigen to CD8+ cytotoxic T cells."], ["A dendritic cell processes extracellular bacterial antigen and presents it through MHC II. Which cell recognizes this presentation?", ["CD4+ T cell", "CD8+ T cell", "Neutrophil", "Erythrocyte"], 0, "MHC II presents extracellular antigen to CD4+ helper T cells."], ["A patient receives a vaccine and later develops a rapid immune response when exposed to the pathogen. Which concept best explains this?", ["Innate immunity", "Immunologic memory", "Passive immunity", "Complement deficiency"], 1, "Memory B and T cells produce a faster and stronger secondary response."], ["Which statement best describes passive immunity?", ["The patient's own B cells produce antibodies and memory cells", "The patient receives antibodies generated by another source", "It always produces lifelong immunity", "It requires previous exposure to the pathogen"], 1, "Passive immunity means antibodies are received from another source, such as maternal antibodies or administered immunoglobulin."], ["A patient develops wheezing, hypotension, urticaria, and facial swelling shortly after exposure to an allergen. Which mechanism is most directly involved?", ["IgG-mediated complement activation", "IgE-mediated mast-cell activation", "CD8-mediated destruction of epithelial cells", "IgM-mediated opsonization"], 1, "Allergen cross-linking of IgE on mast cells triggers mediator release and can cause anaphylaxis."]]};
 
-let iq=0, currentQuizLesson=0, quizScore=0;
-function startInlineQ(i){
-  if(!lessonQuizzes[i]){toast("Quiz not available");return;}
-  currentQuizLesson=i;iq=0;quizScore=0;
-  document.getElementById("lessonQuizInline").style.display="block";
-  renderInlineQ();
-  setTimeout(()=>document.getElementById("lessonQuizInline").scrollIntoView({behavior:"smooth",block:"start"}),50);
+let lqLesson=0,lqi=0;
+function startLessonQuiz(i){lqLesson=i;lqi=0;openPage("lessonQuiz");renderLQ();}
+function renderLQ(){
+ const q=lessonQuizzes[lqLesson][lqi];
+ document.getElementById("lqnum").textContent=lqi+1;
+ document.getElementById("lqtotal").textContent=lessonQuizzes[lqLesson].length;
+ document.getElementById("lqtext").textContent=q[0];
+ const box=document.getElementById("lqoptions");box.innerHTML="";
+ document.getElementById("lqexplain").style.display="none";
+ document.getElementById("lqnext").style.display="none";
+ q[1].forEach((a,i)=>{
+   const b=document.createElement("button");
+   b.className="option";
+   b.textContent=String.fromCharCode(65+i)+". "+a;
+   b.onclick=()=>answerLQ(b,i);
+   box.appendChild(b);
+ });
 }
-function renderInlineQ(){
-  const q=lessonQuizzes[currentQuizLesson][iq];
-  document.getElementById("iqnum").textContent=iq+1;
-  document.getElementById("iqtotal").textContent=lessonQuizzes[currentQuizLesson].length;
-  document.getElementById("iqtext").textContent=q[0];
-  const box=document.getElementById("iqoptions");box.innerHTML="";
-  document.getElementById("iqexplain").style.display="none";
-  document.getElementById("iqnext").style.display="none";
-  q[1].forEach((a,i)=>{
-    const b=document.createElement("button");
-    b.className="option";b.textContent=String.fromCharCode(65+i)+". "+a;
-    b.onclick=()=>answerInlineQ(b,i);box.appendChild(b);
-  });
+function answerLQ(btn,i){
+ const q=lessonQuizzes[lqLesson][lqi],ok=i===q[2];
+ document.querySelectorAll("#lqoptions .option").forEach(b=>b.disabled=true);
+ btn.classList.add(ok?"correct":"wrong");
+ document.querySelectorAll("#lqoptions .option")[q[2]].classList.add("correct");
+ const e=document.getElementById("lqexplain");e.style.display="block";
+ e.innerHTML=(ok?"<b>✅ Correct!</b>":"<b>❌ Incorrect.</b>")+"<br><b>Correct answer: "+String.fromCharCode(65+q[2])+". "+q[1][q[2]]+"</b><br><br>"+q[3];
+ if(ok){addXP(20);}else{
+   state.mistakes.push({topic:"Lesson "+(lqLesson+1),q:q[0],correct:q[1][q[2]],why:q[3]});
+   save();
+ }
+ document.getElementById("lqnext").style.display="inline-block";
 }
-function answerInlineQ(btn,i){
-  const q=lessonQuizzes[currentQuizLesson][iq],ok=i===q[2];
-  document.querySelectorAll("#iqoptions .option").forEach(b=>b.disabled=true);
-  btn.classList.add(ok?"correct":"wrong");
-  document.querySelectorAll("#iqoptions .option")[q[2]].classList.add("correct");
-  const e=document.getElementById("iqexplain");e.style.display="block";
-  e.innerHTML=(ok?"<b>✅ Correct!</b>":"<b>❌ Incorrect.</b>")+"<br><b>Correct answer: "+String.fromCharCode(65+q[2])+". "+q[1][q[2]]+"</b><br><br>"+q[3];
-  if(ok){quizScore++;addXP(20)}else{state.mistakes.push({topic:"Lesson "+(currentQuizLesson+1),q:q[0],correct:q[1][q[2]],why:q[3]});save()}
-  document.getElementById("iqnext").style.display="inline-block";
-}
-function nextInlineQ(){
-  if(iq<lessonQuizzes[currentQuizLesson].length-1){iq++;renderInlineQ();}
-  else{
-    if(!state.completed.includes(currentQuizLesson)){state.completed.push(currentQuizLesson);addXP(50)}
-    toast("Lesson quiz complete! +50 XP 🎉");
-    document.getElementById("lessonQuizInline").style.display="none";
-    save();
-  }
-}
-
-let l2qi=0;
-function startL2Quiz(){
-  l2qi=0;
-  document.getElementById("lesson2QuizInline").style.display="block";
-  renderL2Q();
-  document.getElementById("lesson2QuizInline").scrollIntoView({behavior:"smooth",block:"start"});
-}
-function renderL2Q(){
-  const q=lessonQuizzes[1][l2qi];
-  document.getElementById("l2qnum").textContent=l2qi+1;
-  document.getElementById("l2qtext").textContent=q[0];
-  const box=document.getElementById("l2qoptions");box.innerHTML="";
-  document.getElementById("l2qexplain").style.display="none";
-  document.getElementById("l2qnext").style.display="none";
-  q[1].forEach((a,i)=>{
-    const b=document.createElement("button");
-    b.className="option";b.textContent=String.fromCharCode(65+i)+". "+a;
-    b.onclick=()=>answerL2Q(b,i);box.appendChild(b);
-  });
-}
-function answerL2Q(btn,i){
-  const q=lessonQuizzes[1][l2qi],ok=i===q[2];
-  document.querySelectorAll("#l2qoptions .option").forEach(b=>b.disabled=true);
-  btn.classList.add(ok?"correct":"wrong");
-  document.querySelectorAll("#l2qoptions .option")[q[2]].classList.add("correct");
-  const e=document.getElementById("l2qexplain");e.style.display="block";
-  e.innerHTML=(ok?"<b>✅ Correct!</b>":"<b>❌ Incorrect.</b>")+"<br><b>Correct answer: "+String.fromCharCode(65+q[2])+". "+q[1][q[2]]+"</b><br><br>"+q[3];
-  if(ok)addXP(20);else{state.mistakes.push({topic:"Lesson 2",q:q[0],correct:q[1][q[2]],why:q[3]});save();}
-  document.getElementById("l2qnext").style.display="inline-block";
-}
-function nextL2Q(){
-  if(l2qi<lessonQuizzes[1].length-1){l2qi++;renderL2Q();}
-  else{addXP(50);toast("Lesson 2 complete · +50 XP 🎉");document.getElementById("lesson2QuizInline").style.display="none";save();}
+function nextLQ(){
+ if(lqi<lessonQuizzes[lqLesson].length-1){lqi++;renderLQ();}
+ else{
+   if(!state.completed.includes(lqLesson)){state.completed.push(lqLesson);addXP(50);}
+   save();toast("Lesson quiz complete · +50 XP 🎉");openPage("home");
+ }
 }
 
 update();

@@ -22,12 +22,112 @@ button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);co
 <div class="card"><div class="row"><div><span style="font-size:30px">🔥</span> <b><span id="streak">0</span> day streak</b></div><div class="small">🛡️ <span id="freeze">1</span> Freeze</div></div></div>
 <h2>📚 Curriculum</h2>
 <div class="card mission"><div><h3>Lesson 1 · Cellular Injury & Adaptation</h3><p>ATP, ROS, necrosis, apoptosis</p></div><button onclick="startLesson(0)">Learn</button></div>
-<div class="card mission"><div><h3>Lesson 2 · Cellular Adaptation & Inflammation</h3><p>Hypertrophy, hyperplasia, atrophy, metaplasia & inflammation</p></div><button onclick="startLesson(1)">Learn</button></div>
+<div class="card mission"><div><h3>Lesson 2 · Cellular Adaptation & Inflammation</h3><p>Hypertrophy, hyperplasia, atrophy, metaplasia & inflammation</p></div><button onclick="openPage('lesson2static')">Learn</button></div>
 <div class="card mission"><div><h3>Lesson 3 · Innate Immunity</h3><p>Complement & acute inflammation</p></div><button onclick="startLesson(2)">Learn</button></div>
 <div class="card mission"><div><h3>Lesson 4 · Adaptive Immunity</h3><p>B cells, T cells & antibodies</p></div><button onclick="startLesson(3)">Learn</button></div>
 <h2>🎯 Daily Practice</h2><div class="card mission"><div><h3>🩺 10-question Practice</h3><p>Questions from loaded lessons</p></div><button onclick="startPractice()">Start</button></div>
 </section>
 
+
+<section id="lesson2static" class="page">
+<button class="secondary" onclick="openPage('home')">← Home</button>
+<div class="card lesson">
+<span class="pill">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>
+<h1>Week 1 — Lesson 2: Cellular Adaptation & Inflammation</h1>
+<p><b>Core idea:</b> Cells do not immediately die when stressed. They first try to adapt. If the stress is removed or manageable, the cell may return toward normal. If stress continues or becomes too severe, injury can progress to irreversible injury and cell death.</p>
+
+<h2>Part I — Cellular Adaptation</h2>
+<h3>1. Hypertrophy</h3>
+<p><b>Hypertrophy = increase in cell size.</b> The number of cells does not increase.</p>
+<p>Classic example: chronic hypertension.</p>
+<p><b>↑ afterload → ↑ workload on cardiomyocytes → cardiomyocyte hypertrophy → left ventricular wall thickening.</b></p>
+<p>Initially this may be adaptive. Eventually, excessive hypertrophy can become harmful because the enlarged myocardium requires more oxygen, while the thickened ventricular wall can impair relaxation and contribute to diastolic dysfunction.</p>
+<p><b>LV hypertrophy → diastolic dysfunction → possible heart failure.</b></p>
+
+<h3>2. Hyperplasia</h3>
+<p><b>Hyperplasia = increase in the number of cells.</b> It requires cells capable of dividing.</p>
+<p>Examples include hormonal hyperplasia and compensatory hyperplasia.</p>
+<p>Example: estrogen stimulation of the endometrium causes endometrial proliferation. Excessive or abnormal stimulation, such as unopposed estrogen, can lead to endometrial hyperplasia and increase the risk of endometrial cancer.</p>
+
+<h3>3. Atrophy</h3>
+<p><b>Atrophy = decrease in cell size.</b> Sometimes there is also a reduction in cell number.</p>
+<p>Causes include decreased workload, inadequate nutrition, loss of blood supply, loss of hormonal stimulation, denervation, and aging.</p>
+<p>Example: prolonged immobilization causes decreased workload and skeletal muscle atrophy.</p>
+
+<h3>4. Metaplasia</h3>
+<p><b>Metaplasia = reversible replacement of one mature differentiated cell type with another mature differentiated cell type.</b></p>
+<p>It is an adaptive response to chronic irritation or stress.</p>
+<p>Classic example: chronic cigarette smoke can cause normal ciliated columnar respiratory epithelium to undergo squamous metaplasia.</p>
+<p>The new squamous cells may tolerate irritation better, but normal cilia are lost, decreasing mucociliary clearance. Persistent abnormal stimulation can increase the risk of dysplasia and malignancy.</p>
+<p><b>Metaplasia ≠ cancer.</b> Persistent abnormal stimulation may progress toward <b>dysplasia → possible malignancy.</b></p>
+
+<h2>Part II — When Adaptation Fails</h2>
+<p><b>Chronic stress → cellular adaptation → cellular injury → recovery if reversible OR irreversible injury → cell death if severe.</b></p>
+<p>Adaptation can be protective initially but harmful when prolonged.</p>
+
+<h2>Part III — Inflammation</h2>
+<p>Inflammation is fundamentally a protective response to injury or infection. Its purposes are to eliminate the cause of injury, remove damaged tissue, and begin repair. Excessive or prolonged inflammation can itself cause tissue damage.</p>
+
+<h2>Part IV — Acute vs Chronic Inflammation</h2>
+<h3>Acute inflammation</h3>
+<p><b>Fast + neutrophils.</b> It typically develops over minutes to hours and is usually relatively short-lived.</p>
+<p>Common causes include bacterial infection, trauma, burns, and acute tissue injury.</p>
+<p>The five cardinal signs are:</p>
+<ul>
+<li><b>Rubor</b> — redness</li>
+<li><b>Calor</b> — heat</li>
+<li><b>Tumor</b> — swelling</li>
+<li><b>Dolor</b> — pain</li>
+<li><b>Functio laesa</b> — loss of function</li>
+</ul>
+
+<h3>Why redness, warmth, and edema occur</h3>
+<p><b>Inflammatory mediators → vasodilation → ↑ blood flow → redness + warmth.</b></p>
+<p><b>↑ vascular permeability → fluid leaves the vascular space → edema/swelling.</b></p>
+
+<h3>Neutrophils</h3>
+<p>Neutrophils are rapid responders. Their movement includes:</p>
+<p><b>Margination → Rolling → Adhesion → Diapedesis → Chemotaxis → tissue arrival.</b></p>
+<p>They can phagocytose organisms and release antimicrobial substances and reactive oxygen species, but can also contribute to tissue damage.</p>
+
+<h3>Chronic inflammation</h3>
+<p><b>Slow + macrophages/lymphocytes + tissue destruction + repair.</b></p>
+<p>Common causes include persistent infection, autoimmune disease, chronic irritant exposure, and metabolic disease.</p>
+<p>Macrophages can phagocytose pathogens, remove dead cells, produce cytokines, coordinate inflammation, and contribute to tissue repair. Persistent activation can also contribute to tissue destruction.</p>
+
+<h2>Part V — Cytokines</h2>
+<p>Cytokines are signaling proteins that allow cells to communicate during inflammation and immune responses.</p>
+<p>Important inflammatory cytokines include <b>TNF-α, IL-1, and IL-6</b>.</p>
+<p><b>Injury/infection → immune-cell cytokine release → recruitment/activation of other immune cells → inflammatory response.</b></p>
+
+<h2>Part VI — Fever</h2>
+<p>IL-1, IL-6, and TNF-α can contribute to fever. The inflammatory pathway ultimately influences <b>PGE₂</b>, which increases the hypothalamic temperature set point.</p>
+<p><b>Infection → inflammatory cytokines → PGE₂ → hypothalamic set-point increase → fever.</b></p>
+<p>This connects pathophysiology to pharmacology: NSAIDs reduce prostaglandin synthesis, helping explain their antipyretic, analgesic, and anti-inflammatory effects.</p>
+
+<h2>Part VII — Clinical Case</h2>
+<p>A patient with a painful, red, warm, swollen, tender lower leg and a temperature of 38.5°C would initially suggest <b>acute inflammation</b>, with neutrophils as the major cellular responder.</p>
+<p>An FNP should still consider differential diagnoses such as cellulitis, abscess, DVT, contact dermatitis, venous stasis dermatitis, erysipelas, and necrotizing soft tissue infection.</p>
+<p>Concerning findings include rapid progression, severe or disproportionate pain, systemic toxicity, hypotension, bullae, crepitus, skin discoloration, and immunocompromised status.</p>
+
+<h2>Part VIII — Big Picture</h2>
+<p><b>Cellular stress → Adaptation (hypertrophy/hyperplasia/atrophy/metaplasia) → Injury → recovery or irreversible injury → cell death.</b></p>
+<p>Tissue injury can also trigger inflammation:</p>
+<p><b>Acute → neutrophils.</b></p>
+<p><b>Chronic → macrophages + lymphocytes.</b></p>
+<p>Inflammatory cells release cytokines, producing vascular changes, leukocyte recruitment, systemic effects, and tissue repair.</p>
+
+<div style="margin-top:18px">
+<button onclick="startL2Quiz()">Start This Lesson's Quiz →</button>
+</div>
+</div>
+<div id="lesson2QuizInline" class="card" style="display:none">
+<div class="small">LESSON 2 QUIZ · QUESTION <span id="l2qnum">1</span> / 10</div>
+<h2 id="l2qtext"></h2><div id="l2qoptions"></div>
+<div id="l2qexplain" class="explain" style="display:none"></div>
+<button id="l2qnext" style="display:none;margin-top:12px" onclick="nextL2Q()">Next Question →</button>
+</div>
+</section>
 <section id="lesson" class="page">
 <button class="secondary" onclick="openPage('home')">← Home</button>
 <div id="lessonBody" class="card lesson"></div>
@@ -94,16 +194,9 @@ function update(){document.getElementById("xp").textContent=state.xp;document.ge
 function toast(s){let t=document.getElementById("toast");t.textContent=s;t.style.display="block";setTimeout(()=>t.style.display="none",1500);}
 function openPage(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo(0,0);update();}
 function addXP(n){state.xp+=n;save();toast("+"+n+" XP ⭐");}
-const LESSON2_HTML="\n<span class=\"pill\">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>\n<h1>Week 1 — Lesson 2: Cellular Adaptation & Inflammation</h1>\n<p><b>Core idea:</b> Cells do not immediately die when stressed. They first try to adapt. If the stress is removed or manageable, the cell may return toward normal. If stress continues or becomes too severe, injury can progress to irreversible injury and cell death.</p>\n\n<h2>Part I — Cellular Adaptation</h2>\n<h3>1. Hypertrophy</h3>\n<p><b>Hypertrophy = increase in cell size.</b> The number of cells does not increase.</p>\n<p>Classic example: chronic hypertension.</p>\n<p><b>↑ afterload → ↑ workload on cardiomyocytes → cardiomyocyte hypertrophy → left ventricular wall thickening.</b></p>\n<p>Initially this may be adaptive. Eventually, excessive hypertrophy can become harmful because the enlarged myocardium requires more oxygen, while the thickened ventricular wall can impair relaxation and contribute to diastolic dysfunction.</p>\n<p><b>LV hypertrophy → diastolic dysfunction → possible heart failure.</b></p>\n\n<h3>2. Hyperplasia</h3>\n<p><b>Hyperplasia = increase in the number of cells.</b> It requires cells capable of dividing.</p>\n<p>Examples include hormonal hyperplasia and compensatory hyperplasia.</p>\n<p>Example: estrogen stimulation of the endometrium causes endometrial proliferation. Excessive or abnormal stimulation, such as unopposed estrogen, can lead to endometrial hyperplasia and increase the risk of endometrial cancer.</p>\n\n<h3>3. Atrophy</h3>\n<p><b>Atrophy = decrease in cell size.</b> Sometimes there is also a reduction in cell number.</p>\n<p>Causes include decreased workload, inadequate nutrition, loss of blood supply, loss of hormonal stimulation, denervation, and aging.</p>\n<p>Example: prolonged immobilization causes decreased workload and skeletal muscle atrophy.</p>\n\n<h3>4. Metaplasia</h3>\n<p><b>Metaplasia = reversible replacement of one mature differentiated cell type with another mature differentiated cell type.</b></p>\n<p>It is an adaptive response to chronic irritation or stress.</p>\n<p>Classic example: chronic cigarette smoke can cause normal ciliated columnar respiratory epithelium to undergo squamous metaplasia.</p>\n<p>The new squamous cells may tolerate irritation better, but normal cilia are lost, decreasing mucociliary clearance. Persistent abnormal stimulation can increase the risk of dysplasia and malignancy.</p>\n<p><b>Metaplasia ≠ cancer.</b> Persistent abnormal stimulation may progress toward <b>dysplasia → possible malignancy.</b></p>\n\n<h2>Part II — When Adaptation Fails</h2>\n<p><b>Chronic stress → cellular adaptation → cellular injury → recovery if reversible OR irreversible injury → cell death if severe.</b></p>\n<p>Adaptation can be protective initially but harmful when prolonged.</p>\n\n<h2>Part III — Inflammation</h2>\n<p>Inflammation is fundamentally a protective response to injury or infection. Its purposes are to eliminate the cause of injury, remove damaged tissue, and begin repair. Excessive or prolonged inflammation can itself cause tissue damage.</p>\n\n<h2>Part IV — Acute vs Chronic Inflammation</h2>\n<h3>Acute inflammation</h3>\n<p><b>Fast + neutrophils.</b> It typically develops over minutes to hours and is usually relatively short-lived.</p>\n<p>Common causes include bacterial infection, trauma, burns, and acute tissue injury.</p>\n<p>The five cardinal signs are:</p>\n<ul>\n<li><b>Rubor</b> — redness</li>\n<li><b>Calor</b> — heat</li>\n<li><b>Tumor</b> — swelling</li>\n<li><b>Dolor</b> — pain</li>\n<li><b>Functio laesa</b> — loss of function</li>\n</ul>\n\n<h3>Why redness, warmth, and edema occur</h3>\n<p><b>Inflammatory mediators → vasodilation → ↑ blood flow → redness + warmth.</b></p>\n<p><b>↑ vascular permeability → fluid leaves the vascular space → edema/swelling.</b></p>\n\n<h3>Neutrophils</h3>\n<p>Neutrophils are rapid responders. Their movement includes:</p>\n<p><b>Margination → Rolling → Adhesion → Diapedesis → Chemotaxis → tissue arrival.</b></p>\n<p>They can phagocytose organisms and release antimicrobial substances and reactive oxygen species, but can also contribute to tissue damage.</p>\n\n<h3>Chronic inflammation</h3>\n<p><b>Slow + macrophages/lymphocytes + tissue destruction + repair.</b></p>\n<p>Common causes include persistent infection, autoimmune disease, chronic irritant exposure, and metabolic disease.</p>\n<p>Macrophages can phagocytose pathogens, remove dead cells, produce cytokines, coordinate inflammation, and contribute to tissue repair. Persistent activation can also contribute to tissue destruction.</p>\n\n<h2>Part V — Cytokines</h2>\n<p>Cytokines are signaling proteins that allow cells to communicate during inflammation and immune responses.</p>\n<p>Important inflammatory cytokines include <b>TNF-α, IL-1, and IL-6</b>.</p>\n<p><b>Injury/infection → immune-cell cytokine release → recruitment/activation of other immune cells → inflammatory response.</b></p>\n\n<h2>Part VI — Fever</h2>\n<p>IL-1, IL-6, and TNF-α can contribute to fever. The inflammatory pathway ultimately influences <b>PGE₂</b>, which increases the hypothalamic temperature set point.</p>\n<p><b>Infection → inflammatory cytokines → PGE₂ → hypothalamic set-point increase → fever.</b></p>\n<p>This connects pathophysiology to pharmacology: NSAIDs reduce prostaglandin synthesis, helping explain their antipyretic, analgesic, and anti-inflammatory effects.</p>\n\n<h2>Part VII — Clinical Case</h2>\n<p>A patient with a painful, red, warm, swollen, tender lower leg and a temperature of 38.5°C would initially suggest <b>acute inflammation</b>, with neutrophils as the major cellular responder.</p>\n<p>An FNP should still consider differential diagnoses such as cellulitis, abscess, DVT, contact dermatitis, venous stasis dermatitis, erysipelas, and necrotizing soft tissue infection.</p>\n<p>Concerning findings include rapid progression, severe or disproportionate pain, systemic toxicity, hypotension, bullae, crepitus, skin discoloration, and immunocompromised status.</p>\n\n<h2>Part VIII — Big Picture</h2>\n<p><b>Cellular stress → Adaptation (hypertrophy/hyperplasia/atrophy/metaplasia) → Injury → recovery or irreversible injury → cell death.</b></p>\n<p>Tissue injury can also trigger inflammation:</p>\n<p><b>Acute → neutrophils.</b></p>\n<p><b>Chronic → macrophages + lymphocytes.</b></p>\n<p>Inflammatory cells release cytokines, producing vascular changes, leukocyte recruitment, systemic effects, and tissue repair.</p>\n";
 function startLesson(i){
   currentLesson=i;
   document.getElementById("lessonQuizInline").style.display="none";
-  if(i===1){
-    document.getElementById("lessonBody").innerHTML=LESSON2_HTML+
-      '<div style="margin-top:18px"><button onclick="startInlineQ(1)">Start This Lesson\'s Quiz →</button></div>';
-    openPage("lesson");
-    return;
-  }
   const l=lessons[i];
   if(!l){toast("Lesson not available");return;}
   document.getElementById("lessonBody").innerHTML=
@@ -158,6 +251,41 @@ function nextInlineQ(){
     document.getElementById("lessonQuizInline").style.display="none";
     save();
   }
+}
+
+let l2qi=0;
+function startL2Quiz(){
+  l2qi=0;
+  document.getElementById("lesson2QuizInline").style.display="block";
+  renderL2Q();
+  document.getElementById("lesson2QuizInline").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function renderL2Q(){
+  const q=lessonQuizzes[1][l2qi];
+  document.getElementById("l2qnum").textContent=l2qi+1;
+  document.getElementById("l2qtext").textContent=q[0];
+  const box=document.getElementById("l2qoptions");box.innerHTML="";
+  document.getElementById("l2qexplain").style.display="none";
+  document.getElementById("l2qnext").style.display="none";
+  q[1].forEach((a,i)=>{
+    const b=document.createElement("button");
+    b.className="option";b.textContent=String.fromCharCode(65+i)+". "+a;
+    b.onclick=()=>answerL2Q(b,i);box.appendChild(b);
+  });
+}
+function answerL2Q(btn,i){
+  const q=lessonQuizzes[1][l2qi],ok=i===q[2];
+  document.querySelectorAll("#l2qoptions .option").forEach(b=>b.disabled=true);
+  btn.classList.add(ok?"correct":"wrong");
+  document.querySelectorAll("#l2qoptions .option")[q[2]].classList.add("correct");
+  const e=document.getElementById("l2qexplain");e.style.display="block";
+  e.innerHTML=(ok?"<b>✅ Correct!</b>":"<b>❌ Incorrect.</b>")+"<br><b>Correct answer: "+String.fromCharCode(65+q[2])+". "+q[1][q[2]]+"</b><br><br>"+q[3];
+  if(ok)addXP(20);else{state.mistakes.push({topic:"Lesson 2",q:q[0],correct:q[1][q[2]],why:q[3]});save();}
+  document.getElementById("l2qnext").style.display="inline-block";
+}
+function nextL2Q(){
+  if(l2qi<lessonQuizzes[1].length-1){l2qi++;renderL2Q();}
+  else{addXP(50);toast("Lesson 2 complete · +50 XP 🎉");document.getElementById("lesson2QuizInline").style.display="none";save();}
 }
 
 update();

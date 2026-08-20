@@ -1,124 +1,95 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>FNP Quest v2</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FNP Quest v4</title>
 <style>
-:root{--bg:#f5f6fa;--card:#fff;--text:#172033;--muted:#687083;--accent:#5b5bd6;--green:#1fa66a;--red:#d95b5b;--gold:#d69b22;--line:#e5e7ef}
+:root{--bg:#f5f6fa;--card:#fff;--text:#172033;--muted:#687083;--accent:#5b5bd6;--green:#1fa66a;--red:#d95b5b;--line:#e5e7ef}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--text)}
-.app{max-width:460px;margin:auto;min-height:100vh;padding:16px 15px 88px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.logo{font-size:21px;font-weight:800}.avatar{width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center}
-.page{display:none}.page.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:17px;margin:11px 0;box-shadow:0 2px 8px #17203308}
-.hero{background:linear-gradient(135deg,#5959d2,#8672e8);color:#fff;border:0}.row{display:flex;justify-content:space-between;align-items:center}.small{font-size:12px;color:var(--muted)}.hero .small{color:#eee}.big{font-size:27px;font-weight:850}.bar{height:8px;background:#ffffff42;border-radius:10px;overflow:hidden;margin:10px 0 6px}.bar i{display:block;height:100%;width:78%;background:#fff;border-radius:10px}
-.streak{display:flex;gap:12px;align-items:center}.fire{font-size:31px}h1{font-size:25px;margin:5px 0 8px}h2{font-size:18px;margin:18px 0 8px}h3{font-size:16px;margin:0 0 5px}
-.mission{display:flex;justify-content:space-between;align-items:center;gap:10px}.mission p{margin:0;color:var(--muted);font-size:13px}.xp{font-weight:800;color:var(--accent);white-space:nowrap}
-button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);color:white;font-weight:750;font-size:14px}.secondary{background:#eeeef7;color:var(--text)}.success{background:#e9f8f0;color:var(--green)}.danger{background:#fdecec;color:var(--red)}
-.lesson p,.lesson li,.explain{line-height:1.55;color:#3f4858}.pill{display:inline-block;background:#f0f0ff;color:var(--accent);padding:5px 9px;border-radius:20px;font-size:12px;font-weight:700}
-.option{width:100%;text-align:left;background:#f7f7fa;color:var(--text);border:1px solid var(--line);margin:6px 0}.option.correct{background:#e7f7ef;border-color:#76d1a5}.option.wrong{background:#fdeaea;border-color:#e49a9a}.explain{background:#f1f2ff;border-radius:14px;padding:13px;margin-top:12px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px}.stat strong{font-size:21px;display:block;margin-top:4px}
-.badge{border:1px solid var(--line);border-radius:17px;padding:14px;background:#fff}.locked{opacity:.42;filter:grayscale(1)}
-.reward{display:flex;justify-content:space-between;align-items:center}.nav{position:fixed;bottom:0;left:0;right:0;height:70px;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;gap:30px;align-items:center}.nav button{background:none;color:var(--muted);padding:4px 8px}.nav button.active{color:var(--accent)}
+.app{max-width:460px;margin:auto;min-height:100vh;padding:16px 15px 90px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.logo{font-size:21px;font-weight:800}.avatar{width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center}
+.page{display:none}.page.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:17px;margin:11px 0;box-shadow:0 2px 8px #17203308}.hero{background:linear-gradient(135deg,#5959d2,#8672e8);color:#fff;border:0}.row{display:flex;justify-content:space-between;align-items:center}.small{font-size:12px;color:var(--muted)}.hero .small{color:#eee}.big{font-size:27px;font-weight:850}.bar{height:8px;background:#ffffff42;border-radius:10px;overflow:hidden;margin:10px 0 6px}.bar i{display:block;height:100%;width:0;background:#fff;border-radius:10px;transition:.3s}
+h1{font-size:25px;margin:5px 0 8px}h2{font-size:18px;margin:18px 0 8px}h3{font-size:16px;margin:0 0 5px}.pill{display:inline-block;background:#f0f0ff;color:var(--accent);padding:5px 9px;border-radius:20px;font-size:12px;font-weight:700}
+button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);color:white;font-weight:750;font-size:14px}.secondary{background:#eeeef7;color:var(--text)}.option{width:100%;text-align:left;background:#f7f7fa;color:var(--text);border:1px solid var(--line);margin:6px 0}.option.correct{background:#e7f7ef;border-color:#76d1a5}.option.wrong{background:#fdeaea;border-color:#e49a9a}
+.lesson p,.lesson li,.explain{line-height:1.55;color:#3f4858}.mission{display:flex;justify-content:space-between;align-items:center;gap:10px}.mission p{margin:0;color:var(--muted);font-size:13px}.xp{font-weight:800;color:var(--accent);white-space:nowrap}.explain{background:#f1f2ff;border-radius:14px;padding:13px;margin-top:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.nav{position:fixed;bottom:0;left:0;right:0;height:70px;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;gap:26px;align-items:center}.nav button{background:none;color:var(--muted);padding:4px 7px}.nav button.active{color:var(--accent)}
 .toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#172033;color:#fff;padding:11px 17px;border-radius:30px;font-weight:750;display:none;z-index:10}
-</style>
-</head>
-<body>
+</style></head><body>
 <div class="app">
 <div class="top"><div class="logo">🩺 FNP Quest</div><div class="avatar">👤</div></div>
 
 <section id="home" class="page active">
-<div class="card hero"><div class="row"><div><div class="small">LEVEL 7 · FNP SCHOLAR</div><div class="big"><span id="xp">1840</span> XP</div></div><div>⭐</div></div><div class="bar"><i></i></div><div class="small"><span id="toLevel">160</span> XP to Level 8</div></div>
-<div class="card streak"><div class="fire">🔥</div><div><b><span id="streak">12</span> day streak</b><div class="small">🛡️ Streak Freeze: <span id="freeze">1</span></div></div></div>
-<h2>🎯 Today's Missions</h2>
-<div class="card mission"><div><h3>🧠 Learn</h3><p>Lesson 4 · GERD & Acid Disorders</p></div><div><div class="xp">+50</div><button onclick="openPage('learn')">Start</button></div></div>
-<div class="card mission"><div><h3>🩺 Practice</h3><p>10 clinical questions</p></div><div><div class="xp">+100</div><button onclick="openPage('practice')">Start</button></div></div>
-<div class="card mission"><div><h3>🔄 Review</h3><p><span id="mistakeCount">0</span> saved mistakes</p></div><div><div class="xp">+50</div><button onclick="review()">Review</button></div></div>
-<div class="card mission"><div><h3>⚡ Daily Challenge</h3><p>5 difficult questions</p></div><div><div class="xp">+100</div><button onclick="challenge()">Start</button></div></div>
-<h2>⭐ Today: <span id="today">0</span> / 300 XP</h2>
+<div class="card hero"><div class="row"><div><div class="small">LEVEL <span id="level">1</span> · FNP SCHOLAR</div><div class="big"><span id="xp">0</span> XP</div></div><div>⭐</div></div><div class="bar"><i id="xpbar"></i></div><div class="small"><span id="toLevel">500</span> XP to next level</div></div>
+<div class="card"><div class="row"><div><span style="font-size:30px">🔥</span> <b><span id="streak">0</span> day streak</b></div><div class="small">🛡️ <span id="freeze">1</span> Freeze</div></div></div>
+<h2>📚 Curriculum</h2>
+<div class="card mission"><div><h3>Lesson 1 · Cellular Injury & Adaptation</h3><p>ATP, ROS, necrosis, apoptosis</p></div><button onclick="startLesson(0)">Learn</button></div>
+<div class="card mission"><div><h3>Lesson 2 · Cellular Adaptation & Inflammation</h3><p>Hypertrophy, hyperplasia, atrophy, metaplasia & inflammation</p></div><button onclick="startLesson(1)">Learn</button></div>
+<div class="card mission"><div><h3>Lesson 3 · Innate Immunity</h3><p>Complement & acute inflammation</p></div><button onclick="startLesson(2)">Learn</button></div>
+<div class="card mission"><div><h3>Lesson 4 · Adaptive Immunity</h3><p>B cells, T cells & antibodies</p></div><button onclick="startLesson(3)">Learn</button></div>
+<h2>🎯 Daily Practice</h2><div class="card mission"><div><h3>🩺 10-question Practice</h3><p>Questions from loaded lessons</p></div><button onclick="startPractice()">Start</button></div>
 </section>
 
-<section id="learn" class="page">
-<button class="secondary" onclick="openPage('home')">← Home</button>
-<div class="card lesson"><span class="pill">LESSON 4 · GI</span><h1>GERD & Acid Disorders</h1>
-<p><b>Goal:</b> Understand pathophysiology, typical symptoms, alarm features, and first-line treatment.</p>
-<h3>🧠 Pathophysiology</h3><p>GERD results from reflux of gastric contents into the esophagus. Repeated exposure can irritate the mucosa and produce heartburn and regurgitation.</p>
-<h3>🔑 Clinical Pearls</h3><ul><li>Typical symptoms: heartburn and regurgitation.</li><li>Symptoms may worsen after meals or when supine.</li><li>Dysphagia, odynophagia, GI bleeding, weight loss, anemia, or persistent vomiting are alarm features.</li></ul>
-<h3>💊 Treatment</h3><p>Lifestyle measures and acid suppression are central. PPIs are generally more effective than H2 blockers for healing erosive esophagitis.</p>
-<button onclick="completeLesson()">Complete Lesson · +50 XP</button></div>
-</section>
-
-<section id="practice" class="page">
-<button class="secondary" onclick="openPage('home')">← Home</button>
-<div class="card question"><div class="small">QUESTION <span id="qnum">1</span> / 10</div><h2 id="qtext"></h2><div id="options"></div><div id="explain" class="explain" style="display:none"></div><button id="next" style="display:none;margin-top:12px" onclick="nextQ()">Next Question →</button></div>
-</section>
-
-<section id="review" class="page">
-<button class="secondary" onclick="openPage('home')">← Home</button><h1>🔄 Mistake Review</h1><div id="reviewList"></div>
-</section>
-
-<section id="rewards" class="page">
-<h1>🎁 Rewards</h1><div class="card"><div class="reward"><div><b>☕ Coffee Break</b><div class="small">500 XP</div></div><button onclick="redeem(500,'Coffee Break')">Redeem</button></div></div>
-<div class="card"><div class="reward"><div><b>🎬 Movie Night</b><div class="small">2,500 XP</div></div><button onclick="redeem(2500,'Movie Night')">Redeem</button></div></div>
-<div class="card"><div class="reward"><div><b>🎁 Personal Reward</b><div class="small">5,000 XP</div></div><button onclick="redeem(5000,'Personal Reward')">Redeem</button></div></div>
-<h2>🏆 Badges</h2><div class="grid"><div class="badge">🔥 7-Day Streak</div><div class="badge">🧠 GERD Starter</div><div class="badge locked">💊 Pharmacology Warrior</div><div class="badge locked">🏥 FNP Scholar</div></div>
-</section>
-
-<section id="progress" class="page">
-<h1>📊 Progress</h1><div class="grid"><div class="stat"><span class="small">Total XP</span><strong id="pxp">1840</strong></div><div class="stat"><span class="small">Streak</span><strong>🔥 <span id="pstreak">12</span></strong></div><div class="stat"><span class="small">Lessons</span><strong>4 / 4</strong></div><div class="stat"><span class="small">Mistakes</span><strong id="pmistakes">0</strong></div></div>
-<div class="card"><h3>FNP Curriculum</h3><p>Lesson 1 · Foundations ✅</p><p>Lesson 2 · Cardiovascular ✅</p><p>Lesson 3 · Respiratory ✅</p><p>Lesson 4 · GERD & Acid Disorders 🟣</p><p>Next: GI disorders</p></div>
-</section>
+<section id="lesson" class="page"><button class="secondary" onclick="openPage('home')">← Home</button><div id="lessonBody" class="card lesson"></div></section>
+<section id="practice" class="page"><button class="secondary" onclick="openPage('home')">← Home</button><div class="card"><div class="small">QUESTION <span id="qnum">1</span> / <span id="qtotal">10</span></div><h2 id="qtext"></h2><div id="options"></div><div id="explain" class="explain" style="display:none"></div><button id="next" style="display:none;margin-top:12px" onclick="nextQ()">Next Question →</button></div></section>
+<section id="progress" class="page"><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p></div></section>
 </div>
-
-<div style="max-width:460px;margin:-75px auto 85px;padding:0 15px;text-align:center;color:#8a91a1;font-size:11px">FNP Quest v2.1 · Progress saves when supported by your browser</div>
 <div id="toast" class="toast"></div>
-<div class="nav"><button onclick="openPage('home')">🏠<br>Home</button><button onclick="openPage('learn')">📚<br>Learn</button><button onclick="openPage('practice')">🩺<br>Practice</button><button onclick="openPage('rewards')">🏆<br>Rewards</button><button onclick="openPage('progress')">📊<br>Progress</button></div>
+<div class="nav"><button onclick="openPage('home')">🏠<br>Home</button><button onclick="startLesson(0)">📚<br>Learn</button><button onclick="startPractice()">🩺<br>Practice</button><button onclick="openPage('progress')">📊<br>Progress</button></div>
 
 <script>
-const qs=[
-["Which finding is an alarm feature in suspected GERD?",["Heartburn after a large meal","Progressive dysphagia","Regurgitation when lying down","Symptoms after spicy foods"],1,"Progressive dysphagia is an alarm feature and warrants further evaluation."],
-["Which medication class is generally most effective for healing erosive esophagitis?",["Antacids","PPIs","Antidiarrheals","Prokinetics only"],1,"PPIs provide stronger acid suppression and are generally preferred for healing erosive esophagitis."],
-["Which symptom is most typical of GERD?",["Hemoptysis","Heartburn","Jaundice","Flank pain"],1,"Heartburn and regurgitation are classic GERD symptoms."],
-["GERD symptoms commonly worsen when the patient is:",["Supine after meals","Walking","Fasting for 10 minutes","Drinking water"],0,"Symptoms may worsen after meals and when lying down because reflux is facilitated in the supine position."],
-["Which is an alarm feature?",["Mild intermittent heartburn","Weight loss","Occasional belching","Symptoms after coffee"],1,"Unintentional weight loss is an alarm feature."],
-["A patient with frequent typical GERD symptoms asks about initial management. Which is most appropriate?",["Ignore symptoms","Lifestyle measures plus acid suppression","Immediate surgery for everyone","Long-term antibiotics"],1,"Lifestyle measures and acid suppression are central to initial management of uncomplicated frequent GERD."],
-["Which finding suggests possible esophageal mucosal injury?",["Odynophagia","Sneezing","Tinnitus","Dysuria"],0,"Odynophagia is an alarm feature and can indicate significant esophageal disease."],
-["Which behavior may reduce nocturnal reflux?",["Eating a large meal immediately before bed","Avoiding meals close to bedtime","Lying flat after dinner","Increasing late-night snacks"],1,"Avoiding meals close to bedtime can reduce nocturnal reflux."],
-["Which medication provides acid suppression by inhibiting the gastric proton pump?",["Omeprazole","Acetaminophen","Loperamide","Diphenhydramine"],0,"Omeprazole is a proton pump inhibitor (PPI)."],
-["Which patient most clearly needs further evaluation rather than empiric treatment alone?",["Typical heartburn without alarm features","Typical symptoms with progressive dysphagia","Mild post-meal reflux once a month","Occasional belching"],1,"Progressive dysphagia is an alarm feature requiring further evaluation."]
+const lessons=[
+{title:"Week 1 · Lesson 1: Cellular Injury & Adaptation",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core idea:</b> Normal cell → Adaptation → Injury → Cell death.</p><h3>Cellular adaptations</h3><ul><li>Hypertrophy — cells become larger</li><li>Hyperplasia — cell number increases</li><li>Atrophy — cells become smaller</li><li>Metaplasia — one differentiated cell type changes to another</li></ul><h3>Why injury occurs</h3><p>Hypoxia/ischemia, physical injury, chemical injury, infection, immune-mediated injury, and genetic abnormalities can cause cellular injury.</p><h3>ATP & ischemia</h3><p>↓ Oxygen → ↓ oxidative phosphorylation → ↓ ATP → Na⁺/K⁺ ATPase failure → Na⁺ and water enter the cell → cell swelling. Impaired Ca²⁺ regulation increases intracellular Ca²⁺ and activates destructive enzymes.</p><h3>Reactive oxygen species</h3><p>Superoxide, hydrogen peroxide, and hydroxyl radicals can cause lipid peroxidation, protein oxidation, and DNA damage. Excess ROS produces oxidative stress.</p><h3>Necrosis vs apoptosis</h3><p><b>Necrosis:</b> cell swelling, membrane disruption, leakage of contents, inflammation. <b>Apoptosis:</b> programmed cell death with cell shrinkage, nuclear fragmentation, apoptotic bodies, and minimal surrounding inflammation.</p><h3>Clinical chain</h3><p><b>Ischemia → ↓O₂ → ↓ATP → ion-pump failure → cell swelling + Ca²⁺ accumulation → mitochondrial/membrane/protein damage → irreversible injury → cell death.</b></p>`},
+{title:"Week 1 · Lesson 2: Cellular Adaptation & Inflammation",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core idea:</b> Cells first try to adapt to stress. If stress persists or becomes severe, adaptation can progress to injury and cell death.</p><h3>Four major adaptations</h3><ul><li>Hypertrophy — increase in cell size</li><li>Hyperplasia — increase in cell number</li><li>Atrophy — decrease in cell size, sometimes with reduced cell number</li><li>Metaplasia — reversible replacement of one mature differentiated cell type with another</li></ul><h3>Clinical examples</h3><p><b>Hypertension → increased afterload → cardiomyocyte hypertrophy → LV wall thickening.</b> Persistent hypertrophy can contribute to diastolic dysfunction and heart failure.</p><p><b>Estrogen → endometrial proliferation.</b> Unopposed estrogen can cause endometrial hyperplasia and increase endometrial cancer risk.</p><p><b>Immobilization → decreased workload → muscle atrophy.</b></p><p><b>Chronic smoking → squamous metaplasia of respiratory epithelium.</b> Metaplasia is not cancer, but persistent abnormal stimulation can increase risk of dysplasia and malignancy.</p><h3>Acute inflammation</h3><p>Acute inflammation is rapid and commonly involves neutrophils. Cardinal findings include redness, heat, swelling, pain, and loss of function. Vasodilation increases blood flow, while increased vascular permeability contributes to edema.</p><h3>Chronic inflammation</h3><p>Chronic inflammation is slower and longer-lasting, with macrophages and lymphocytes playing important roles. Tissue destruction and repair can occur at the same time.</p><h3>Cytokines & fever</h3><p>TNF-α, IL-1, and IL-6 participate in inflammatory signaling. Cytokine signaling can increase PGE₂ activity and raise the hypothalamic temperature set point, producing fever.</p><h3>FNP mental model</h3><p><b>Adaptation → injury if stress persists → reversible recovery or irreversible injury → cell death.</b> Acute inflammation is associated with neutrophils; chronic inflammation with macrophages and lymphocytes.</p>`},
+{title:"Week 1 · Lesson 3: Innate Immunity, Complement & the Acute Inflammatory Response",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core sequence:</b> Pathogen/tissue injury → recognition → innate activation → cytokines + complement → vascular changes → leukocyte recruitment → neutrophil activation → elimination → resolution/repair.</p><h3>Innate vs adaptive</h3><p>Innate immunity is fast and relatively nonspecific. Important components include skin/mucosa, neutrophils, macrophages, dendritic cells, NK cells, complement, and inflammatory cytokines.</p><h3>PAMPs, DAMPs & PRRs</h3><p>PAMPs are pathogen-associated molecular patterns. DAMPs are signals from injured host cells. Pattern recognition receptors, including Toll-like receptors, recognize these signals and activate innate immune cells.</p><h3>Cytokines</h3><p><b>TNF-α + IL-1</b> promote endothelial activation and leukocyte recruitment. <b>IL-6</b> stimulates the liver to produce acute-phase proteins such as CRP.</p><h3>Complement</h3><p><b>C3b → opsonization</b> · <b>C5a → chemotaxis</b> · <b>C5b-9 → MAC/cell lysis</b>. C3a and C5a also promote inflammation.</p><h3>Neutrophil recruitment</h3><p>Margination → rolling → adhesion → diapedesis → chemotaxis. Neutrophils phagocytose and destroy pathogens, but excessive neutrophil activity can damage normal tissue.</p><h3>Clinical reasoning</h3><p>Inflammation does not automatically mean infection. MI can produce DAMPs and activate innate inflammation without bacteria. Severe infection can produce systemic inflammation, hypotension, organ hypoperfusion, and sepsis/septic shock.</p>`},
+{title:"Week 1 · Lesson 4: Adaptive Immunity — B Cells, T Cells & Antibodies",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core idea:</b> Adaptive immunity is specific and develops immunologic memory.</p><h3>B cells & antibodies</h3><p>B cell → plasma cell → antibody. Plasma cells produce immunoglobulins and memory B cells support future responses.</p><p><b>IgM:</b> first major antibody in a primary response. <b>IgG:</b> long-term/systemic protection and crosses the placenta. <b>IgA:</b> mucosal surfaces. <b>IgE:</b> allergy and parasites. <b>IgD:</b> B-cell receptor/activation.</p><h3>T cells</h3><p><b>CD4+</b> helper/coordinator cells help B cells, macrophages, and other immune cells. <b>CD8+</b> cytotoxic T cells kill infected or abnormal cells.</p><h3>MHC</h3><p><b>MHC I → CD8</b> and is found on essentially all nucleated cells. <b>MHC II → CD4</b> and is primarily on professional antigen-presenting cells such as dendritic cells, macrophages, and B cells.</p><h3>Memory & vaccination</h3><p>First exposure produces a primary response and memory cells. A second exposure to the same antigen produces a faster, stronger secondary response. Vaccination uses this principle to build immunologic memory.</p><h3>Active vs passive</h3><p>Active immunity means your own immune system produces the response, such as after vaccination. Passive immunity means antibodies come from another source, such as maternal antibodies or administered immunoglobulin.</p><h3>Clinical connection</h3><p>IgE cross-linking on mast cells can cause mediator release and anaphylaxis. Loss of immune tolerance can contribute to autoimmune disease.</p>`}
 ];
-const DEFAULT_STATE={"xp":1840,"today":0,"streak":12,"freeze":1,"mistakes":[],"lesson":false};
-let state=DEFAULT_STATE;
-try {
-  const saved=localStorage.getItem('fnpQuestV2');
-  if(saved) state=Object.assign({},DEFAULT_STATE,JSON.parse(saved));
-} catch(e) {}
-let qi=0;
-function save(){
-  try{localStorage.setItem('fnpQuestV2',JSON.stringify(state));}catch(e){}
-  update();
-}
-function update(){for(const id of ['xp','pxp'])document.getElementById(id).textContent=state.xp;document.getElementById('today').textContent=state.today;document.getElementById('streak').textContent=state.streak;document.getElementById('pstreak').textContent=state.streak;document.getElementById('freeze').textContent=state.freeze;document.getElementById('mistakeCount').textContent=state.mistakes.length;document.getElementById('pmistakes').textContent=state.mistakes.length;document.getElementById('toLevel').textContent=Math.max(0,2000-state.xp)}
-function toast(s){let t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',1600)}
-function openPage(id){
-  const target=document.getElementById(id);
-  if(!target)return;
-  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  target.classList.add('active');
-  if(id==='practice')renderQ();
-  if(id==='review')renderReview();
-  update();
-  window.scrollTo(0,0);
-}
-function addXP(n){state.xp+=n;state.today+=n;save();toast('+'+n+' XP ⭐')}
-function completeLesson(){if(!state.lesson){state.lesson=true;addXP(50)}openPage('home')}
-function renderQ(){let q=qs[qi];document.getElementById('qnum').textContent=qi+1;document.getElementById('qtext').textContent=q[0];document.getElementById('explain').style.display='none';document.getElementById('next').style.display='none';let o=document.getElementById('options');o.innerHTML='';q[1].forEach((x,i)=>{let b=document.createElement('button');b.className='option';b.textContent=String.fromCharCode(65+i)+'. '+x;b.onclick=()=>answer(b,i);o.appendChild(b)})}
-function answer(btn,i){let q=qs[qi];document.querySelectorAll('.option').forEach(b=>b.disabled=true);let ok=i===q[2];btn.classList.add(ok?'correct':'wrong');if(!ok){state.mistakes.push({q:q[0],answer:q[1][q[2]],explain:q[3]});save()}else addXP(20);let e=document.getElementById('explain');e.style.display='block';e.innerHTML=(ok?'✅ Correct! ':'❌ Not quite. Correct answer: <b>'+q[1][q[2]]+'</b><br>')+q[3];document.getElementById('next').style.display='inline-block'}
-function nextQ(){if(qi<qs.length-1){qi++;renderQ()}else{addXP(80);toast('Practice complete · +80 bonus XP 🎉');openPage('home')}}
-function renderReview(){let r=document.getElementById('reviewList');r.innerHTML=state.mistakes.length
-?state.mistakes.map((m,i)=>`<div class="card"><b>${i+1}. ${m.q}</b><p class="small">Correct: ${m.answer}</p><p>${m.explain}</p></div>`).join('')
-:'<div class="card"><h3>🎉 No saved mistakes yet</h3><p class="small">Answer some Practice questions first. Any incorrect answers will automatically appear here.</p><button onclick="openPage(\'practice\')">Start Practice</button></div>'}
-function review(){openPage('review');}
-function challenge(){toast('Daily Challenge uses Practice questions');openPage('practice')}
-function redeem(cost,name){if(state.xp<cost){toast('Need '+(cost-state.xp)+' more XP');return}state.xp-=cost;save();toast(name+' unlocked 🎁')}
+
+const questions=[
+["Lesson 1","Which cellular change occurs earliest after decreased oxygen availability?",["Increased ATP production","Increased oxidative phosphorylation","Decreased ATP production","Increased protein synthesis"],2,"Ischemia reduces oxidative phosphorylation, so ATP production falls."],
+["Lesson 1","Why does cellular swelling occur during severe ATP depletion?",["Increased protein synthesis","Failure of the Na⁺/K⁺ ATPase pump","Increased mitochondrial ATP production","Increased extracellular potassium uptake"],1,"ATP-dependent Na⁺/K⁺ pump failure allows Na⁺ to accumulate inside the cell, with water following."],
+["Lesson 1","Which finding is most characteristic of necrosis?",["Cell shrinkage without inflammation","Formation of apoptotic bodies","Membrane disruption with inflammation","Programmed activation of caspases"],2,"Necrosis typically involves membrane disruption, leakage of cellular contents, and inflammation."],
+["Lesson 1","Which mechanism contributes directly to irreversible cellular injury during prolonged myocardial ischemia?",["Decreased intracellular calcium","Increased ATP production","Increased intracellular calcium and mitochondrial dysfunction","Increased protein synthesis"],2,"Loss of Ca²⁺ regulation and mitochondrial dysfunction are major mechanisms of irreversible injury."],
+["Lesson 1","Which statement best describes apoptosis?",["Uncontrolled cell death caused by severe injury","Programmed cell death that generally produces minimal inflammation","Cell death caused exclusively by infection","Cell death that always produces surrounding tissue necrosis"],1,"Apoptosis is an organized programmed cell-death pathway with minimal surrounding inflammation."],
+["Lesson 2","A patient with longstanding hypertension develops left ventricular wall thickening. Which cellular adaptation is primarily responsible?",["Hyperplasia","Hypertrophy","Metaplasia","Atrophy"],1,"Hypertrophy is an increase in cell size. Chronic pressure overload increases cardiomyocyte workload and can cause LV hypertrophy."],
+["Lesson 2","A patient who has been immobilized for several months develops significant muscle wasting. What process best explains this?",["Hypertrophy","Hyperplasia","Atrophy","Metaplasia"],2,"Atrophy is a decrease in cell size and can occur with decreased workload, such as prolonged immobilization."],
+["Lesson 2","A chronic smoker develops replacement of normal respiratory epithelium with squamous epithelium. This represents:",["Hypertrophy","Hyperplasia","Atrophy","Metaplasia"],3,"Metaplasia is a reversible replacement of one mature differentiated cell type with another in response to chronic stress."],
+["Lesson 2","Which cell is most characteristic of acute inflammation?",["Neutrophil","Macrophage","Plasma cell","Lymphocyte"],0,"Neutrophils are the major rapid cellular responders in acute inflammation."],
+["Lesson 2","Which cell is particularly important in chronic inflammation?",["Neutrophil","Macrophage","Erythrocyte","Platelet"],1,"Macrophages and lymphocytes are important cells in chronic inflammation."],
+["Lesson 2","Which vascular change is primarily responsible for redness and warmth in acute inflammation?",["Vasoconstriction","Vasodilation","Thrombosis","Decreased blood flow"],1,"Vasodilation increases local blood flow, producing redness and warmth."],
+["Lesson 2","A patient with an acute bacterial infection develops fever. Which inflammatory pathway contributes to increasing the hypothalamic temperature set point?",["Cytokines → PGE₂","Insulin → glucagon","Histamine → aldosterone","Renin → angiotensin II"],0,"IL-1, IL-6, and TNF-α can contribute to a PGE₂-mediated increase in the hypothalamic temperature set point."],
+["Lesson 2","Which finding is most consistent with chronic rather than acute inflammation?",["Predominance of neutrophils","Rapid onset","Macrophage and lymphocyte involvement","Short duration"],2,"Chronic inflammation is associated with macrophages and lymphocytes and can involve tissue destruction and repair."],
+["Lesson 2","Which statement about metaplasia is most accurate?",["It is always irreversible","It means the tissue has become malignant","It is an adaptive replacement of one mature cell type with another","It occurs only in cancer"],2,"Metaplasia is an adaptive, reversible replacement of one mature differentiated cell type with another; it is not itself cancer."],
+["Lesson 2","A patient has persistent inflammation for several months. Which combination best describes chronic inflammation?",["Neutrophils + no tissue damage","Macrophages/lymphocytes + tissue destruction + repair","Erythrocytes + vasoconstriction","Platelets + decreased vascular permeability"],1,"Chronic inflammation can feature macrophages and lymphocytes along with ongoing tissue destruction and repair."],
+["Lesson 3","Which best describes innate immunity?",["Slow, highly antigen-specific immunity with long-term memory","Rapid, relatively nonspecific first-line defense","Immunity mediated exclusively by antibodies","Immunity mediated exclusively by T lymphocytes"],1,"Innate immunity is the rapid, relatively nonspecific first-line response."],
+["Lesson 3","Which complement component is most closely associated with opsonization?",["C3b","C5a","C5b","C9"],0,"C3b coats pathogens and makes them easier for phagocytes to recognize and ingest."],
+["Lesson 3","Which complement component is particularly important for chemotaxis?",["C1","C3b","C5a","C9"],2,"C5a is a powerful chemotactic signal for inflammatory cells, especially neutrophils."],
+["Lesson 3","Which complement components form the membrane attack complex?",["C1-C3","C3a-C3b","C4-C5","C5b-C9"],3,"C5b through C9 form the membrane attack complex, which creates pores and can lyse susceptible cells."],
+["Lesson 3","Which cytokine is particularly important in stimulating the hepatic acute-phase response?",["IL-6","IL-2","IL-4","IL-10"],0,"IL-6 stimulates the liver to produce acute-phase proteins such as CRP."],
+["Lesson 4","Which cell is primarily responsible for producing antibodies?",["CD8+ T cell","B cell/plasma cell","Neutrophil","NK cell"],1,"B cells differentiate into plasma cells, which produce antibodies."],
+["Lesson 4","Which antibody is generally produced first during a primary immune response?",["IgA","IgE","IgG","IgM"],3,"IgM is the first major antibody produced during a primary response."],
+["Lesson 4","Which immunoglobulin is most strongly associated with allergic reactions?",["IgA","IgG","IgE","IgM"],2,"IgE binds mast cells and basophils and is central to allergic reactions."],
+["Lesson 4","Which immunoglobulin is particularly important at mucosal surfaces?",["IgA","IgD","IgE","IgM"],0,"IgA is prominent in mucosal secretions such as saliva, tears, GI and respiratory secretions, and breast milk."],
+["Lesson 4","Which antibody can cross the placenta and provide passive immunity to the fetus?",["IgA","IgE","IgG","IgM"],2,"IgG is the major antibody class that crosses the placenta."],
+["Lesson 4","Viral proteins from a nucleated infected cell are presented on MHC I. Which cell recognizes and kills the infected cell?",["CD4+ T cell","CD8+ T cell","B cell","Neutrophil"],1,"MHC I presents intracellular antigens to CD8+ cytotoxic T cells."],
+["Lesson 4","Extracellular antigen is presented through MHC II. Which cell recognizes it?",["CD4+ T cell","CD8+ T cell","Neutrophil","Erythrocyte"],0,"MHC II presents extracellular material to CD4+ helper T cells."],
+["Lesson 4","A vaccine produces a faster response on later exposure. Which concept explains this?",["Innate immunity","Immunologic memory","Passive immunity","Complement deficiency"],1,"Memory B and T cells make the secondary response faster and stronger."],
+["Lesson 4","Which statement best describes passive immunity?",["The patient's own B cells produce memory","The patient receives antibodies generated by another source","It always produces lifelong immunity","It requires previous exposure"],1,"Passive immunity is antibody transfer from another source, such as maternal antibodies or immunoglobulin."],
+["Lesson 4","Wheezing, hypotension, urticaria, and facial swelling occur after allergen exposure. Which mechanism is most direct?",["IgG-mediated complement activation","IgE-mediated mast-cell activation","CD8-mediated destruction","IgM-mediated opsonization"],1,"Allergen cross-linking of IgE on mast cells triggers mediator release and can cause anaphylaxis."]
+];
+
+let state={xp:0,streak:0,freeze:1,mistakes:[],completed:[]};
+try{state=Object.assign(state,JSON.parse(localStorage.getItem("fnpQuestV4")||"{}"));}catch(e){}
+let currentLesson=0,qi=0,practiceList=[];
+
+function save(){try{localStorage.setItem("fnpQuestV4",JSON.stringify(state));}catch(e){};update();}
+function update(){document.getElementById("xp").textContent=state.xp;document.getElementById("pxp").textContent=state.xp;document.getElementById("streak").textContent=state.streak;document.getElementById("pstreak").textContent=state.streak;let level=Math.floor(state.xp/500)+1,within=state.xp%500;document.getElementById("level").textContent=level;document.getElementById("toLevel").textContent=500-within;document.getElementById("xpbar").style.width=(within/5)+"%";document.getElementById("freeze").textContent=state.freeze;}
+function toast(s){let t=document.getElementById("toast");t.textContent=s;t.style.display="block";setTimeout(()=>t.style.display="none",1500);}
+function openPage(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo(0,0);update();}
+function addXP(n){state.xp+=n;save();toast("+"+n+" XP ⭐");}
+function startLesson(i){currentLesson=i;let l=lessons[i];if(!l){toast("Lesson 2 content is not loaded yet");return}document.getElementById("lessonBody").innerHTML=`<span class="pill">${l.tag}</span><h1>${l.title}</h1>${l.html}<br><button onclick="completeLesson(${i})">Complete Lesson · +50 XP</button>`;openPage("lesson");}
+function completeLesson(i){if(!state.completed.includes(i)){state.completed.push(i);addXP(50)}openPage("home");}
+function startPractice(){practiceList=[...questions].sort(()=>Math.random()-.5).slice(0,10);qi=0;openPage("practice");renderQ();}
+function renderQ(){let q=practiceList[qi];document.getElementById("qnum").textContent=qi+1;document.getElementById("qtotal").textContent=practiceList.length;document.getElementById("qtext").textContent=q[1];let o=document.getElementById("options");o.innerHTML="";document.getElementById("explain").style.display="none";document.getElementById("next").style.display="none";q[2].forEach((a,i)=>{let b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+i)+". "+a;b.onclick=()=>answer(b,i);o.appendChild(b)})}
+function answer(btn,i){let q=practiceList[qi],ok=i===q[3];document.querySelectorAll(".option").forEach(b=>b.disabled=true);btn.classList.add(ok?"correct":"wrong");if(!ok)state.mistakes.push({topic:q[0],q:q[1],correct:q[2][q[3]],why:q[4]});let e=document.getElementById("explain");e.style.display="block";e.innerHTML=(ok?"✅ Correct! ":"❌ Incorrect. Correct answer: <b>"+q[2][q[3]]+"</b><br>")+q[4]+(ok?"<br><b>+20 XP</b>":"<br><b>Saved to review.</b>");if(ok)addXP(20);else save();document.getElementById("next").style.display="inline-block";}
+function nextQ(){if(qi<practiceList.length-1){qi++;renderQ()}else{addXP(80);state.streak+=1;save();toast("Practice complete · +80 bonus XP 🎉");setTimeout(()=>openPage("home"),900)}}
 update();
-</script>
-</body></html>
+</script></body></html>

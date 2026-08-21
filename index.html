@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
+<meta name="cache-control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FNP Quest v12.1 · Lesson 5</title>
 <style>
@@ -16,7 +20,7 @@ button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);co
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head><body>
 <div class="app">
-<div class="top"><div class="logo">🩺 FNP Quest</div><button class="avatar" style="color:var(--text);padding:0" onclick="openPage('account')">👤</button></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v12.1 · Cloud Sync + Daily Streak</div>
+<div class="top"><div class="logo">🩺 FNP Quest</div><button class="avatar" style="color:var(--text);padding:0" onclick="openPage('account')">👤</button></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v12.2 · Cloud Sync + Daily Streak</div>
 
 <section id="home" class="page active">
 <div class="card hero"><div class="row"><div><div class="small">LEVEL <span id="level">1</span> · FNP SCHOLAR</div><div class="big"><span id="xp">0</span> XP</div></div><div>⭐</div></div><div class="bar"><i id="xpbar"></i></div><div class="small"><span id="toLevel">500</span> XP to next level</div></div>
@@ -60,7 +64,7 @@ button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);co
 <button class="secondary" onclick="signOut()">Sign Out</button>
 </div>
 </section>
-<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v12.1 · Cloud Sync + Daily Streak<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p><p>Lesson 5 ✅</p></div></section>
+<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v12.2 · Cloud Sync + Daily Streak<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p><p>Lesson 5 ✅</p></div></section>
 </div>
 <div id="toast" class="toast"></div>
 <div class="nav"><button onclick="openPage('home')">🏠<br>Home</button><button onclick="startLesson(0)">📚<br>Learn</button><button onclick="startPractice()">🩺<br>Practice</button><button onclick="openPage('progress')">📊<br>Progress</button></div>
@@ -980,4 +984,78 @@ function nextLQ(){
 
 update();
 initCloud();
-</script></body></html>
+</script>
+<!-- FNP Quest v12.2 Auto Update System -->
+<script>
+const FNP_APP_VERSION = "v12.2";
+const FNP_VERSION_URL = "./version.json";
+
+function fnpUpdateToast(msg){
+  if(typeof toast === "function") toast(msg);
+}
+
+async function checkForNewVersion(showNoUpdate=false){
+  try{
+    const res = await fetch(FNP_VERSION_URL + "?t=" + Date.now(), {
+      cache: "no-store",
+      headers: {"Cache-Control":"no-cache"}
+    });
+    if(!res.ok) throw new Error("version check failed");
+    const data = await res.json();
+    const serverVersion = String(data.version || "").trim();
+
+    if(serverVersion && serverVersion !== FNP_APP_VERSION){
+      showUpdateBanner(serverVersion);
+      return true;
+    }
+    if(showNoUpdate) fnpUpdateToast("✅ You are using the latest version.");
+    return false;
+  }catch(e){
+    console.log("Version check unavailable:", e);
+    return false;
+  }
+}
+
+function showUpdateBanner(serverVersion){
+  if(document.getElementById("fnpUpdateBanner")) return;
+
+  const banner = document.createElement("div");
+  banner.id = "fnpUpdateBanner";
+  banner.innerHTML = `
+    <div style="position:fixed;left:14px;right:14px;bottom:18px;z-index:99999;
+      background:#fff;border:1px solid #d8dce5;border-radius:16px;
+      box-shadow:0 8px 30px rgba(0,0,0,.18);padding:15px;">
+      <div style="font-weight:800;font-size:16px;margin-bottom:5px">
+        🆕 New version available
+      </div>
+      <div style="font-size:13px;color:#687083;margin-bottom:12px">
+        FNP Quest ${escapeUpdateText(serverVersion)} is available.
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="reloadFNPApp()" style="flex:1">Update Now</button>
+        <button onclick="document.getElementById('fnpUpdateBanner').remove()" 
+          style="flex:1;background:#eef1f5;color:#303846">Later</button>
+      </div>
+    </div>`;
+  document.body.appendChild(banner);
+}
+
+function escapeUpdateText(v){
+  return String(v).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+  }[c]));
+}
+
+async function reloadFNPApp(){
+  const url = new URL(window.location.href);
+  url.searchParams.set("v", FNP_APP_VERSION);
+  url.searchParams.set("refresh", Date.now());
+  window.location.replace(url.toString());
+}
+
+window.addEventListener("load", ()=>{
+  setTimeout(()=>checkForNewVersion(false), 1200);
+});
+</script>
+
+</body></html>

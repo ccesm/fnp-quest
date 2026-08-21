@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FNP Quest v12.0</title>
+<title>FNP Quest v12.1 · Lesson 5</title>
 <style>
 :root{--bg:#f5f6fa;--card:#fff;--text:#172033;--muted:#687083;--accent:#5b5bd6;--green:#1fa66a;--red:#d95b5b;--line:#e5e7ef}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--text)}
@@ -16,7 +16,7 @@ button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);co
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head><body>
 <div class="app">
-<div class="top"><div class="logo">🩺 FNP Quest</div><button class="avatar" style="color:var(--text);padding:0" onclick="openPage('account')">👤</button></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v12.0 · Cloud Sync + Daily Streak</div>
+<div class="top"><div class="logo">🩺 FNP Quest</div><button class="avatar" style="color:var(--text);padding:0" onclick="openPage('account')">👤</button></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v12.1 · Cloud Sync + Daily Streak</div>
 
 <section id="home" class="page active">
 <div class="card hero"><div class="row"><div><div class="small">LEVEL <span id="level">1</span> · FNP SCHOLAR</div><div class="big"><span id="xp">0</span> XP</div></div><div>⭐</div></div><div class="bar"><i id="xpbar"></i></div><div class="small"><span id="toLevel">500</span> XP to next level</div></div>
@@ -25,7 +25,7 @@ button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);co
 <div class="card mission"><div><h3>Lesson 1 · Cellular Injury & Adaptation</h3><p>ATP, ROS, necrosis, apoptosis</p></div><button onclick="startLesson(0)">Learn</button></div>
 <div class="card mission"><div><h3>Lesson 2 · Cellular Adaptation & Inflammation</h3><p>Hypertrophy, hyperplasia, atrophy, metaplasia & inflammation</p></div><button onclick="startLesson(1)">Learn</button></div>
 <div class="card mission"><div><h3>Lesson 3 · Innate Immunity</h3><p>Complement & acute inflammation</p></div><button onclick="startLesson(2)">Learn</button></div>
-<div class="card mission"><div><h3>Lesson 4 · Adaptive Immunity</h3><p>B cells, T cells & antibodies</p></div><button onclick="startLesson(3)">Learn</button></div>
+<div class="card mission"><div><h3>Lesson 4 · Adaptive Immunity</h3><p>B cells, T cells & antibodies</p></div><button onclick="startLesson(3)">Learn</button></div><div class="card mission"><div><h3>Lesson 5 · Adaptive Immunity in Clinical Practice</h3><p>Vaccines, autoimmunity, hypersensitivity & immunodeficiency</p></div><button onclick="startLesson(4)">Learn</button></div>
 <h2>🎯 Daily Practice</h2><div class="card mission"><div><h3>🩺 10-question Practice</h3><p>Questions from loaded lessons</p></div><button onclick="startPractice()">Start</button></div>
 </section>
 
@@ -60,7 +60,7 @@ button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);co
 <button class="secondary" onclick="signOut()">Sign Out</button>
 </div>
 </section>
-<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v12.0 · Cloud Sync + Daily Streak<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p></div></section>
+<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v12.1 · Cloud Sync + Daily Streak<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p><p>Lesson 5 ✅</p></div></section>
 </div>
 <div id="toast" class="toast"></div>
 <div class="nav"><button onclick="openPage('home')">🏠<br>Home</button><button onclick="startLesson(0)">📚<br>Learn</button><button onclick="startPractice()">🩺<br>Practice</button><button onclick="openPage('progress')">📊<br>Progress</button></div>
@@ -150,7 +150,8 @@ const lessons=[
 <p><b>Fever:</b><br>Cytokines → PGE₂ → hypothalamic set-point ↑ → fever</p>
 <p>The goal is to understand these mechanisms well enough to explain patient symptoms, physical findings, laboratory abnormalities, and treatment choices rather than simply memorizing disease names.</p>`},
 {title:"Week 1 · Lesson 3: Innate Immunity, Complement & the Acute Inflammatory Response",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core sequence:</b> Pathogen/tissue injury → recognition → innate activation → cytokines + complement → vascular changes → leukocyte recruitment → neutrophil activation → elimination → resolution/repair.</p><h3>Innate vs adaptive</h3><p>Innate immunity is fast and relatively nonspecific. Important components include skin/mucosa, neutrophils, macrophages, dendritic cells, NK cells, complement, and inflammatory cytokines.</p><h3>PAMPs, DAMPs & PRRs</h3><p>PAMPs are pathogen-associated molecular patterns. DAMPs are signals from injured host cells. Pattern recognition receptors, including Toll-like receptors, recognize these signals and activate innate immune cells.</p><h3>Cytokines</h3><p><b>TNF-α + IL-1</b> promote endothelial activation and leukocyte recruitment. <b>IL-6</b> stimulates the liver to produce acute-phase proteins such as CRP.</p><h3>Complement</h3><p><b>C3b → opsonization</b> · <b>C5a → chemotaxis</b> · <b>C5b-9 → MAC/cell lysis</b>. C3a and C5a also promote inflammation.</p><h3>Neutrophil recruitment</h3><p>Margination → rolling → adhesion → diapedesis → chemotaxis. Neutrophils phagocytose and destroy pathogens, but excessive neutrophil activity can damage normal tissue.</p><h3>Clinical reasoning</h3><p>Inflammation does not automatically mean infection. MI can produce DAMPs and activate innate inflammation without bacteria. Severe infection can produce systemic inflammation, hypotension, organ hypoperfusion, and sepsis/septic shock.</p>`},
-{title:"Week 1 · Lesson 4: Adaptive Immunity — B Cells, T Cells & Antibodies",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core idea:</b> Adaptive immunity is specific and develops immunologic memory.</p><h3>B cells & antibodies</h3><p>B cell → plasma cell → antibody. Plasma cells produce immunoglobulins and memory B cells support future responses.</p><p><b>IgM:</b> first major antibody in a primary response. <b>IgG:</b> long-term/systemic protection and crosses the placenta. <b>IgA:</b> mucosal surfaces. <b>IgE:</b> allergy and parasites. <b>IgD:</b> B-cell receptor/activation.</p><h3>T cells</h3><p><b>CD4+</b> helper/coordinator cells help B cells, macrophages, and other immune cells. <b>CD8+</b> cytotoxic T cells kill infected or abnormal cells.</p><h3>MHC</h3><p><b>MHC I → CD8</b> and is found on essentially all nucleated cells. <b>MHC II → CD4</b> and is primarily on professional antigen-presenting cells such as dendritic cells, macrophages, and B cells.</p><h3>Memory & vaccination</h3><p>First exposure produces a primary response and memory cells. A second exposure to the same antigen produces a faster, stronger secondary response. Vaccination uses this principle to build immunologic memory.</p><h3>Active vs passive</h3><p>Active immunity means your own immune system produces the response, such as after vaccination. Passive immunity means antibodies come from another source, such as maternal antibodies or administered immunoglobulin.</p><h3>Clinical connection</h3><p>IgE cross-linking on mast cells can cause mediator release and anaphylaxis. Loss of immune tolerance can contribute to autoimmune disease.</p>`}
+{title:"Week 1 · Lesson 4: Adaptive Immunity — B Cells, T Cells & Antibodies",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core idea:</b> Adaptive immunity is specific and develops immunologic memory.</p><h3>B cells & antibodies</h3><p>B cell → plasma cell → antibody. Plasma cells produce immunoglobulins and memory B cells support future responses.</p><p><b>IgM:</b> first major antibody in a primary response. <b>IgG:</b> long-term/systemic protection and crosses the placenta. <b>IgA:</b> mucosal surfaces. <b>IgE:</b> allergy and parasites. <b>IgD:</b> B-cell receptor/activation.</p><h3>T cells</h3><p><b>CD4+</b> helper/coordinator cells help B cells, macrophages, and other immune cells. <b>CD8+</b> cytotoxic T cells kill infected or abnormal cells.</p><h3>MHC</h3><p><b>MHC I → CD8</b> and is found on essentially all nucleated cells. <b>MHC II → CD4</b> and is primarily on professional antigen-presenting cells such as dendritic cells, macrophages, and B cells.</p><h3>Memory & vaccination</h3><p>First exposure produces a primary response and memory cells. A second exposure to the same antigen produces a faster, stronger secondary response. Vaccination uses this principle to build immunologic memory.</p><h3>Active vs passive</h3><p>Active immunity means your own immune system produces the response, such as after vaccination. Passive immunity means antibodies come from another source, such as maternal antibodies or administered immunoglobulin.</p><h3>Clinical connection</h3><p>IgE cross-linking on mast cells can cause mediator release and anaphylaxis. Loss of immune tolerance can contribute to autoimmune disease.</p>`},
+{title:"Week 2 · Lesson 5: Adaptive Immunity in Clinical Practice",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p>Adaptive immunity in clinical practice: antigen presentation, antibody functions, class switching, affinity maturation, immunologic memory, vaccination, active/passive immunity, autoimmunity, hypersensitivity, immunodeficiency, HIV/CD4 cells, and FNP clinical reasoning.</p>`}
 ];
 
 const questions=[
@@ -185,6 +186,7 @@ const questions=[
 ["Lesson 4","Which statement best describes passive immunity?",["The patient's own B cells produce memory","The patient receives antibodies generated by another source","It always produces lifelong immunity","It requires previous exposure"],1,"Passive immunity is antibody transfer from another source, such as maternal antibodies or immunoglobulin."],
 ["Lesson 4","Wheezing, hypotension, urticaria, and facial swelling occur after allergen exposure. Which mechanism is most direct?",["IgG-mediated complement activation","IgE-mediated mast-cell activation","CD8-mediated destruction","IgM-mediated opsonization"],1,"Allergen cross-linking of IgE on mast cells triggers mediator release and can cause anaphylaxis."]
 ];
+questions.push(...[["Lesson 5","A virus is replicating inside a nucleated cell. Viral proteins are presented on MHC I. Which cell is most directly responsible for eliminating the infected cell?",["CD4+ T cell","CD8+ T cell","B cell","Neutrophil"],1,"MHC I presents intracellular antigens to CD8+ cytotoxic T cells, which can kill the infected cell."],["Lesson 5","Which antibody is most strongly associated with mucosal immunity?",["IgA","IgE","IgG","IgM"],0,"IgA is especially important at mucosal surfaces such as the respiratory and gastrointestinal tracts."],["Lesson 5","A patient has been previously vaccinated against a virus. Upon later exposure, the immune response develops rapidly. What is primarily responsible?",["Neutrophil activation","Immunologic memory","Passive immunity","Complement deficiency"],1,"Memory B and T cells allow a faster and stronger response after repeat exposure."],["Lesson 5","Which antibody class can cross the placenta and provide passive immunity to a fetus?",["IgA","IgE","IgG","IgM"],2,"IgG is the major antibody class that crosses the placenta and provides passive immunity to the fetus."],["Lesson 5","A patient develops urticaria, wheezing, and hypotension minutes after eating a food allergen. Which mechanism is most likely?",["Type II hypersensitivity","Type III hypersensitivity","Type IV hypersensitivity","Type I hypersensitivity"],3,"Type I hypersensitivity is IgE-mediated and can cause mast-cell degranulation, vasodilation, bronchoconstriction, and anaphylaxis."],["Lesson 5","A patient develops an immune-mediated hemolytic anemia due to antibodies directed against red blood cell antigens. Which hypersensitivity mechanism is most consistent?",["Type I","Type II","Type III","Type IV"],1,"Type II hypersensitivity involves IgG/IgM antibodies directed against cellular or tissue targets and can cause cell destruction."],["Lesson 5","A patient develops nephritis related to deposition of antigen-antibody complexes in renal tissue. Which mechanism is most consistent?",["Type I","Type II","Type III","Type IV"],2,"Type III hypersensitivity is caused by immune-complex deposition followed by complement activation and inflammation."],["Lesson 5","A patient develops contact dermatitis approximately 48 hours after exposure to an allergen. Which mechanism is most likely?",["IgE-mediated mast-cell activation","Immune-complex deposition","T-cell-mediated response","IgM-mediated complement activation"],2,"Type IV hypersensitivity is T-cell mediated and typically develops more slowly, as in contact dermatitis."],["Lesson 5","Which statement best describes active immunity?",["Antibodies are transferred from another person","The person's own immune system generates the response","It never produces memory cells","It occurs only after receiving immunoglobulin"],1,"Active immunity means the person's own immune system generates the response, such as after vaccination or natural infection."],["Lesson 5","A patient with advanced HIV has a markedly reduced CD4 count. Why does this increase susceptibility to opportunistic infections?",["CD4 cells are responsible for producing all antibodies","CD4 cells coordinate important components of adaptive immunity","CD4 cells directly produce complement","CD4 cells are the primary cells responsible for phagocytosis"],1,"CD4+ T cells are important coordinators of adaptive immunity. Loss of CD4 function compromises immune coordination and increases susceptibility to opportunistic infections."]]);
 
 let state={xp:0,streak:0,freeze:1,mistakes:[],completed:[],lastStudyDate:null,streakUpdatedDate:null};
 try{state=Object.assign(state,JSON.parse(localStorage.getItem("fnpQuestV4")||"{}"));}catch(e){}
@@ -686,6 +688,243 @@ let bodies = [
 <li><b>First exposure → primary response; second exposure → faster/stronger secondary response</b></li>
 </ul>
 </div>
+`,
+`
+<div class="card lesson">
+<span class="pill">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>
+<h1>Week 2 — Lesson 5: Adaptive Immunity in Clinical Practice</h1>
+<p>You did very well through Lessons 1–4. Today we're going to move from “what are B cells and T cells?” to:</p>
+<p><b>How does adaptive immunity actually produce protection — and how does it sometimes cause disease?</b></p>
+<p>This lesson will connect directly to vaccination, autoimmune disease, allergy, and immunodeficiency.</p>
+
+<h2>Part I — The Big Picture</h2>
+<p>Let's first connect everything we've learned.</p>
+<p><b>Innate immunity</b></p>
+<p>Pathogen/tissue injury → PAMPs/DAMPs → PRRs → Macrophages/dendritic cells → Cytokines + complement → Acute inflammation → Neutrophils</p>
+<p>But innate immunity also helps activate:</p>
+<p><b>Adaptive immunity → Antigen presentation → T-cell activation → B-cell activation → Antibody production + T-cell responses → Immunologic memory</b></p>
+<p>So the two systems are not separate.</p>
+<p><b>Innate immunity → helps activate adaptive immunity → adaptive immunity provides specificity and memory</b></p>
+
+<h2>Part II — Antigen Presentation: A Clinical Example</h2>
+<p>Let's imagine a virus infects a respiratory epithelial cell.</p>
+<p>Inside the cell:</p>
+<p><b>Virus → Viral proteins are produced → Fragments of viral proteins are processed → Presented on MHC I → Recognized by CD8+ cytotoxic T cell → CD8+ T cell kills the infected cell.</b></p>
+<p>This is called <b>cell-mediated immunity</b>.</p>
+<p>The immune system is eliminating the infected cell rather than simply neutralizing the virus outside the cell.</p>
+
+<h2>Part III — What about bacteria outside cells?</h2>
+<p>Now imagine an extracellular bacterial infection.</p>
+<p>Bacterial antigen is taken up by an antigen-presenting cell.</p>
+<p><b>Processed → Presented through MHC II → Recognized by CD4+ helper T cell → Helper T cell produces signals/cytokines → B cells become activated → Plasma cells produce antibodies → Antibodies help eliminate the pathogen.</b></p>
+<p>This is an example of <b>humoral immunity</b>.</p>
+<p><b>B cells → antibodies → extracellular pathogens</b></p>
+
+<h2>Part IV — Antibody Functions</h2>
+<h3>1. Neutralization</h3>
+<p>Antibodies bind to a pathogen or toxin and block its ability to interact with host cells.</p>
+<p><b>“Don't let the pathogen attach.”</b></p>
+<p>For example, antibodies can neutralize viral particles.</p>
+<h3>2. Opsonization</h3>
+<p>Antibodies coat the pathogen. Phagocytes recognize the antibody-coated target, so phagocytosis becomes easier.</p>
+<p>This works together with complement.</p>
+<p><b>C3b → opsonization</b></p>
+<p>So both antibodies and complement can help “tag” pathogens for destruction.</p>
+<h3>3. Complement activation</h3>
+<p>Certain antibodies can activate the classical complement pathway.</p>
+<p><b>Antibody + complement = enhanced pathogen elimination</b></p>
+
+<h2>Part V — Antibody Class Switching</h2>
+<p>This is an important concept.</p>
+<p><b>IgM</b> usually appears early during a primary response.</p>
+<p>But B cells can later undergo <b>class switching</b>.</p>
+<p><b>IgM → Class switching → IgG</b></p>
+<p>The B cell changes the antibody class it produces while maintaining antigen specificity.</p>
+<p>The important point is:</p>
+<p><b>The antibody's target can remain the same while its class and functional properties change.</b></p>
+<p>This allows the immune response to become more specialized.</p>
+
+<h2>Part VI — Affinity Maturation</h2>
+<p>Another important process is <b>affinity maturation</b>.</p>
+<p>Over time, B-cell populations can be selected for antibodies that bind their antigen more effectively.</p>
+<p>So the immune response becomes:</p>
+<p><b>More specific + more effective</b></p>
+<p>This contributes to the stronger response seen after repeated exposure.</p>
+
+<h2>Part VII — Immunologic Memory</h2>
+<h3>First exposure</h3>
+<p>Antigen enters → Naive B/T cells recognize antigen → Activation → Expansion → Effector cells + <b>Memory cells</b></p>
+<p>The first response takes time.</p>
+<h3>Second exposure</h3>
+<p>Same antigen enters again → Memory cells recognize it rapidly → Rapid expansion → More effective immune response → Better pathogen control.</p>
+<p>This is the foundation of <b>vaccination</b>.</p>
+
+<h2>Part VIII — Why Vaccines Work</h2>
+<p><b>Vaccine antigen → Adaptive immune recognition → B-cell/T-cell activation → Memory cells → Later exposure → Rapid secondary response → Protection or reduced severity.</b></p>
+<p><b>A vaccine doesn't have to prevent every infection to be clinically valuable. It can also reduce the likelihood of severe disease.</b></p>
+
+<h2>Part IX — Active vs Passive Immunity</h2>
+<h3>Active immunity</h3>
+<p>Your own immune system generates the response.</p>
+<p>Examples: <b>vaccination</b> or <b>natural infection</b> → memory cells can develop.</p>
+<h3>Passive immunity</h3>
+<p>You receive antibodies from another source.</p>
+<p>Examples: <b>maternal IgG</b> or <b>administered immunoglobulin</b> → immediate protection.</p>
+<p>But the recipient does not generate the same type of long-term immune memory from that antibody transfer.</p>
+
+<h2>Part X — Why Autoimmune Disease Happens</h2>
+<p>Normally, <b>self-tolerance</b> means the immune system doesn't attack normal tissues.</p>
+<p>But if tolerance mechanisms fail:</p>
+<p><b>Immune system recognizes self as a target → Autoimmune response → Tissue injury</b></p>
+<h3>Type 1 diabetes</h3>
+<p>Immune-mediated destruction of pancreatic β-cells → ↓ insulin production → hyperglycemia</p>
+<h3>Rheumatoid arthritis</h3>
+<p>Immune-mediated inflammation involving joints and other tissues → chronic inflammation → joint damage</p>
+<h3>SLE</h3>
+<p>Immune dysregulation with autoantibody production and immune-complex-mediated tissue injury.</p>
+<p>Potential involvement of:</p>
+<ul><li>skin</li><li>joints</li><li>kidneys</li><li>nervous system</li><li>blood</li></ul>
+<p><b>Autoimmune disease is fundamentally a problem of immune tolerance and inappropriate immune activation against self.</b></p>
+
+<h2>Part XI — Hypersensitivity</h2>
+<p>Sometimes the immune system responds excessively to something that isn't truly dangerous. This is called <b>hypersensitivity</b>.</p>
+<p>There are four classic types. You don't need to memorize every detail yet, but you should recognize the framework.</p>
+<h3>Type I — Immediate hypersensitivity</h3>
+<p><b>IgE</b></p>
+<p>Allergen → IgE → Mast cell activation → Histamine and other mediators → Symptoms</p>
+<p>Examples:</p>
+<ul><li>allergic rhinitis</li><li>urticaria</li><li>asthma</li><li>anaphylaxis</li></ul>
+<h3>Type II — Antibody-mediated</h3>
+<p><b>IgG/IgM against cell-surface or extracellular-matrix targets</b></p>
+<p>Antibodies bind to targets on cells or tissues → complement activation and/or cellular injury.</p>
+<p>Examples include:</p>
+<ul><li>autoimmune hemolytic anemia</li><li>some drug-induced cytopenias</li><li>Graves disease</li><li>myasthenia gravis</li></ul>
+<p>Type II reactions aren't all identical. Some involve <b>cell destruction</b>, while others involve <b>abnormal receptor stimulation or blockade</b>.</p>
+<h3>Type III — Immune-complex mediated</h3>
+<p><b>Immune complexes deposit in tissues.</b></p>
+<p>Antigen + antibody → immune complex formation → deposition in tissues → complement activation → inflammation</p>
+<p>Examples can include:</p>
+<ul><li>SLE</li><li>some forms of vasculitis</li><li>serum sickness</li></ul>
+<p><b>Immune complexes cause the tissue damage.</b></p>
+<h3>Type IV — T-cell mediated</h3>
+<p><b>T cells</b></p>
+<p>This is different from the first three because it isn't primarily antibody-mediated.</p>
+<p>Examples include:</p>
+<ul><li>contact dermatitis</li><li>tuberculosis skin testing</li><li>some drug reactions</li></ul>
+<p>The response generally develops more slowly than a classic immediate IgE reaction.</p>
+
+<h2>Part XII — Hypersensitivity Memory Table</h2>
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+<tr><th style="text-align:left;padding:7px;border-bottom:1px solid #ddd">Type</th><th style="text-align:left;padding:7px;border-bottom:1px solid #ddd">Main mechanism</th><th style="text-align:left;padding:7px;border-bottom:1px solid #ddd">Think</th></tr>
+<tr><td style="padding:7px">I</td><td style="padding:7px">IgE/mast cells</td><td style="padding:7px">Allergy</td></tr>
+<tr><td style="padding:7px">II</td><td style="padding:7px">IgG/IgM against cellular/tissue targets</td><td style="padding:7px">Antibody-mediated</td></tr>
+<tr><td style="padding:7px">III</td><td style="padding:7px">Immune complexes</td><td style="padding:7px">Deposits</td></tr>
+<tr><td style="padding:7px">IV</td><td style="padding:7px">T cells</td><td style="padding:7px">Delayed/cell-mediated</td></tr>
+</table>
+<p><b>I = Immediate</b><br><b>II = antibody attacks target</b><br><b>III = immune complexes</b><br><b>IV = T cells</b></p>
+
+<h2>Part XIII — Clinical Case: Anaphylaxis</h2>
+<p>Patient eats peanuts.</p>
+<p><b>Allergen exposure → IgE already exists from prior sensitization → Allergen cross-links IgE on mast cells → Mast-cell degranulation → Histamine + other mediators</b></p>
+<p><b>Vasodilation → hypotension</b></p>
+<p><b>Increased vascular permeability → angioedema</b></p>
+<p><b>Bronchoconstriction → wheezing</b></p>
+<p>Potentially: <b>Anaphylaxis</b></p>
+<p>This is a medical emergency.</p>
+<p>Notice the chain: <b>Adaptive immunity → IgE → mast cell → mediator release → vascular/airway effects</b></p>
+
+<h2>Part XIV — Clinical Case: Type II</h2>
+<p>A patient develops hemolytic anemia because antibodies recognize antigens on red blood cells.</p>
+<p><b>Antibody binds RBC antigen → Complement and/or immune-cell mechanisms → RBC destruction → Hemolytic anemia</b></p>
+<p>This is <b>Type II hypersensitivity</b>.</p>
+<p>The important concept is that the antibody is directed against a <b>specific cellular target</b>.</p>
+
+<h2>Part XV — Clinical Case: Type III</h2>
+<p>Antigen and antibody form complexes in the circulation.</p>
+<p><b>Immune complexes deposit in tissues → Complement activation → Inflammatory cell recruitment → Tissue injury</b></p>
+<p>This is <b>Type III hypersensitivity</b>.</p>
+<p>SLE is an important clinical example to understand conceptually.</p>
+
+<h2>Part XVI — Clinical Case: Type IV</h2>
+<p>A patient develops an itchy rash 48 hours after touching poison ivy.</p>
+<p>The response isn't primarily IgE.</p>
+<p><b>Antigen exposure → T-cell activation → Cytokine release + cellular immune response → Local inflammation → Contact dermatitis</b></p>
+<p>This is <b>Type IV hypersensitivity</b>.</p>
+<p>The delayed timing is an important clue.</p>
+
+<h2>Part XVII — Immunodeficiency</h2>
+<p>Instead of “The immune system is overactive,” what if “The immune system is unable to respond adequately?” That's <b>immunodeficiency</b>.</p>
+<h3>Primary</h3>
+<p>Related to an underlying genetic or developmental defect.</p>
+<h3>Secondary</h3>
+<p>Develops because of another condition or treatment.</p>
+<p>Examples of secondary causes include:</p>
+<ul><li>HIV</li><li>chemotherapy</li><li>immunosuppressive medications</li><li>certain malignancies</li><li>severe malnutrition</li></ul>
+
+<h2>Part XVIII — HIV and CD4 Cells</h2>
+<p>HIV targets CD4+ T cells.</p>
+<p><b>HIV infection → CD4 destruction/dysfunction → Reduced immune coordination → Increased susceptibility to opportunistic infections and certain malignancies as immune function becomes severely compromised.</b></p>
+<p>This is why the <b>CD4 count</b> is clinically important in HIV care.</p>
+<p>The exact interpretation depends on the clinical context, treatment status, and current guidelines, but conceptually:</p>
+<p><b>CD4 cells are critical coordinators of adaptive immunity.</b></p>
+
+<h2>Part XIX — The Complete Immune Response</h2>
+<p>Imagine bacteria enter tissue.</p>
+<p><b>Step 1 — Innate recognition:</b> PAMP → PRR → innate immune activation</p>
+<p><b>Step 2 — Inflammation:</b> TNF-α + IL-1 + IL-6 → vascular changes → neutrophil recruitment</p>
+<p><b>Step 3 — Complement:</b> C3b → opsonization; C5a → chemotaxis; C5b-9 → MAC</p>
+<p><b>Step 4 — Adaptive activation:</b> Antigen presentation → MHC II → CD4 → B-cell activation → Plasma cells → Antibodies</p>
+<p><b>Step 5 — Memory:</b> Memory B/T cells → future exposure → faster response</p>
+<p><b>Innate immunity → adaptive immunity → memory</b></p>
+
+<h2>Part XX — FNP Clinical Reasoning Framework</h2>
+<h3>1. What triggered the response?</h3>
+<p><b>PAMP?</b> → infection</p>
+<p><b>DAMP?</b> → tissue injury</p>
+<p><b>Self-antigen?</b> → autoimmune disease</p>
+<p><b>Allergen?</b> → hypersensitivity</p>
+<h3>2. Which immune system?</h3>
+<p><b>Innate?</b> → rapid/nonspecific</p>
+<p><b>Adaptive?</b> → specific/memory</p>
+<h3>3. Which cell?</h3>
+<p><b>Neutrophil</b> → acute inflammation</p>
+<p><b>Macrophage</b> → chronic inflammation</p>
+<p><b>B cell</b> → antibodies</p>
+<p><b>CD4</b> → immune coordination</p>
+<p><b>CD8</b> → killing infected/abnormal cells</p>
+<p><b>Mast cell</b> → immediate allergic response</p>
+<h3>4. Which antibody?</h3>
+<p><b>IgM</b> → early response</p>
+<p><b>IgG</b> → systemic/long-term</p>
+<p><b>IgA</b> → mucosal</p>
+<p><b>IgE</b> → allergy/parasites</p>
+<h3>5. What type of hypersensitivity?</h3>
+<p><b>I → IgE</b></p>
+<p><b>II → antibody against cellular/tissue target</b></p>
+<p><b>III → immune complexes</b></p>
+<p><b>IV → T cells</b></p>
+
+<h2>High-Yield Summary</h2>
+<ul>
+<li><b>B cell → plasma cell → antibody</b></li>
+<li><b>CD4 → helper</b></li>
+<li><b>CD8 → cytotoxic</b></li>
+<li><b>MHC I → CD8</b></li>
+<li><b>MHC II → CD4</b></li>
+<li><b>IgM → first</b></li>
+<li><b>IgG → long-term/systemic + placenta</b></li>
+<li><b>IgA → mucosal</b></li>
+<li><b>IgE → allergy</b></li>
+<li><b>Type I → IgE</b></li>
+<li><b>Type II → antibody against target</b></li>
+<li><b>Type III → immune complexes</b></li>
+<li><b>Type IV → T cells</b></li>
+<li><b>Active immunity → your immune system</b></li>
+<li><b>Passive immunity → received antibodies</b></li>
+<li><b>Primary exposure → slower</b></li>
+<li><b>Secondary exposure → faster + stronger</b></li>
+</ul>
+</div>
 `
 ];
 
@@ -698,9 +937,10 @@ function renderQ(){let q=practiceList[qi];document.getElementById("qnum").textCo
 function answer(btn,i){let q=practiceList[qi],ok=i===q[3];document.querySelectorAll(".option").forEach(b=>b.disabled=true);btn.classList.add(ok?"correct":"wrong");if(!ok)state.mistakes.push({topic:q[0],q:q[1],correct:q[2][q[3]],why:q[4]});let e=document.getElementById("explain");e.style.display="block";e.innerHTML=(ok?"✅ Correct! ":"❌ Incorrect. Correct answer: <b>"+q[2][q[3]]+"</b><br>")+q[4]+(ok?"<br><b>+20 XP</b>":"<br><b>Saved to review.</b>");if(ok)addXP(20);else save();document.getElementById("next").style.display="inline-block";}
 function nextQ(){if(qi<practiceList.length-1){qi++;renderQ()}else{addXP(80);markStudyDay();recordQuizResult(0,0,practiceList.length);save();toast(streakMessage());setTimeout(()=>openPage("home"),900)}}
 const lessonQuizzes={"0": [["A patient develops acute arterial occlusion resulting in tissue ischemia. Which cellular change occurs earliest as a consequence of decreased oxygen availability?", ["Increased ATP production", "Increased oxidative phosphorylation", "Decreased ATP production", "Increased protein synthesis"], 2, "Decreased oxygen availability reduces oxidative phosphorylation, causing ATP production to fall."], ["Why does cellular swelling occur during severe ATP depletion?", ["Increased protein synthesis", "Failure of the Na⁺/K⁺ ATPase pump", "Increased mitochondrial ATP production", "Increased extracellular potassium uptake"], 1, "ATP depletion causes Na⁺/K⁺ ATPase failure. Sodium accumulates inside the cell and water follows."], ["Which finding is most characteristic of necrosis?", ["Cell shrinkage without inflammation", "Formation of apoptotic bodies", "Membrane disruption with inflammation", "Programmed activation of caspases"], 2, "Necrosis is associated with membrane disruption, leakage of cellular contents, and inflammation."], ["A patient has prolonged myocardial ischemia. Which mechanism contributes directly to irreversible cellular injury?", ["Decreased intracellular calcium", "Increased ATP production", "Increased intracellular calcium and mitochondrial dysfunction", "Increased protein synthesis"], 2, "Loss of calcium regulation and mitochondrial dysfunction contribute directly to irreversible cellular injury."], ["Which statement best describes apoptosis?", ["Uncontrolled cell death caused by severe injury", "Programmed cell death that generally produces minimal inflammation", "Cell death caused exclusively by infection", "Cell death that always produces surrounding tissue necrosis"], 1, "Apoptosis is programmed, organized cell death and generally causes minimal surrounding inflammation."]], "1": [["A patient with longstanding hypertension develops left ventricular wall thickening. Which cellular adaptation is primarily responsible?", ["Hyperplasia", "Hypertrophy", "Metaplasia", "Atrophy"], 1, "Hypertrophy is an increase in cell size. Chronic pressure overload increases cardiomyocyte workload and promotes LV hypertrophy."], ["A patient who has been immobilized for several months develops significant muscle wasting. What process best explains this?", ["Hypertrophy", "Hyperplasia", "Atrophy", "Metaplasia"], 2, "Atrophy is a decrease in cell size and is commonly seen with decreased workload or disuse."], ["A chronic smoker develops replacement of normal respiratory epithelium with squamous epithelium. This represents:", ["Hypertrophy", "Hyperplasia", "Atrophy", "Metaplasia"], 3, "Metaplasia is reversible replacement of one mature differentiated cell type with another in response to chronic stress."], ["Which cell is most characteristic of acute inflammation?", ["Neutrophil", "Macrophage", "Plasma cell", "Lymphocyte"], 0, "Neutrophils are the major rapid cellular responders in acute inflammation."], ["Which cell is particularly important in chronic inflammation?", ["Neutrophil", "Macrophage", "Erythrocyte", "Platelet"], 1, "Macrophages and lymphocytes are important cellular components of chronic inflammation."], ["Which vascular change is primarily responsible for the redness and warmth associated with acute inflammation?", ["Vasoconstriction", "Vasodilation", "Thrombosis", "Decreased blood flow"], 1, "Vasodilation increases local blood flow, producing redness and warmth."], ["A patient with an acute bacterial infection develops fever. Which inflammatory mediator pathway contributes to increasing the hypothalamic temperature set point?", ["Cytokines → PGE₂", "Insulin → glucagon", "Histamine → aldosterone", "Renin → angiotensin II"], 0, "Inflammatory cytokines such as IL-1, IL-6, and TNF-α contribute to the PGE₂ pathway that raises the hypothalamic set point."], ["Which finding is most consistent with chronic rather than acute inflammation?", ["Predominance of neutrophils", "Rapid onset", "Macrophage and lymphocyte involvement", "Short duration"], 2, "Chronic inflammation is characterized by macrophage and lymphocyte involvement and a longer course."], ["Which statement about metaplasia is most accurate?", ["It is always irreversible", "It means the tissue has become malignant", "It is an adaptive replacement of one mature cell type with another", "It occurs only in cancer"], 2, "Metaplasia is an adaptive replacement of one mature differentiated cell type with another; it is not synonymous with cancer."], ["A patient has persistent inflammation for several months. Which combination best describes chronic inflammation?", ["Neutrophils + no tissue damage", "Macrophages/lymphocytes + tissue destruction + repair", "Erythrocytes + vasoconstriction", "Platelets + decreased vascular permeability"], 1, "Chronic inflammation involves macrophages/lymphocytes, ongoing tissue destruction, and repair occurring alongside inflammation."]], "2": [["Which best describes innate immunity?", ["Slow, highly antigen-specific immunity with long-term memory", "Rapid, relatively nonspecific first-line defense", "Immunity mediated exclusively by antibodies", "Immunity mediated exclusively by T lymphocytes"], 1, "Innate immunity is the rapid, relatively nonspecific first-line defense."], ["A bacterial cell-wall component is recognized by a macrophage as a pathogen-associated molecular pattern. Which receptor system is primarily responsible for recognizing such patterns?", ["Pattern recognition receptors", "Insulin receptors", "Steroid receptors", "Acetylcholine receptors"], 0, "Pattern recognition receptors recognize PAMPs and DAMPs; Toll-like receptors are an important PRR family."], ["Which complement component is most closely associated with opsonization?", ["C3b", "C5a", "C5b", "C9"], 0, "C3b coats pathogens and promotes their recognition and ingestion by phagocytes."], ["Which complement component is particularly important for chemotaxis of inflammatory cells?", ["C1", "C3b", "C5a", "C9"], 2, "C5a is a powerful chemotactic signal that helps recruit inflammatory cells, especially neutrophils."], ["Which complement components form the membrane attack complex?", ["C1-C3", "C3a-C3b", "C4-C5", "C5b-C9"], 3, "C5b through C9 form the membrane attack complex, which creates pores in target membranes."], ["Which cytokine is particularly important in stimulating the hepatic acute-phase response?", ["IL-6", "IL-2", "IL-4", "IL-10"], 0, "IL-6 stimulates the liver to produce acute-phase proteins such as CRP."], ["A patient with acute bacterial cellulitis has significant neutrophil recruitment to the infected tissue. Which complement component contributes strongly to this process?", ["C3b", "C5a", "C9", "C1 inhibitor"], 1, "C5a strongly contributes to chemotaxis of neutrophils toward the site of infection."], ["Which sequence best describes leukocyte movement from the bloodstream into inflamed tissue?", ["Chemotaxis → rolling → margination → adhesion → diapedesis", "Margination → rolling → adhesion → diapedesis → chemotaxis", "Adhesion → margination → rolling → chemotaxis → diapedesis", "Diapedesis → adhesion → rolling → margination → chemotaxis"], 1, "The sequence is margination → rolling → adhesion → diapedesis → chemotaxis."], ["A patient has fever during an acute inflammatory response. Which pathway best explains the increase in hypothalamic temperature set point?", ["IL-6 → insulin → aldosterone", "TNF/IL-1/IL-6 → PGE₂ pathway → increased temperature set point", "C3b → renin → angiotensin II", "Histamine → insulin → glucagon"], 1, "Inflammatory cytokines can increase PGE₂ signaling, which raises the hypothalamic temperature set point."], ["A patient develops myocardial injury from coronary artery occlusion. There is significant inflammation despite the absence of bacterial infection. Which best explains this?", ["Myocardial injury produces DAMPs that activate innate immunity", "Bacteria are always present during myocardial infarction", "Complement cannot respond without bacteria", "Inflammation occurs only during adaptive immunity"], 0, "Myocardial injury releases DAMPs, which can activate innate immune pathways even without infection."]], "3": [["Which cell is primarily responsible for producing antibodies?", ["CD8+ T cell", "B cell/plasma cell", "Neutrophil", "NK cell"], 1, "Activated B cells can differentiate into plasma cells, which produce antibodies."], ["Which antibody is generally produced first during a primary immune response?", ["IgA", "IgE", "IgG", "IgM"], 3, "IgM is the first major antibody produced during a primary response."], ["Which immunoglobulin is most strongly associated with allergic reactions?", ["IgA", "IgG", "IgE", "IgM"], 2, "IgE binds mast cells and basophils and is central to many allergic reactions."], ["Which immunoglobulin is particularly important at mucosal surfaces?", ["IgA", "IgD", "IgE", "IgM"], 0, "IgA is particularly important for mucosal defense."], ["Which antibody can cross the placenta and provide passive immunity to the fetus?", ["IgA", "IgE", "IgG", "IgM"], 2, "IgG is the major antibody class that crosses the placenta."], ["A virus infects a nucleated cell. Viral proteins are presented on MHC I. Which cell is most directly responsible for recognizing and killing the infected cell?", ["CD4+ T cell", "CD8+ T cell", "B cell", "Neutrophil"], 1, "MHC I presents intracellular antigen to CD8+ cytotoxic T cells."], ["A dendritic cell processes extracellular bacterial antigen and presents it through MHC II. Which cell recognizes this presentation?", ["CD4+ T cell", "CD8+ T cell", "Neutrophil", "Erythrocyte"], 0, "MHC II presents extracellular antigen to CD4+ helper T cells."], ["A patient receives a vaccine and later develops a rapid immune response when exposed to the pathogen. Which concept best explains this?", ["Innate immunity", "Immunologic memory", "Passive immunity", "Complement deficiency"], 1, "Memory B and T cells produce a faster and stronger secondary response."], ["Which statement best describes passive immunity?", ["The patient's own B cells produce antibodies and memory cells", "The patient receives antibodies generated by another source", "It always produces lifelong immunity", "It requires previous exposure to the pathogen"], 1, "Passive immunity means antibodies are received from another source, such as maternal antibodies or administered immunoglobulin."], ["A patient develops wheezing, hypotension, urticaria, and facial swelling shortly after exposure to an allergen. Which mechanism is most directly involved?", ["IgG-mediated complement activation", "IgE-mediated mast-cell activation", "CD8-mediated destruction of epithelial cells", "IgM-mediated opsonization"], 1, "Allergen cross-linking of IgE on mast cells triggers mediator release and can cause anaphylaxis."]]};
+lessonQuizzes["4"]=[["A virus is replicating inside a nucleated cell. Viral proteins are presented on MHC I. Which cell is most directly responsible for eliminating the infected cell?",["CD4+ T cell","CD8+ T cell","B cell","Neutrophil"],1,"MHC I presents intracellular antigens to CD8+ cytotoxic T cells, which can kill the infected cell."],["Which antibody is most strongly associated with mucosal immunity?",["IgA","IgE","IgG","IgM"],0,"IgA is especially important at mucosal surfaces such as the respiratory and gastrointestinal tracts."],["A patient has been previously vaccinated against a virus. Upon later exposure, the immune response develops rapidly. What is primarily responsible?",["Neutrophil activation","Immunologic memory","Passive immunity","Complement deficiency"],1,"Memory B and T cells allow a faster and stronger response after repeat exposure."],["Which antibody class can cross the placenta and provide passive immunity to a fetus?",["IgA","IgE","IgG","IgM"],2,"IgG is the major antibody class that crosses the placenta and provides passive immunity to the fetus."],["A patient develops urticaria, wheezing, and hypotension minutes after eating a food allergen. Which mechanism is most likely?",["Type II hypersensitivity","Type III hypersensitivity","Type IV hypersensitivity","Type I hypersensitivity"],3,"Type I hypersensitivity is IgE-mediated and can cause mast-cell degranulation, vasodilation, bronchoconstriction, and anaphylaxis."],["A patient develops an immune-mediated hemolytic anemia due to antibodies directed against red blood cell antigens. Which hypersensitivity mechanism is most consistent?",["Type I","Type II","Type III","Type IV"],1,"Type II hypersensitivity involves IgG/IgM antibodies directed against cellular or tissue targets and can cause cell destruction."],["A patient develops nephritis related to deposition of antigen-antibody complexes in renal tissue. Which mechanism is most consistent?",["Type I","Type II","Type III","Type IV"],2,"Type III hypersensitivity is caused by immune-complex deposition followed by complement activation and inflammation."],["A patient develops contact dermatitis approximately 48 hours after exposure to an allergen. Which mechanism is most likely?",["IgE-mediated mast-cell activation","Immune-complex deposition","T-cell-mediated response","IgM-mediated complement activation"],2,"Type IV hypersensitivity is T-cell mediated and typically develops more slowly, as in contact dermatitis."],["Which statement best describes active immunity?",["Antibodies are transferred from another person","The person's own immune system generates the response","It never produces memory cells","It occurs only after receiving immunoglobulin"],1,"Active immunity means the person's own immune system generates the response, such as after vaccination or natural infection."],["A patient with advanced HIV has a markedly reduced CD4 count. Why does this increase susceptibility to opportunistic infections?",["CD4 cells are responsible for producing all antibodies","CD4 cells coordinate important components of adaptive immunity","CD4 cells directly produce complement","CD4 cells are the primary cells responsible for phagocytosis"],1,"CD4+ T cells are important coordinators of adaptive immunity. Loss of CD4 function compromises immune coordination and increases susceptibility to opportunistic infections."]];
 
 let lqLesson=0,lqi=0,lqScore=0;
-function startLessonQuiz(i){lqLesson=i;lqi=0;openPage("lessonQuiz");renderLQ();}
+function startLessonQuiz(i){lqLesson=i;lqi=0;lqScore=0;openPage("lessonQuiz");renderLQ();}
 function renderLQ(){
  const q=lessonQuizzes[lqLesson][lqi];
  document.getElementById("lqnum").textContent=lqi+1;

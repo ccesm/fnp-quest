@@ -27,9 +27,65 @@ html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="
 html[data-theme="dark"] .small,html[data-theme="dark"] .muted{color:var(--muted)!important}
 html[data-theme="dark"] a{color:#9bc7ff}
 #fnpThemeToggle{position:fixed;right:14px;top:12px;z-index:9998;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:7px 11px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,.12)}
-</style></head><body>
+</style>
+<style id="fnpDarkModeContrastV124">
+html[data-theme="dark"]{
+  --bg:#0b0f14;
+  --card:#171c24;
+  --text:#f7f9fc;
+  --muted:#c3cad5;
+  --border:#3a4350;
+  --input:#202631;
+}
+html[data-theme="dark"] body,
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6,
+html[data-theme="dark"] p,
+html[data-theme="dark"] li,
+html[data-theme="dark"] label,
+html[data-theme="dark"] span,
+html[data-theme="dark"] div{
+  color:var(--text);
+}
+html[data-theme="dark"] .small,
+html[data-theme="dark"] .muted,
+html[data-theme="dark"] .sub,
+html[data-theme="dark"] .secondary-text{
+  color:var(--muted)!important;
+}
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select{
+  color:#f7f9fc!important;
+  background:#202631!important;
+  caret-color:#fff;
+}
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder{
+  color:#aeb7c4!important;
+  opacity:1;
+}
+html[data-theme="dark"] button{
+  color:#f7f9fc;
+}
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .modal,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .box{
+  border-color:#3a4350!important;
+}
+html[data-theme="dark"] a{
+  color:#8fc5ff!important;
+}
+</style>
+
+</head><body>
 <div class="app">
-<div class="top"><div class="logo">🩺 FNP Quest</div><button class="avatar" style="color:var(--text);padding:0" onclick="openPage('account')">👤</button></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v12.3 · Cloud Sync + Daily Streak</div>
+<div class="top"><div class="logo">🩺 FNP Quest</div><button class="avatar" style="color:var(--text);padding:0" onclick="openPage('account')">👤</button></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v12.4 · Cloud Sync + Daily Streak</div>
 
 <section id="home" class="page active">
 <div class="card hero"><div class="row"><div><div class="small">LEVEL <span id="level">1</span> · FNP SCHOLAR</div><div class="big"><span id="xp">0</span> XP</div></div><div>⭐</div></div><div class="bar"><i id="xpbar"></i></div><div class="small"><span id="toLevel">500</span> XP to next level</div></div>
@@ -73,7 +129,7 @@ html[data-theme="dark"] a{color:#9bc7ff}
 <button class="secondary" onclick="signOut()">Sign Out</button>
 </div>
 </section>
-<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v12.3 · Cloud Sync + Daily Streak<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p><p>Lesson 5 ✅</p></div></section>
+<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v12.4 · Cloud Sync + Daily Streak<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p><p>Lesson 5 ✅</p></div></section>
 </div>
 <div id="toast" class="toast"></div>
 <div class="nav"><button onclick="openPage('home')">🏠<br>Home</button><button onclick="startLesson(0)">📚<br>Learn</button><button onclick="startPractice()">🩺<br>Practice</button><button onclick="openPage('progress')">📊<br>Progress</button></div>
@@ -996,7 +1052,7 @@ initCloud();
 </script>
 <!-- FNP Quest v12.2 Auto Update System -->
 <script>
-const FNP_APP_VERSION = "v12.3";
+const FNP_APP_VERSION = "v12.4";
 const FNP_VERSION_URL = "./version.json";
 
 function fnpUpdateToast(msg){

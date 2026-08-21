@@ -85,7 +85,7 @@ html[data-theme="dark"] a{
 
 </head><body>
 <div class="app">
-<div class="top"><div class="logo">🩺 FNP Quest</div><button class="avatar" style="color:var(--text);padding:0" onclick="openPage('account')">👤</button></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v12.5 · Cloud Sync + Daily Streak</div>
+<div class="top"><div class="logo">🩺 FNP Quest</div><button class="avatar" style="color:var(--text);padding:0" onclick="openPage('account')">👤</button></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v12.6 · Cloud Sync + Daily Streak · Lesson 6 Fix</div>
 
 <section id="home" class="page active">
 <div class="card hero"><div class="row"><div><div class="small">LEVEL <span id="level">1</span> · FNP SCHOLAR</div><div class="big"><span id="xp">0</span> XP</div></div><div>⭐</div></div><div class="bar"><i id="xpbar"></i></div><div class="small"><span id="toLevel">500</span> XP to next level</div></div>
@@ -129,7 +129,7 @@ html[data-theme="dark"] a{
 <button class="secondary" onclick="signOut()">Sign Out</button>
 </div>
 </section>
-<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v12.5 · Cloud Sync + Daily Streak<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p><p>Lesson 5 ✅</p><p>Lesson 6 ✅</p></div></section>
+<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v12.6 · Cloud Sync + Daily Streak · Lesson 6 Fix<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p><p>Lesson 5 ✅</p><p>Lesson 6 ✅</p></div></section>
 </div>
 <div id="toast" class="toast"></div>
 <div class="nav"><button onclick="openPage('home')">🏠<br>Home</button><button onclick="startLesson(0)">📚<br>Learn</button><button onclick="startPractice()">🩺<br>Practice</button><button onclick="openPage('progress')">📊<br>Progress</button></div>
@@ -1484,6 +1484,10 @@ let bodies = [
 `
 ];
 
+// Lesson 6 is stored in the main lessons array. Include it in the
+// lesson-rendering list so startLesson(5) displays the full course.
+bodies.push(lessons[5].html);
+
 document.getElementById("lessonBody").innerHTML=bodies[i]+`<div style="margin-top:16px"><button onclick="startLessonQuiz(${i})">Start This Lesson Quiz →</button></div>`;
 openPage("lesson");
 }
@@ -1540,7 +1544,7 @@ initCloud();
 </script>
 <!-- FNP Quest v12.2 Auto Update System -->
 <script>
-const FNP_APP_VERSION = "v12.5";
+const FNP_APP_VERSION = "v12.6";
 const FNP_VERSION_URL = "./version.json";
 
 function fnpUpdateToast(msg){

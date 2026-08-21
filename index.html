@@ -190,7 +190,7 @@ let state={xp:0,streak:0,freeze:1,mistakes:[],completed:[],lastStudyDate:null,st
 try{state=Object.assign(state,JSON.parse(localStorage.getItem("fnpQuestV4")||"{}"));}catch(e){}
 let currentLesson=0,qi=0,practiceList=[];
 
-const SUPABASE_URL="https://mirwbtwlgrpmbqhfol.supabase.co";
+const SUPABASE_URL="https://mirwbtlwglrpmbbqhfol.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY="sb_publishable_vaI958fVoME7adXeaa247A_2pfR3ogG";
 const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 let currentUser=null;
@@ -258,18 +258,28 @@ async function signUp(){
  const email=document.getElementById("authEmail").value.trim(),password=document.getElementById("authPassword").value;
  if(!email||password.length<6){setAuthMessage("Enter a valid email and a password with at least 6 characters.");return;}
  setAuthMessage("Creating your account…");
- const {data,error}=await supabaseClient.auth.signUp({email,password,options:{emailRedirectTo:window.location.origin+window.location.pathname}});
- if(error){setAuthMessage(error.message);return;}
- if(data.session){setAuthMessage("Account created and signed in.");}
- else{setAuthMessage("Account created. Check your email to confirm your account, then return here and sign in.");}
+ try{
+   const {data,error}=await supabaseClient.auth.signUp({email,password,options:{emailRedirectTo:window.location.origin+window.location.pathname}});
+   if(error){setAuthMessage(error.message);return;}
+   if(data.session){setAuthMessage("Account created and signed in.");}
+   else{setAuthMessage("Account created. Check your email to confirm your account, then return here and sign in.");}
+ }catch(e){
+   console.error("Sign up failed",e);
+   setAuthMessage("Could not reach the cloud service. Check your internet connection or try again later.");
+ }
 }
 async function signIn(){
  const email=document.getElementById("authEmail").value.trim(),password=document.getElementById("authPassword").value;
  if(!email||!password){setAuthMessage("Enter your email and password.");return;}
  setAuthMessage("Signing in…");
- const {error}=await supabaseClient.auth.signInWithPassword({email,password});
- if(error){setAuthMessage(error.message);return;}
- setAuthMessage("Signed in successfully.");
+ try{
+   const {error}=await supabaseClient.auth.signInWithPassword({email,password});
+   if(error){setAuthMessage(error.message);return;}
+   setAuthMessage("Signed in successfully.");
+ }catch(e){
+   console.error("Sign in failed",e);
+   setAuthMessage("Could not reach the cloud service. Check your internet connection or try again later.");
+ }
 }
 async function signOut(){await supabaseClient.auth.signOut();toast("Signed out");}
 async function initCloud(){

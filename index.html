@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FNP Quest v4</title>
+<title>FNP Quest v12.0</title>
 <style>
 :root{--bg:#f5f6fa;--card:#fff;--text:#172033;--muted:#687083;--accent:#5b5bd6;--green:#1fa66a;--red:#d95b5b;--line:#e5e7ef}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--text)}
@@ -13,13 +13,14 @@ button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);co
 .lesson p,.lesson li,.explain{line-height:1.55;color:#3f4858}.mission{display:flex;justify-content:space-between;align-items:center;gap:10px}.mission p{margin:0;color:var(--muted);font-size:13px}.xp{font-weight:800;color:var(--accent);white-space:nowrap}.explain{background:#f1f2ff;border-radius:14px;padding:13px;margin-top:12px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.nav{position:fixed;bottom:0;left:0;right:0;height:70px;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;gap:26px;align-items:center}.nav button{background:none;color:var(--muted);padding:4px 7px}.nav button.active{color:var(--accent)}
 .toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#172033;color:#fff;padding:11px 17px;border-radius:30px;font-weight:750;display:none;z-index:10}
-</style></head><body>
+</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head><body>
 <div class="app">
-<div class="top"><div class="logo">🩺 FNP Quest</div><div class="avatar">👤</div></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v11.0 · Full Lessons + Lesson Quizzes · Local Only</div>
+<div class="top"><div class="logo">🩺 FNP Quest</div><button class="avatar" style="color:var(--text);padding:0" onclick="openPage('account')">👤</button></div><div style="text-align:center;font-size:11px;color:#687083;margin:-8px 0 12px">Version: v12.0 · Cloud Sync + Daily Streak</div>
 
 <section id="home" class="page active">
 <div class="card hero"><div class="row"><div><div class="small">LEVEL <span id="level">1</span> · FNP SCHOLAR</div><div class="big"><span id="xp">0</span> XP</div></div><div>⭐</div></div><div class="bar"><i id="xpbar"></i></div><div class="small"><span id="toLevel">500</span> XP to next level</div></div>
-<div class="card"><div class="row"><div><span style="font-size:30px">🔥</span> <b><span id="streak">0</span> day streak</b></div><div class="small">🛡️ <span id="freeze">1</span> Freeze</div></div></div>
+<div class="card"><div class="row"><div><span style="font-size:30px">🔥</span> <b><span id="streak">0</span> day streak</b></div><div class="small">🛡️ <span id="freeze">1</span> Freeze</div></div></div><div class="card" id="cloudCard"><div class="row"><div><b>☁️ Cloud Sync</b><div id="cloudStatus" class="small">Not signed in — progress is local only</div></div><button class="secondary" onclick="openPage('account')" id="accountBtn">Sign In</button></div></div>
 <h2>📚 Curriculum</h2>
 <div class="card mission"><div><h3>Lesson 1 · Cellular Injury & Adaptation</h3><p>ATP, ROS, necrosis, apoptosis</p></div><button onclick="startLesson(0)">Learn</button></div>
 <div class="card mission"><div><h3>Lesson 2 · Cellular Adaptation & Inflammation</h3><p>Hypertrophy, hyperplasia, atrophy, metaplasia & inflammation</p></div><button onclick="startLesson(1)">Learn</button></div>
@@ -41,7 +42,25 @@ button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);co
 </div>
 </section>
 <section id="practice" class="page"><button class="secondary" onclick="openPage('home')">← Home</button><div class="card"><div class="small">QUESTION <span id="qnum">1</span> / <span id="qtotal">10</span></div><h2 id="qtext"></h2><div id="options"></div><div id="explain" class="explain" style="display:none"></div><button id="next" style="display:none;margin-top:12px" onclick="nextQ()">Next Question →</button></div></section>
-<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v11.0 · Full Lessons + Lesson Quizzes · Local Only<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p></div></section>
+<section id="account" class="page">
+<button class="secondary" onclick="openPage('home')">← Home</button>
+<h1>👤 Account</h1>
+<div id="signedOutBox" class="card">
+<h3>☁️ Save your FNP Quest progress</h3>
+<p class="small">Sign in to synchronize XP, streak, freezes, quiz history, and learning progress across your phone and computer.</p>
+<input id="authEmail" type="email" placeholder="Email address" autocomplete="email" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;margin:7px 0">
+<input id="authPassword" type="password" placeholder="Password (at least 6 characters)" autocomplete="current-password" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;margin:7px 0">
+<div class="row" style="gap:8px;margin-top:6px"><button onclick="signIn()">Sign In</button><button class="secondary" onclick="signUp()">Create Account</button></div>
+<p id="authMessage" class="small" style="margin-top:10px"></p>
+</div>
+<div id="signedInBox" class="card" style="display:none">
+<h3>☁️ Cloud account connected</h3>
+<p id="accountEmail" class="small"></p>
+<p class="small">Your FNP Quest progress is synchronized with the cloud.</p>
+<button class="secondary" onclick="signOut()">Sign Out</button>
+</div>
+</section>
+<section id="progress" class="page"><div style="text-align:center;font-size:11px;color:#687083;margin-bottom:12px">Version: v12.0 · Cloud Sync + Daily Streak<br>Cloud Sync: OFF · Local Storage Only</div><h1>📊 Progress</h1><div class="grid"><div class="card"><span class="small">XP</span><h2 id="pxp">0</h2></div><div class="card"><span class="small">Streak</span><h2>🔥 <span id="pstreak">0</span></h2></div></div><div class="card"><h3>Loaded Lessons</h3><p>Lesson 1 ✅</p><p>Lesson 2 ✅</p><p>Lesson 3 ✅</p><p>Lesson 4 ✅</p></div></section>
 </div>
 <div id="toast" class="toast"></div>
 <div class="nav"><button onclick="openPage('home')">🏠<br>Home</button><button onclick="startLesson(0)">📚<br>Learn</button><button onclick="startPractice()">🩺<br>Practice</button><button onclick="openPage('progress')">📊<br>Progress</button></div>
@@ -49,7 +68,87 @@ button{border:0;border-radius:12px;padding:10px 13px;background:var(--accent);co
 <script>
 const lessons=[
 {title:"Week 1 · Lesson 1: Cellular Injury & Adaptation",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core idea:</b> Normal cell → Adaptation → Injury → Cell death.</p><h3>Cellular adaptations</h3><ul><li>Hypertrophy — cells become larger</li><li>Hyperplasia — cell number increases</li><li>Atrophy — cells become smaller</li><li>Metaplasia — one differentiated cell type changes to another</li></ul><h3>Why injury occurs</h3><p>Hypoxia/ischemia, physical injury, chemical injury, infection, immune-mediated injury, and genetic abnormalities can cause cellular injury.</p><h3>ATP & ischemia</h3><p>↓ Oxygen → ↓ oxidative phosphorylation → ↓ ATP → Na⁺/K⁺ ATPase failure → Na⁺ and water enter the cell → cell swelling. Impaired Ca²⁺ regulation increases intracellular Ca²⁺ and activates destructive enzymes.</p><h3>Reactive oxygen species</h3><p>Superoxide, hydrogen peroxide, and hydroxyl radicals can cause lipid peroxidation, protein oxidation, and DNA damage. Excess ROS produces oxidative stress.</p><h3>Necrosis vs apoptosis</h3><p><b>Necrosis:</b> cell swelling, membrane disruption, leakage of contents, inflammation. <b>Apoptosis:</b> programmed cell death with cell shrinkage, nuclear fragmentation, apoptotic bodies, and minimal surrounding inflammation.</p><h3>Clinical chain</h3><p><b>Ischemia → ↓O₂ → ↓ATP → ion-pump failure → cell swelling + Ca²⁺ accumulation → mitochondrial/membrane/protein damage → irreversible injury → cell death.</b></p>`},
-{title:"Week 1 · Lesson 2: Cellular Adaptation & Inflammation",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core idea:</b> Cells first try to adapt to stress. If stress persists or becomes severe, adaptation can progress to injury and cell death.</p><h3>Four major adaptations</h3><ul><li>Hypertrophy — increase in cell size</li><li>Hyperplasia — increase in cell number</li><li>Atrophy — decrease in cell size, sometimes with reduced cell number</li><li>Metaplasia — reversible replacement of one mature differentiated cell type with another</li></ul><h3>Clinical examples</h3><p><b>Hypertension → increased afterload → cardiomyocyte hypertrophy → LV wall thickening.</b> Persistent hypertrophy can contribute to diastolic dysfunction and heart failure.</p><p><b>Estrogen → endometrial proliferation.</b> Unopposed estrogen can cause endometrial hyperplasia and increase endometrial cancer risk.</p><p><b>Immobilization → decreased workload → muscle atrophy.</b></p><p><b>Chronic smoking → squamous metaplasia of respiratory epithelium.</b> Metaplasia is not cancer, but persistent abnormal stimulation can increase risk of dysplasia and malignancy.</p><h3>Acute inflammation</h3><p>Acute inflammation is rapid and commonly involves neutrophils. Cardinal findings include redness, heat, swelling, pain, and loss of function. Vasodilation increases blood flow, while increased vascular permeability contributes to edema.</p><h3>Chronic inflammation</h3><p>Chronic inflammation is slower and longer-lasting, with macrophages and lymphocytes playing important roles. Tissue destruction and repair can occur at the same time.</p><h3>Cytokines & fever</h3><p>TNF-α, IL-1, and IL-6 participate in inflammatory signaling. Cytokine signaling can increase PGE₂ activity and raise the hypothalamic temperature set point, producing fever.</p><h3>FNP mental model</h3><p><b>Adaptation → injury if stress persists → reversible recovery or irreversible injury → cell death.</b> Acute inflammation is associated with neutrophils; chronic inflammation with macrophages and lymphocytes.</p>`},
+{title:"Week 1 · Lesson 2: Cellular Adaptation & Inflammation",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<h2>1. The Big Picture: Adaptation Before Injury</h2>
+<p>Cells continuously respond to changes in workload, nutrients, hormones, oxygen, and environmental stress. When the stress is manageable, the cell may adapt and maintain function. When the stress exceeds its ability to adapt, cellular injury develops.</p>
+<p><b>Normal cell → Adaptation → Injury → Recovery OR irreversible injury → Cell death</b></p>
+
+<h2>2. The Four Major Cellular Adaptations</h2>
+<h3>Hypertrophy</h3>
+<p><b>Hypertrophy = increase in cell size.</b> The number of cells does not increase.</p>
+<p>It is especially important in tissues in which cells have limited ability to divide, such as cardiac muscle.</p>
+<p><b>Clinical example: chronic hypertension.</b></p>
+<p>↑ Blood pressure → ↑ afterload → ↑ workload on cardiomyocytes → cardiomyocyte hypertrophy → left ventricular wall thickening.</p>
+<p>Initially, this can help the heart generate more force. Over time, excessive hypertrophy can become maladaptive because the enlarged myocardium has increased oxygen demand and may have impaired relaxation.</p>
+<p><b>Mental model:</b> Hypertrophy = “the same number of workers, but each worker gets bigger.”</p>
+
+<h3>Hyperplasia</h3>
+<p><b>Hyperplasia = increase in the number of cells.</b> It requires cells capable of entering the cell cycle.</p>
+<p>Hyperplasia may be physiologic or pathologic.</p>
+<p>Examples include hormonal proliferation of the endometrium and compensatory proliferation of certain tissues after partial loss.</p>
+<p><b>Clinical connection:</b> Chronic hormonal stimulation can produce excessive hyperplasia. Prolonged unopposed estrogen stimulation can cause endometrial hyperplasia and increase the risk of endometrial malignancy.</p>
+<p><b>Mental model:</b> Hyperplasia = “more workers are hired.”</p>
+
+<h3>Atrophy</h3>
+<p><b>Atrophy = decrease in cell size.</b> There may also be a reduction in cell number depending on the cause and tissue.</p>
+<p>Important causes include decreased workload, inadequate nutrition, reduced blood supply, loss of hormonal stimulation, denervation, and aging.</p>
+<p><b>Clinical example:</b> prolonged immobilization decreases skeletal-muscle workload and produces muscle atrophy.</p>
+<p><b>Mental model:</b> Atrophy = “the workers become smaller because the workload or resources decrease.”</p>
+
+<h3>Metaplasia</h3>
+<p><b>Metaplasia = reversible replacement of one mature differentiated cell type by another mature differentiated cell type.</b></p>
+<p>It is an adaptive response to chronic irritation or stress. The new cell type may tolerate the stress better, but the change can reduce normal tissue function.</p>
+<p><b>Clinical example: smoking.</b> Chronic cigarette smoke can cause respiratory epithelium to undergo squamous metaplasia. Squamous cells may tolerate irritation better, but normal ciliated mucosa is lost, impairing mucociliary clearance.</p>
+<p><b>Important:</b> Metaplasia is not cancer. Persistent abnormal stimulation can increase the risk of dysplasia and subsequent malignancy.</p>
+<p><b>Mental model:</b> Metaplasia = “change the type of worker to better tolerate the environment.”</p>
+
+<h2>3. When Adaptation Fails</h2>
+<p>Adaptation is protective only while the cell can maintain adequate function.</p>
+<p><b>Persistent or severe stress → adaptation → cellular injury → reversible injury if the stress is removed → irreversible injury if damage becomes severe → cell death.</b></p>
+<p>Removing the cause early may allow recovery, whereas prolonged injury can permanently damage membranes, mitochondria, proteins, and DNA.</p>
+
+<h2>4. Inflammation: The Tissue Response to Injury</h2>
+<p>Inflammation is a protective response designed to eliminate the cause of injury, remove damaged tissue, and begin repair. It can be triggered by infection, tissue injury, toxins, ischemia, trauma, and immune-mediated disease.</p>
+<p>Inflammation is not synonymous with infection. <b>Sterile tissue injury can also produce inflammation.</b></p>
+
+<h2>5. Acute Inflammation</h2>
+<p><b>Acute inflammation = rapid onset + vascular changes + neutrophil predominance.</b></p>
+<p>Typical causes include bacterial infection, trauma, burns, and acute tissue injury.</p>
+<h3>Cardinal Signs</h3>
+<ul><li><b>Rubor</b> — redness</li><li><b>Calor</b> — warmth</li><li><b>Tumor</b> — swelling</li><li><b>Dolor</b> — pain</li><li><b>Functio laesa</b> — loss of function</li></ul>
+<h3>Why do redness and warmth occur?</h3>
+<p><b>Inflammatory mediators → vasodilation → increased local blood flow → redness + warmth.</b></p>
+<h3>Why does edema occur?</h3>
+<p><b>Increased vascular permeability → fluid and proteins leave the vascular space → tissue swelling.</b></p>
+<h3>Neutrophil Recruitment</h3>
+<p><b>Margination → Rolling → Adhesion → Diapedesis → Chemotaxis</b></p>
+<p>Neutrophils can phagocytose pathogens and release antimicrobial substances. Their enzymes and reactive oxygen species can also contribute to tissue injury.</p>
+
+<h2>6. Chronic Inflammation</h2>
+<p><b>Chronic inflammation = persistent inflammation + macrophages/lymphocytes + tissue destruction + repair.</b></p>
+<p>Common causes include persistent infection, autoimmune disease, chronic irritant exposure, and some metabolic conditions.</p>
+<p>Macrophages remove cellular debris, participate in antigen processing, release cytokines, and help coordinate repair. Persistent macrophage activation can also contribute to ongoing tissue destruction.</p>
+<p>Lymphocytes provide important adaptive immune participation and can sustain the inflammatory response.</p>
+
+<h2>7. Cytokines</h2>
+<p>Cytokines are signaling proteins that allow immune and tissue cells to communicate.</p>
+<p>Important inflammatory cytokines include <b>TNF-α, IL-1, and IL-6</b>.</p>
+<p>They can promote leukocyte recruitment, vascular changes, systemic inflammatory responses, and acute-phase protein production.</p>
+
+<h2>8. Fever Pathway</h2>
+<p>Inflammatory cytokines can contribute to fever through prostaglandin signaling.</p>
+<p><b>Infection or tissue injury → inflammatory cytokines → PGE₂ → increased hypothalamic temperature set point → fever.</b></p>
+<p>This connects pathophysiology with pharmacology: drugs that reduce prostaglandin synthesis can reduce fever and inflammatory pain.</p>
+
+<h2>9. FNP Clinical Connection</h2>
+<p>Consider a patient with a painful, red, warm, swollen lower leg and fever. Do not stop at “inflammation.” Ask what is causing the inflammation and whether the patient has a dangerous condition.</p>
+<p>Potential differential diagnoses include cellulitis, abscess, DVT, contact dermatitis, venous stasis dermatitis, erysipelas, and necrotizing soft-tissue infection.</p>
+<p>Red flags include rapidly progressive symptoms, severe or disproportionate pain, systemic toxicity, hypotension, bullae, crepitus, skin discoloration, and high-risk immunocompromised status.</p>
+
+<h2>10. Mental Model</h2>
+<p><b>Cellular adaptation:</b><br>Hypertrophy = bigger cells<br>Hyperplasia = more cells<br>Atrophy = smaller cells<br>Metaplasia = different mature cell type</p>
+<p><b>Inflammation:</b><br>Acute = fast + neutrophils + vascular changes<br>Chronic = persistent + macrophages/lymphocytes + tissue destruction + repair</p>
+<p><b>Fever:</b><br>Cytokines → PGE₂ → hypothalamic set-point ↑ → fever</p>
+<p>The goal is to understand these mechanisms well enough to explain patient symptoms, physical findings, laboratory abnormalities, and treatment choices rather than simply memorizing disease names.</p>`},
 {title:"Week 1 · Lesson 3: Innate Immunity, Complement & the Acute Inflammatory Response",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core sequence:</b> Pathogen/tissue injury → recognition → innate activation → cytokines + complement → vascular changes → leukocyte recruitment → neutrophil activation → elimination → resolution/repair.</p><h3>Innate vs adaptive</h3><p>Innate immunity is fast and relatively nonspecific. Important components include skin/mucosa, neutrophils, macrophages, dendritic cells, NK cells, complement, and inflammatory cytokines.</p><h3>PAMPs, DAMPs & PRRs</h3><p>PAMPs are pathogen-associated molecular patterns. DAMPs are signals from injured host cells. Pattern recognition receptors, including Toll-like receptors, recognize these signals and activate innate immune cells.</p><h3>Cytokines</h3><p><b>TNF-α + IL-1</b> promote endothelial activation and leukocyte recruitment. <b>IL-6</b> stimulates the liver to produce acute-phase proteins such as CRP.</p><h3>Complement</h3><p><b>C3b → opsonization</b> · <b>C5a → chemotaxis</b> · <b>C5b-9 → MAC/cell lysis</b>. C3a and C5a also promote inflammation.</p><h3>Neutrophil recruitment</h3><p>Margination → rolling → adhesion → diapedesis → chemotaxis. Neutrophils phagocytose and destroy pathogens, but excessive neutrophil activity can damage normal tissue.</p><h3>Clinical reasoning</h3><p>Inflammation does not automatically mean infection. MI can produce DAMPs and activate innate inflammation without bacteria. Severe infection can produce systemic inflammation, hypotension, organ hypoperfusion, and sepsis/septic shock.</p>`},
 {title:"Week 1 · Lesson 4: Adaptive Immunity — B Cells, T Cells & Antibodies",tag:"PHASE 1 · ADVANCED PATHOPHYSIOLOGY",html:`<p><b>Core idea:</b> Adaptive immunity is specific and develops immunologic memory.</p><h3>B cells & antibodies</h3><p>B cell → plasma cell → antibody. Plasma cells produce immunoglobulins and memory B cells support future responses.</p><p><b>IgM:</b> first major antibody in a primary response. <b>IgG:</b> long-term/systemic protection and crosses the placenta. <b>IgA:</b> mucosal surfaces. <b>IgE:</b> allergy and parasites. <b>IgD:</b> B-cell receptor/activation.</p><h3>T cells</h3><p><b>CD4+</b> helper/coordinator cells help B cells, macrophages, and other immune cells. <b>CD8+</b> cytotoxic T cells kill infected or abnormal cells.</p><h3>MHC</h3><p><b>MHC I → CD8</b> and is found on essentially all nucleated cells. <b>MHC II → CD4</b> and is primarily on professional antigen-presenting cells such as dendritic cells, macrophages, and B cells.</p><h3>Memory & vaccination</h3><p>First exposure produces a primary response and memory cells. A second exposure to the same antigen produces a faster, stronger secondary response. Vaccination uses this principle to build immunologic memory.</p><h3>Active vs passive</h3><p>Active immunity means your own immune system produces the response, such as after vaccination. Passive immunity means antibodies come from another source, such as maternal antibodies or administered immunoglobulin.</p><h3>Clinical connection</h3><p>IgE cross-linking on mast cells can cause mediator release and anaphylaxis. Loss of immune tolerance can contribute to autoimmune disease.</p>`}
 ];
@@ -87,14 +186,123 @@ const questions=[
 ["Lesson 4","Wheezing, hypotension, urticaria, and facial swelling occur after allergen exposure. Which mechanism is most direct?",["IgG-mediated complement activation","IgE-mediated mast-cell activation","CD8-mediated destruction","IgM-mediated opsonization"],1,"Allergen cross-linking of IgE on mast cells triggers mediator release and can cause anaphylaxis."]
 ];
 
-let state={xp:0,streak:0,freeze:1,mistakes:[],completed:[]};
+let state={xp:0,streak:0,freeze:1,mistakes:[],completed:[],lastStudyDate:null,streakUpdatedDate:null};
 try{state=Object.assign(state,JSON.parse(localStorage.getItem("fnpQuestV4")||"{}"));}catch(e){}
 let currentLesson=0,qi=0,practiceList=[];
 
-function save(){try{localStorage.setItem("fnpQuestV4",JSON.stringify(state));}catch(e){};update();}
+const SUPABASE_URL="https://mirwbtwlgrpmbqhfol.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_vaI958fVoME7adXeaa247A_2pfR3ogG";
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+let currentUser=null;
+let cloudSyncing=false;
+
+function save(){try{localStorage.setItem("fnpQuestV4",JSON.stringify(state));}catch(e){};update();if(currentUser)syncProfileToCloud();}
+async function ensureProfile(userId){
+ const {data,error}=await supabaseClient.from("profiles").select("*").eq("id",userId).maybeSingle();
+ if(error){console.error(error);return null;}
+ if(!data){
+   const payload={id:userId,xp:state.xp,level:Math.floor(state.xp/500)+1,streak:state.streak,streak_freeze:state.freeze,last_study_date:state.lastStudyDate};
+   const {data:created,error:insertError}=await supabaseClient.from("profiles").insert(payload).select().single();
+   if(insertError){console.error(insertError);return null;}
+   return created;
+ }
+ return data;
+}
+async function syncProfileToCloud(){
+ if(!currentUser||cloudSyncing)return;
+ cloudSyncing=true;
+ try{
+   const payload={xp:state.xp,level:Math.floor(state.xp/500)+1,streak:state.streak,streak_freeze:state.freeze,last_study_date:state.lastStudyDate,updated_at:new Date().toISOString()};
+   const {error}=await supabaseClient.from("profiles").update(payload).eq("id",currentUser.id);
+   if(error)console.error("Cloud profile sync failed",error);
+ }finally{cloudSyncing=false;}
+}
+async function recordDailyActivity(type,xp){
+ if(!currentUser)return;
+ const today=localDateKey();
+ const {error}=await supabaseClient.from("daily_activity").upsert({user_id:currentUser.id,study_date:today,activity_type:type,xp_earned:xp},{onConflict:"user_id,study_date"});
+ if(error)console.error("Activity sync failed",error);
+}
+async function recordQuizResult(lessonNumber,score,total){
+ if(!currentUser)return;
+ const {error}=await supabaseClient.from("quiz_results").insert({user_id:currentUser.id,lesson_number:lessonNumber,score:score,total_questions:total});
+ if(error)console.error("Quiz sync failed",error);
+}
+async function loadCloudProfile(user){
+ const profile=await ensureProfile(user.id);
+ if(!profile)return;
+ // First cloud login: preserve the existing local progress if the cloud profile is still empty.
+ const cloudHasProgress=(profile.xp||0)>0 || (profile.streak||0)>0 || profile.last_study_date || (profile.streak_freeze||1)!==1;
+ if(!cloudHasProgress && (state.xp>0 || state.streak>0 || state.completed.length>0)){
+   await syncProfileToCloud();
+   for(const lesson of state.completed) await recordQuizResult(lesson+1,0,0);
+ }else if(cloudHasProgress){
+   state.xp=profile.xp||0;
+   state.streak=profile.streak||0;
+   state.freeze=profile.streak_freeze ?? 1;
+   state.lastStudyDate=profile.last_study_date||null;
+   state.streakUpdatedDate=state.lastStudyDate;
+   saveLocalOnly();
+ }
+ update();
+}
+function saveLocalOnly(){try{localStorage.setItem("fnpQuestV4",JSON.stringify(state));}catch(e){}}
+function setAuthMessage(msg){const el=document.getElementById("authMessage");if(el)el.textContent=msg;}
+function updateAccountUI(){
+ const out=document.getElementById("signedOutBox"),inside=document.getElementById("signedInBox"),email=document.getElementById("accountEmail"),status=document.getElementById("cloudStatus"),btn=document.getElementById("accountBtn");
+ if(!out)return;
+ if(currentUser){out.style.display="none";inside.style.display="block";email.textContent=currentUser.email||"Signed in";status.textContent="Connected · cloud progress is syncing";btn.textContent="Account";}
+ else{out.style.display="block";inside.style.display="none";status.textContent="Not signed in — progress is local only";btn.textContent="Sign In";}
+}
+async function signUp(){
+ const email=document.getElementById("authEmail").value.trim(),password=document.getElementById("authPassword").value;
+ if(!email||password.length<6){setAuthMessage("Enter a valid email and a password with at least 6 characters.");return;}
+ setAuthMessage("Creating your account…");
+ const {data,error}=await supabaseClient.auth.signUp({email,password,options:{emailRedirectTo:window.location.origin+window.location.pathname}});
+ if(error){setAuthMessage(error.message);return;}
+ if(data.session){setAuthMessage("Account created and signed in.");}
+ else{setAuthMessage("Account created. Check your email to confirm your account, then return here and sign in.");}
+}
+async function signIn(){
+ const email=document.getElementById("authEmail").value.trim(),password=document.getElementById("authPassword").value;
+ if(!email||!password){setAuthMessage("Enter your email and password.");return;}
+ setAuthMessage("Signing in…");
+ const {error}=await supabaseClient.auth.signInWithPassword({email,password});
+ if(error){setAuthMessage(error.message);return;}
+ setAuthMessage("Signed in successfully.");
+}
+async function signOut(){await supabaseClient.auth.signOut();toast("Signed out");}
+async function initCloud(){
+ const {data}=await supabaseClient.auth.getSession();
+ currentUser=data.session?.user||null;
+ if(currentUser)await loadCloudProfile(currentUser);
+ updateAccountUI();
+ supabaseClient.auth.onAuthStateChange(async (_event,session)=>{
+   currentUser=session?.user||null;
+   if(currentUser)await loadCloudProfile(currentUser);
+   updateAccountUI();
+ });
+}
+
 function update(){document.getElementById("xp").textContent=state.xp;document.getElementById("pxp").textContent=state.xp;document.getElementById("streak").textContent=state.streak;document.getElementById("pstreak").textContent=state.streak;let level=Math.floor(state.xp/500)+1,within=state.xp%500;document.getElementById("level").textContent=level;document.getElementById("toLevel").textContent=500-within;document.getElementById("xpbar").style.width=(within/5)+"%";document.getElementById("freeze").textContent=state.freeze;}
 function toast(s){let t=document.getElementById("toast");t.textContent=s;t.style.display="block";setTimeout(()=>t.style.display="none",1500);}
 function openPage(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo(0,0);update();}
+function localDateKey(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function dateDiffDays(a,b){return Math.round((new Date(b+"T00:00:00")-new Date(a+"T00:00:00"))/86400000);}
+function markStudyDay(){
+ const today=localDateKey();
+ if(state.streakUpdatedDate===today)return false;
+ const last=state.lastStudyDate;
+ if(!last){state.streak=1;state.lastStudyDate=today;}
+ else{
+  const diff=dateDiffDays(last,today);
+  if(diff===1){state.streak+=1;state.lastStudyDate=today;}
+  else if(diff===2 && state.freeze>0){state.freeze-=1;state.streak+=1;state.lastStudyDate=today;toast("🛡️ Streak Freeze used!");}
+  else if(diff>1){state.streak=1;state.lastStudyDate=today;}
+ }
+ state.streakUpdatedDate=today;save();recordDailyActivity("study",0);return true;
+}
+function streakMessage(){const n=state.streak;if(n===1)return "🔥 Day 1 — streak started!";if(n===3)return "🔥 3-day streak!";if(n===7)return "🔥 7-day streak — one week!";if(n===14)return "🔥 14-day streak — amazing!";if(n===30)return "🔥 30-day streak — FNP Quest Master!";return "🔥 "+n+"-day streak!";}
 function addXP(n){state.xp+=n;save();toast("+"+n+" XP ⭐");}
 function startLesson(i){
 currentLesson=i;
@@ -191,63 +399,7 @@ let bodies = [
 <p><b>Ischemia → ↓ Oxygen → ↓ Oxidative phosphorylation → ↓ ATP → Ion-pump failure → Cell swelling + Ca²⁺ accumulation → Mitochondrial/membrane/protein damage → Irreversible injury → Cell death.</b></p>
 </div>
 `,
-`
-<div class="card lesson">
-<span class="pill">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>
-<h1>Week 1 — Lesson 2: Cellular Adaptation & Inflammation</h1>
-<p><b>Goal:</b> Build on Lesson 1 by looking closer at how cells adapt to stress, and by introducing the basics of the inflammatory response.</p>
-
-<h2>1. The Big Picture</h2>
-<p>Cells first try to <b>adapt</b> to stress. If the stress persists or becomes severe, adaptation can progress to injury and cell death — the same sequence from Lesson 1:</p>
-<p><b>Normal cell → Adaptation → Injury → Cell death</b></p>
-
-<h2>2. Four Major Adaptations</h2>
-<ul>
-<li><b>Hypertrophy:</b> increase in cell <i>size</i>. Often occurs when a cell must do more work with the same or reduced ability to divide (e.g., cardiac muscle).</li>
-<li><b>Hyperplasia:</b> increase in cell <i>number</i>. Occurs in tissues capable of division, often driven by hormonal or growth-factor stimulation.</li>
-<li><b>Atrophy:</b> decrease in cell size, sometimes with reduced cell number. Commonly caused by decreased workload, decreased blood supply, denervation, inadequate nutrition, or loss of hormonal stimulation.</li>
-<li><b>Metaplasia:</b> reversible replacement of one mature, differentiated cell type with another mature cell type, usually in response to chronic irritation or stress.</li>
-</ul>
-<p><b>Think:</b> Hypertrophy/hyperplasia = tissue growing bigger to meet demand. Atrophy = tissue shrinking from disuse or reduced supply. Metaplasia = tissue swapping one cell type for a tougher one.</p>
-
-<h2>3. Clinical Examples</h2>
-<p><b>Hypertension → increased afterload → cardiomyocyte hypertrophy → LV wall thickening.</b> The heart muscle cells enlarge to generate more force against chronically elevated pressure. Persistent hypertrophy can eventually contribute to diastolic dysfunction and heart failure.</p>
-<p><b>Estrogen → endometrial proliferation.</b> Unopposed estrogen stimulation can drive endometrial hyperplasia and increases the risk of endometrial cancer over time.</p>
-<p><b>Immobilization → decreased workload → muscle atrophy.</b> Prolonged bed rest or limb immobilization reduces mechanical demand on skeletal muscle, and muscle fibers shrink.</p>
-<p><b>Chronic smoking → squamous metaplasia of respiratory epithelium.</b> Normal ciliated columnar epithelium is replaced by tougher squamous epithelium. Metaplasia itself is not cancer, but persistent abnormal stimulation can increase the risk of dysplasia and eventual malignancy.</p>
-
-<h2>4. Acute Inflammation</h2>
-<p>Acute inflammation is the body's rapid response to injury or infection, and it commonly involves <b>neutrophils</b> as the first responders.</p>
-<p>Cardinal findings: <b>redness, heat, swelling, pain, and loss of function.</b></p>
-<ul>
-<li><b>Vasodilation</b> increases local blood flow → produces redness and warmth.</li>
-<li><b>Increased vascular permeability</b> allows fluid and proteins to leak into tissue → contributes to swelling/edema.</li>
-<li>Neutrophils are recruited to the site to phagocytose and destroy pathogens or debris.</li>
-</ul>
-
-<h2>5. Chronic Inflammation</h2>
-<p>Chronic inflammation is slower in onset and longer-lasting than acute inflammation. <b>Macrophages and lymphocytes</b> play the dominant cellular roles, rather than neutrophils.</p>
-<p>Tissue destruction and tissue repair can occur at the same time, which is why chronic inflammation is often associated with fibrosis and scarring in addition to ongoing injury.</p>
-
-<h2>6. Cytokines & Fever</h2>
-<p>Inflammatory cytokines — especially <b>TNF-α, IL-1, and IL-6</b> — participate in signaling between immune cells and coordinate the inflammatory response.</p>
-<p>These cytokines can increase <b>PGE₂</b> activity in the hypothalamus, which raises the hypothalamic temperature set point and produces <b>fever</b>:</p>
-<p><b>Cytokines (TNF-α/IL-1/IL-6) → ↑ PGE₂ → ↑ hypothalamic set point → fever</b></p>
-
-<h2>7. FNP Clinical Reasoning</h2>
-<p>When you see signs of inflammation, ask: is this acute or chronic, and what is driving it?</p>
-<ul>
-<li>Rapid onset, neutrophil-predominant picture → think acute process (infection, acute injury).</li>
-<li>Longer duration, macrophage/lymphocyte involvement, ongoing tissue destruction + repair → think chronic process (autoimmune disease, chronic infection, persistent irritant exposure such as smoking).</li>
-</ul>
-<p>Remember that adaptations like metaplasia are reversible if the stressor is removed early — this is part of the rationale for smoking cessation counseling even before dysplasia develops.</p>
-
-<h2>8. FNP Mental Model</h2>
-<p><b>Adaptation → injury if stress persists → reversible recovery or irreversible injury → cell death.</b></p>
-<p><b>Acute inflammation → neutrophils, fast, vasodilation/permeability → redness/heat/swelling/pain.</b></p>
-<p><b>Chronic inflammation → macrophages + lymphocytes, slow, destruction + repair together.</b></p>
-</div>
-`,
+null,
 `
 <div class="card lesson">
 <span class="pill">PHASE 1 · ADVANCED PATHOPHYSIOLOGY</span>
@@ -441,7 +593,7 @@ let bodies = [
 </div>
 `
 ];
-if(!bodies[i]){toast("This lesson content is not loaded yet");return}
+
 document.getElementById("lessonBody").innerHTML=bodies[i]+`<div style="margin-top:16px"><button onclick="startLessonQuiz(${i})">Start This Lesson Quiz →</button></div>`;
 openPage("lesson");
 }
@@ -449,10 +601,10 @@ function completeLesson(i){if(!state.completed.includes(i)){state.completed.push
 function startPractice(){practiceList=[...questions].sort(()=>Math.random()-.5).slice(0,10);qi=0;openPage("practice");renderQ();}
 function renderQ(){let q=practiceList[qi];document.getElementById("qnum").textContent=qi+1;document.getElementById("qtotal").textContent=practiceList.length;document.getElementById("qtext").textContent=q[1];let o=document.getElementById("options");o.innerHTML="";document.getElementById("explain").style.display="none";document.getElementById("next").style.display="none";q[2].forEach((a,i)=>{let b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+i)+". "+a;b.onclick=()=>answer(b,i);o.appendChild(b)})}
 function answer(btn,i){let q=practiceList[qi],ok=i===q[3];document.querySelectorAll(".option").forEach(b=>b.disabled=true);btn.classList.add(ok?"correct":"wrong");if(!ok)state.mistakes.push({topic:q[0],q:q[1],correct:q[2][q[3]],why:q[4]});let e=document.getElementById("explain");e.style.display="block";e.innerHTML=(ok?"✅ Correct! ":"❌ Incorrect. Correct answer: <b>"+q[2][q[3]]+"</b><br>")+q[4]+(ok?"<br><b>+20 XP</b>":"<br><b>Saved to review.</b>");if(ok)addXP(20);else save();document.getElementById("next").style.display="inline-block";}
-function nextQ(){if(qi<practiceList.length-1){qi++;renderQ()}else{addXP(80);state.streak+=1;save();toast("Practice complete · +80 bonus XP 🎉");setTimeout(()=>openPage("home"),900)}}
+function nextQ(){if(qi<practiceList.length-1){qi++;renderQ()}else{addXP(80);markStudyDay();recordQuizResult(0,0,practiceList.length);save();toast(streakMessage());setTimeout(()=>openPage("home"),900)}}
 const lessonQuizzes={"0": [["A patient develops acute arterial occlusion resulting in tissue ischemia. Which cellular change occurs earliest as a consequence of decreased oxygen availability?", ["Increased ATP production", "Increased oxidative phosphorylation", "Decreased ATP production", "Increased protein synthesis"], 2, "Decreased oxygen availability reduces oxidative phosphorylation, causing ATP production to fall."], ["Why does cellular swelling occur during severe ATP depletion?", ["Increased protein synthesis", "Failure of the Na⁺/K⁺ ATPase pump", "Increased mitochondrial ATP production", "Increased extracellular potassium uptake"], 1, "ATP depletion causes Na⁺/K⁺ ATPase failure. Sodium accumulates inside the cell and water follows."], ["Which finding is most characteristic of necrosis?", ["Cell shrinkage without inflammation", "Formation of apoptotic bodies", "Membrane disruption with inflammation", "Programmed activation of caspases"], 2, "Necrosis is associated with membrane disruption, leakage of cellular contents, and inflammation."], ["A patient has prolonged myocardial ischemia. Which mechanism contributes directly to irreversible cellular injury?", ["Decreased intracellular calcium", "Increased ATP production", "Increased intracellular calcium and mitochondrial dysfunction", "Increased protein synthesis"], 2, "Loss of calcium regulation and mitochondrial dysfunction contribute directly to irreversible cellular injury."], ["Which statement best describes apoptosis?", ["Uncontrolled cell death caused by severe injury", "Programmed cell death that generally produces minimal inflammation", "Cell death caused exclusively by infection", "Cell death that always produces surrounding tissue necrosis"], 1, "Apoptosis is programmed, organized cell death and generally causes minimal surrounding inflammation."]], "1": [["A patient with longstanding hypertension develops left ventricular wall thickening. Which cellular adaptation is primarily responsible?", ["Hyperplasia", "Hypertrophy", "Metaplasia", "Atrophy"], 1, "Hypertrophy is an increase in cell size. Chronic pressure overload increases cardiomyocyte workload and promotes LV hypertrophy."], ["A patient who has been immobilized for several months develops significant muscle wasting. What process best explains this?", ["Hypertrophy", "Hyperplasia", "Atrophy", "Metaplasia"], 2, "Atrophy is a decrease in cell size and is commonly seen with decreased workload or disuse."], ["A chronic smoker develops replacement of normal respiratory epithelium with squamous epithelium. This represents:", ["Hypertrophy", "Hyperplasia", "Atrophy", "Metaplasia"], 3, "Metaplasia is reversible replacement of one mature differentiated cell type with another in response to chronic stress."], ["Which cell is most characteristic of acute inflammation?", ["Neutrophil", "Macrophage", "Plasma cell", "Lymphocyte"], 0, "Neutrophils are the major rapid cellular responders in acute inflammation."], ["Which cell is particularly important in chronic inflammation?", ["Neutrophil", "Macrophage", "Erythrocyte", "Platelet"], 1, "Macrophages and lymphocytes are important cellular components of chronic inflammation."], ["Which vascular change is primarily responsible for the redness and warmth associated with acute inflammation?", ["Vasoconstriction", "Vasodilation", "Thrombosis", "Decreased blood flow"], 1, "Vasodilation increases local blood flow, producing redness and warmth."], ["A patient with an acute bacterial infection develops fever. Which inflammatory mediator pathway contributes to increasing the hypothalamic temperature set point?", ["Cytokines → PGE₂", "Insulin → glucagon", "Histamine → aldosterone", "Renin → angiotensin II"], 0, "Inflammatory cytokines such as IL-1, IL-6, and TNF-α contribute to the PGE₂ pathway that raises the hypothalamic set point."], ["Which finding is most consistent with chronic rather than acute inflammation?", ["Predominance of neutrophils", "Rapid onset", "Macrophage and lymphocyte involvement", "Short duration"], 2, "Chronic inflammation is characterized by macrophage and lymphocyte involvement and a longer course."], ["Which statement about metaplasia is most accurate?", ["It is always irreversible", "It means the tissue has become malignant", "It is an adaptive replacement of one mature cell type with another", "It occurs only in cancer"], 2, "Metaplasia is an adaptive replacement of one mature differentiated cell type with another; it is not synonymous with cancer."], ["A patient has persistent inflammation for several months. Which combination best describes chronic inflammation?", ["Neutrophils + no tissue damage", "Macrophages/lymphocytes + tissue destruction + repair", "Erythrocytes + vasoconstriction", "Platelets + decreased vascular permeability"], 1, "Chronic inflammation involves macrophages/lymphocytes, ongoing tissue destruction, and repair occurring alongside inflammation."]], "2": [["Which best describes innate immunity?", ["Slow, highly antigen-specific immunity with long-term memory", "Rapid, relatively nonspecific first-line defense", "Immunity mediated exclusively by antibodies", "Immunity mediated exclusively by T lymphocytes"], 1, "Innate immunity is the rapid, relatively nonspecific first-line defense."], ["A bacterial cell-wall component is recognized by a macrophage as a pathogen-associated molecular pattern. Which receptor system is primarily responsible for recognizing such patterns?", ["Pattern recognition receptors", "Insulin receptors", "Steroid receptors", "Acetylcholine receptors"], 0, "Pattern recognition receptors recognize PAMPs and DAMPs; Toll-like receptors are an important PRR family."], ["Which complement component is most closely associated with opsonization?", ["C3b", "C5a", "C5b", "C9"], 0, "C3b coats pathogens and promotes their recognition and ingestion by phagocytes."], ["Which complement component is particularly important for chemotaxis of inflammatory cells?", ["C1", "C3b", "C5a", "C9"], 2, "C5a is a powerful chemotactic signal that helps recruit inflammatory cells, especially neutrophils."], ["Which complement components form the membrane attack complex?", ["C1-C3", "C3a-C3b", "C4-C5", "C5b-C9"], 3, "C5b through C9 form the membrane attack complex, which creates pores in target membranes."], ["Which cytokine is particularly important in stimulating the hepatic acute-phase response?", ["IL-6", "IL-2", "IL-4", "IL-10"], 0, "IL-6 stimulates the liver to produce acute-phase proteins such as CRP."], ["A patient with acute bacterial cellulitis has significant neutrophil recruitment to the infected tissue. Which complement component contributes strongly to this process?", ["C3b", "C5a", "C9", "C1 inhibitor"], 1, "C5a strongly contributes to chemotaxis of neutrophils toward the site of infection."], ["Which sequence best describes leukocyte movement from the bloodstream into inflamed tissue?", ["Chemotaxis → rolling → margination → adhesion → diapedesis", "Margination → rolling → adhesion → diapedesis → chemotaxis", "Adhesion → margination → rolling → chemotaxis → diapedesis", "Diapedesis → adhesion → rolling → margination → chemotaxis"], 1, "The sequence is margination → rolling → adhesion → diapedesis → chemotaxis."], ["A patient has fever during an acute inflammatory response. Which pathway best explains the increase in hypothalamic temperature set point?", ["IL-6 → insulin → aldosterone", "TNF/IL-1/IL-6 → PGE₂ pathway → increased temperature set point", "C3b → renin → angiotensin II", "Histamine → insulin → glucagon"], 1, "Inflammatory cytokines can increase PGE₂ signaling, which raises the hypothalamic temperature set point."], ["A patient develops myocardial injury from coronary artery occlusion. There is significant inflammation despite the absence of bacterial infection. Which best explains this?", ["Myocardial injury produces DAMPs that activate innate immunity", "Bacteria are always present during myocardial infarction", "Complement cannot respond without bacteria", "Inflammation occurs only during adaptive immunity"], 0, "Myocardial injury releases DAMPs, which can activate innate immune pathways even without infection."]], "3": [["Which cell is primarily responsible for producing antibodies?", ["CD8+ T cell", "B cell/plasma cell", "Neutrophil", "NK cell"], 1, "Activated B cells can differentiate into plasma cells, which produce antibodies."], ["Which antibody is generally produced first during a primary immune response?", ["IgA", "IgE", "IgG", "IgM"], 3, "IgM is the first major antibody produced during a primary response."], ["Which immunoglobulin is most strongly associated with allergic reactions?", ["IgA", "IgG", "IgE", "IgM"], 2, "IgE binds mast cells and basophils and is central to many allergic reactions."], ["Which immunoglobulin is particularly important at mucosal surfaces?", ["IgA", "IgD", "IgE", "IgM"], 0, "IgA is particularly important for mucosal defense."], ["Which antibody can cross the placenta and provide passive immunity to the fetus?", ["IgA", "IgE", "IgG", "IgM"], 2, "IgG is the major antibody class that crosses the placenta."], ["A virus infects a nucleated cell. Viral proteins are presented on MHC I. Which cell is most directly responsible for recognizing and killing the infected cell?", ["CD4+ T cell", "CD8+ T cell", "B cell", "Neutrophil"], 1, "MHC I presents intracellular antigen to CD8+ cytotoxic T cells."], ["A dendritic cell processes extracellular bacterial antigen and presents it through MHC II. Which cell recognizes this presentation?", ["CD4+ T cell", "CD8+ T cell", "Neutrophil", "Erythrocyte"], 0, "MHC II presents extracellular antigen to CD4+ helper T cells."], ["A patient receives a vaccine and later develops a rapid immune response when exposed to the pathogen. Which concept best explains this?", ["Innate immunity", "Immunologic memory", "Passive immunity", "Complement deficiency"], 1, "Memory B and T cells produce a faster and stronger secondary response."], ["Which statement best describes passive immunity?", ["The patient's own B cells produce antibodies and memory cells", "The patient receives antibodies generated by another source", "It always produces lifelong immunity", "It requires previous exposure to the pathogen"], 1, "Passive immunity means antibodies are received from another source, such as maternal antibodies or administered immunoglobulin."], ["A patient develops wheezing, hypotension, urticaria, and facial swelling shortly after exposure to an allergen. Which mechanism is most directly involved?", ["IgG-mediated complement activation", "IgE-mediated mast-cell activation", "CD8-mediated destruction of epithelial cells", "IgM-mediated opsonization"], 1, "Allergen cross-linking of IgE on mast cells triggers mediator release and can cause anaphylaxis."]]};
 
-let lqLesson=0,lqi=0;
+let lqLesson=0,lqi=0,lqScore=0;
 function startLessonQuiz(i){lqLesson=i;lqi=0;openPage("lessonQuiz");renderLQ();}
 function renderLQ(){
  const q=lessonQuizzes[lqLesson][lqi];
@@ -477,7 +629,7 @@ function answerLQ(btn,i){
  document.querySelectorAll("#lqoptions .option")[q[2]].classList.add("correct");
  const e=document.getElementById("lqexplain");e.style.display="block";
  e.innerHTML=(ok?"<b>✅ Correct!</b>":"<b>❌ Incorrect.</b>")+"<br><b>Correct answer: "+String.fromCharCode(65+q[2])+". "+q[1][q[2]]+"</b><br><br>"+q[3];
- if(ok){addXP(20);}else{
+ if(ok){lqScore++;addXP(20);}else{
    state.mistakes.push({topic:"Lesson "+(lqLesson+1),q:q[0],correct:q[1][q[2]],why:q[3]});
    save();
  }
@@ -487,9 +639,10 @@ function nextLQ(){
  if(lqi<lessonQuizzes[lqLesson].length-1){lqi++;renderLQ();}
  else{
    if(!state.completed.includes(lqLesson)){state.completed.push(lqLesson);addXP(50);}
-   save();toast("Lesson quiz complete · +50 XP 🎉");openPage("home");
+   markStudyDay();recordQuizResult(lqLesson+1,lqScore,lessonQuizzes[lqLesson].length);save();toast(streakMessage());setTimeout(()=>openPage("home"),900);
  }
 }
 
 update();
+initCloud();
 </script></body></html>
